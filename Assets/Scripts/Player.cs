@@ -27,7 +27,10 @@ public class Player : MonoBehaviour {
         var move = new Vector3(input.x, 0, input.y);
         var playerTransform = transform;
         playerTransform.position += move * (speed * Time.deltaTime);
-        playerTransform.forward = Vector3.Slerp(playerTransform.forward, move, ROTATE_SPEED * Time.deltaTime);
+        var forward = Vector3.Slerp(playerTransform.forward, move, ROTATE_SPEED * Time.deltaTime);
+        if (forward != Vector3.zero) {
+            playerTransform.forward = forward;
+        }
 
         IsWalking = move != Vector3.zero;
     }
