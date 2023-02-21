@@ -598,6 +598,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gameInput: {fileID: 2067581272}
   speed: 7
+  height: 2
+  radius: 0.5
 --- !u!115 &661688066
 MonoScript:
   m_ObjectHideFlags: 0
