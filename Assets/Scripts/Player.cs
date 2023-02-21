@@ -6,6 +6,8 @@ public class Player : MonoBehaviour {
 
     [SerializeField] private float speed = 1;
 
+    public bool IsWalking { get; private set; }
+
     void Update() {
         var input = Vector2.zero;
         if (Keyboard.current.wKey.isPressed) {
@@ -26,5 +28,7 @@ public class Player : MonoBehaviour {
         var playerTransform = transform;
         playerTransform.position += move * (speed * Time.deltaTime);
         playerTransform.forward = Vector3.Slerp(playerTransform.forward, move, ROTATE_SPEED * Time.deltaTime);
+
+        IsWalking = move != Vector3.zero;
     }
 }
