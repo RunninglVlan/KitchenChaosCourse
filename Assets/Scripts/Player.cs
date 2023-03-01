@@ -9,10 +9,15 @@ public class Player : MonoBehaviour {
     [SerializeField] private float radius = .5f;
 
     public bool IsWalking { get; private set; }
+    private Vector3 interactDirection;
 
     void Update() {
         var input = gameInput.Actions.Player.Move.ReadValue<Vector2>();
+        Move(input);
+        Interact(input);
+    }
 
+    private void Move(Vector2 input) {
         var playerTransform = transform;
         if (CanMove(playerTransform.position, input, out var move)) {
             playerTransform.position += move * (speed * Time.deltaTime);
@@ -44,7 +49,23 @@ public class Player : MonoBehaviour {
         return IsAllowed(move);
 
         bool IsAllowed(Vector3 direction) {
-            return direction != Vector3.zero && !Physics.CapsuleCast(origin, playerTop, radius, direction, .1f);
+            const float capsuleMoveDistance = .1f;
+            return direction != Vector3.zero &&
+                   !Physics.CapsuleCast(origin, playerTop, radius, direction, capsuleMoveDistance);
+        }
+    }
+
+    private void Interact(Vector2 input) {
+        var direction = new Vector3(input.x, 0, input.y).normalized;
+        if (direction != Vector3.zero) {
+            interactDirection = direction;
+        }
+        var interactDistance = radius + .1f;
+        if (!Physics.Raycast(transform.position, interactDirection, out var hit, interactDistance)) {
+            return;
+        }
+        if (hit.transform.TryGetComponent<ClearCounter>(out var counter)) {
+            counter.Interact();
         }
     }
 }
