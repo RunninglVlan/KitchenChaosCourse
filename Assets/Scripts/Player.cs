@@ -9,8 +9,16 @@ public class Player : MonoBehaviour {
     [SerializeField] private float height = 2;
     [SerializeField] private float radius = .5f;
 
+    public static Player Instance { get; private set; }
     public bool IsWalking { get; private set; }
     private Vector3 interactDirection;
+
+    void Awake() {
+        if (Instance != null) {
+            Debug.LogError("Multiple instances in the scene");
+        }
+        Instance = this;
+    }
 
     void Start() {
         gameInput.Actions.Player.Interact.performed += Interact;
