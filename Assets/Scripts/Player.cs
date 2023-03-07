@@ -1,8 +1,11 @@
+using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class Player : MonoBehaviour {
     private const float ROTATE_SPEED = 10;
+
+    public event Action<ClearCounter> SelectedCounterChanged = delegate { };
 
     [SerializeField] private GameInput gameInput;
     [SerializeField] private float speed = 1;
@@ -12,6 +15,7 @@ public class Player : MonoBehaviour {
     public static Player Instance { get; private set; }
     public bool IsWalking { get; private set; }
     private Vector3 interactDirection;
+    private ClearCounter selectedCounter;
 
     void Awake() {
         if (Instance != null) {
@@ -27,10 +31,7 @@ public class Player : MonoBehaviour {
     void Update() {
         var input = gameInput.Actions.Player.Move.ReadValue<Vector2>();
         Move(input);
-        var direction = new Vector3(input.x, 0, input.y).normalized;
-        if (direction != Vector3.zero) {
-            interactDirection = direction;
-        }
+        SelectCounter(input);
     }
 
     private void Move(Vector2 input) {
@@ -71,13 +72,34 @@ public class Player : MonoBehaviour {
         }
     }
 
-    private void Interact(InputAction.CallbackContext _) {
+    private void SelectCounter(Vector2 input) {
+        var direction = new Vector3(input.x, 0, input.y).normalized;
+        if (direction != Vector3.zero) {
+            interactDirection = direction;
+        }
         var interactDistance = radius + .1f;
         if (!Physics.Raycast(transform.position, interactDirection, out var hit, interactDistance)) {
+            SetSelectedCounter(null);
             return;
         }
-        if (hit.transform.TryGetComponent<ClearCounter>(out var counter)) {
-            counter.Interact();
+        if (!hit.transform.TryGetComponent<ClearCounter>(out var counter)) {
+            SetSelectedCounter(null);
+            return;
         }
+        if (counter != selectedCounter) {
+            SetSelectedCounter(counter);
+        }
+    }
+
+    private void SetSelectedCounter(ClearCounter counter) {
+        selectedCounter = counter;
+        SelectedCounterChanged(counter);
+    }
+
+    private void Interact(InputAction.CallbackContext _) {
+        if (selectedCounter == null) {
+            return;
+        }
+        selectedCounter.Interact();
     }
 }
