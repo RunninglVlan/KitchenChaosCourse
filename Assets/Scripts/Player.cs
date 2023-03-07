@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class Player : MonoBehaviour {
     private const float ROTATE_SPEED = 10;
@@ -11,10 +12,17 @@ public class Player : MonoBehaviour {
     public bool IsWalking { get; private set; }
     private Vector3 interactDirection;
 
+    void Start() {
+        gameInput.Actions.Player.Interact.performed += Interact;
+    }
+
     void Update() {
         var input = gameInput.Actions.Player.Move.ReadValue<Vector2>();
         Move(input);
-        Interact(input);
+        var direction = new Vector3(input.x, 0, input.y).normalized;
+        if (direction != Vector3.zero) {
+            interactDirection = direction;
+        }
     }
 
     private void Move(Vector2 input) {
@@ -55,11 +63,7 @@ public class Player : MonoBehaviour {
         }
     }
 
-    private void Interact(Vector2 input) {
-        var direction = new Vector3(input.x, 0, input.y).normalized;
-        if (direction != Vector3.zero) {
-            interactDirection = direction;
-        }
+    private void Interact(InputAction.CallbackContext _) {
         var interactDistance = radius + .1f;
         if (!Physics.Raycast(transform.position, interactDirection, out var hit, interactDistance)) {
             return;
