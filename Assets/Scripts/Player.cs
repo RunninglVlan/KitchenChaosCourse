@@ -5,17 +5,17 @@ using UnityEngine.InputSystem;
 public class Player : MonoBehaviour {
     private const float ROTATE_SPEED = 10;
 
-    public event Action<ClearCounter> SelectedCounterChanged = delegate { };
+    public event Action<ClearCounter?> SelectedCounterChanged = delegate { };
 
-    [SerializeField] private GameInput gameInput;
+    [SerializeField] private GameInput gameInput = null!;
     [SerializeField] private float speed = 1;
     [SerializeField] private float height = 2;
     [SerializeField] private float radius = .5f;
 
-    public static Player Instance { get; private set; }
+    public static Player Instance { get; private set; } = null!;
     public bool IsWalking { get; private set; }
     private Vector3 interactDirection;
-    private ClearCounter selectedCounter;
+    private ClearCounter? selectedCounter;
 
     void Awake() {
         if (Instance != null) {
@@ -91,7 +91,7 @@ public class Player : MonoBehaviour {
         }
     }
 
-    private void SetSelectedCounter(ClearCounter counter) {
+    private void SetSelectedCounter(ClearCounter? counter) {
         selectedCounter = counter;
         SelectedCounterChanged(counter);
     }
