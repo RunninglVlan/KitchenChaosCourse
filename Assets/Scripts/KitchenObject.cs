@@ -4,21 +4,21 @@ public class KitchenObject : MonoBehaviour {
     [SerializeField] private KitchenObjectScriptable scriptable = null!;
 
     public KitchenObjectScriptable Scriptable => scriptable;
-    private ClearCounter? clearCounter;
+    private KitchenObjectParent? parent;
 
-    public ClearCounter? ClearCounter {
-        get => clearCounter;
+    public KitchenObjectParent? Parent {
+        get => parent;
         set {
-            if (clearCounter != null) {
-                clearCounter.ClearKitchenObject();
+            if (parent != null) {
+                parent.ClearKitchenObject();
             }
-            clearCounter = value!;
-            if (clearCounter.HasKitchenObject()) {
-                Debug.LogError($"Counter already has a {nameof(KitchenObject)}!");
+            parent = value!;
+            if (parent.HasKitchenObject()) {
+                Debug.LogError($"Parent already has a {nameof(KitchenObject)}!");
             }
-            clearCounter.SetKitchenObject(this);
+            parent.SetKitchenObject(this);
             var objectTransform = transform;
-            objectTransform.parent = clearCounter.Top;
+            objectTransform.parent = parent.ObjectLocation;
             objectTransform.localPosition = Vector3.zero;
         }
     }
