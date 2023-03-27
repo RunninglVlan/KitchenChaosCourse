@@ -1,17 +1,14 @@
 using UnityEngine;
 
-public class ClearCounter : KitchenObjectParent {
+public class ClearCounter : Counter {
     [SerializeField] private KitchenObjectScriptable kitchenObjectScriptable = null!;
-    [SerializeField] private Transform top = null!;
 
-    public override Transform ObjectLocation => top;
-
-    public void Interact(Player player) {
-        if (kitchenObject == null) {
+    public override void Interact(Player player) {
+        if (HasKitchenObject()) {
             var instance = Instantiate(kitchenObjectScriptable.prefab);
             instance.Parent = this;
         } else {
-            kitchenObject.Parent = player;
+            GetKitchenObject().Parent = player;
         }
     }
 }

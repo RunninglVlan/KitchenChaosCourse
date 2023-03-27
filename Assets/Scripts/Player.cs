@@ -6,7 +6,7 @@ using UnityEngine.InputSystem;
 public class Player : KitchenObjectParent {
     private const float ROTATE_SPEED = 10;
 
-    public event Action<ClearCounter?> SelectedCounterChanged = delegate { };
+    public event Action<Counter?> SelectedCounterChanged = delegate { };
 
     [SerializeField] private GameInput gameInput = null!;
     [SerializeField] private float speed = 1;
@@ -19,7 +19,7 @@ public class Player : KitchenObjectParent {
     public static Player Instance { get; private set; } = null!;
     public bool IsWalking { get; private set; }
     private Vector3 interactDirection;
-    private ClearCounter? selectedCounter;
+    private Counter? selectedCounter;
 
     [SuppressMessage("ReSharper", "ConditionIsAlwaysTrueOrFalseAccordingToNullableAPIContract")]
     void Awake() {
@@ -87,7 +87,7 @@ public class Player : KitchenObjectParent {
             SetSelectedCounter(null);
             return;
         }
-        if (!hit.transform.TryGetComponent<ClearCounter>(out var counter)) {
+        if (!hit.transform.TryGetComponent<Counter>(out var counter)) {
             SetSelectedCounter(null);
             return;
         }
@@ -96,7 +96,7 @@ public class Player : KitchenObjectParent {
         }
     }
 
-    private void SetSelectedCounter(ClearCounter? counter) {
+    private void SetSelectedCounter(Counter? counter) {
         selectedCounter = counter;
         SelectedCounterChanged(counter);
     }
