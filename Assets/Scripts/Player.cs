@@ -3,7 +3,7 @@ using System.Diagnostics.CodeAnalysis;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class Player : MonoBehaviour {
+public class Player : KitchenObjectParent {
     private const float ROTATE_SPEED = 10;
 
     public event Action<ClearCounter?> SelectedCounterChanged = delegate { };
@@ -12,6 +12,9 @@ public class Player : MonoBehaviour {
     [SerializeField] private float speed = 1;
     [SerializeField] private float height = 2;
     [SerializeField] private float radius = .5f;
+    [SerializeField] private Transform hands = null!;
+
+    public override Transform ObjectLocation => hands;
 
     public static Player Instance { get; private set; } = null!;
     public bool IsWalking { get; private set; }
@@ -102,6 +105,6 @@ public class Player : MonoBehaviour {
         if (selectedCounter == null) {
             return;
         }
-        selectedCounter.Interact();
+        selectedCounter.Interact(this);
     }
 }

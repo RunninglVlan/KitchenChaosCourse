@@ -6,12 +6,12 @@ public class ClearCounter : KitchenObjectParent {
 
     public override Transform ObjectLocation => top;
 
-    public void Interact() {
+    public void Interact(Player player) {
         if (kitchenObject == null) {
             var instance = Instantiate(kitchenObjectScriptable.prefab);
             instance.Parent = this;
         } else {
-            Debug.Log(kitchenObject.Parent);
+            kitchenObject.Parent = player;
         }
     }
 }
