@@ -3,6 +3,8 @@ using UnityEngine;
 
 public class CuttingCounter : Counter {
     [SerializeField] private KitchenObjectRecipe[] recipes = Array.Empty<KitchenObjectRecipe>();
+    [SerializeField] private ProgressBar progressBar = null!;
+    [SerializeField] private CuttingCounterVisual visual = null!;
 
     private int cuts;
 
@@ -14,8 +16,10 @@ public class CuttingCounter : Counter {
             }
             playerObject.Parent = this;
             cuts = 0;
-        } else if (counterHasObject) {
+            progressBar.Set(0);
+        } else if (counterHasObject && progressBar.IsEmptyOrFilled) {
             counterObject.Parent = player;
+            progressBar.Set(0);
         }
     }
 
@@ -27,6 +31,8 @@ public class CuttingCounter : Counter {
             return;
         }
         cuts++;
+        progressBar.Set((float)cuts / recipe.maxCuts);
+        visual.Cut();
         if (cuts < recipe.maxCuts) {
             return;
         }
