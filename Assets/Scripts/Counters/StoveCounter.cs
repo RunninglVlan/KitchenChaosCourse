@@ -19,6 +19,7 @@ namespace Counters {
                     return;
                 }
                 playerObject.Parent = this;
+                progressBar.SetColor(ProgressBar.ColorType.Normal);
                 state = State.Frying;
                 time = 0;
                 currentRecipe = recipe;
@@ -37,14 +38,14 @@ namespace Counters {
             }
             switch (state) {
                 case State.Frying:
-                    Fry(State.Fried, burningRecipes);
+                    Fry(State.Fried, burningRecipes, ProgressBar.ColorType.Warning);
                     break;
                 case State.Fried:
                     Fry(State.Burned);
                     break;
             }
 
-            void Fry(State nextState, StoveRecipe[]? recipes = null) {
+            void Fry(State nextState, StoveRecipe[]? recipes = null, ProgressBar.ColorType colorType = default) {
                 time += Time.deltaTime;
                 var progress = time / currentRecipe.maxSeconds;
                 progressBar.Set(progress);
@@ -59,6 +60,7 @@ namespace Counters {
                     !TryGetRecipe(recipes, counterObject.Scriptable, out var recipe)) {
                     return;
                 }
+                progressBar.SetColor(colorType);
                 currentRecipe = recipe;
             }
         }
