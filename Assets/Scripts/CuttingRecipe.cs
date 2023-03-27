@@ -2,7 +2,7 @@
 using JetBrains.Annotations;
 
 [Serializable]
-public class KitchenObjectRecipe {
+public class CuttingRecipe {
     [UsedImplicitly] public string name = null!;
     public KitchenObjectScriptable input = null!;
     public KitchenObjectScriptable output = null!;
