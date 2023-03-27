@@ -6,6 +6,6 @@ public class ClearCounter : MonoBehaviour {
 
     public void Interact() {
         var kitchenObject = Instantiate(kitchenObjectScriptable.prefab, top);
-        Debug.Log(kitchenObject.GetComponent<KitchenObject>().Scriptable.objectName);
+        Debug.Log(kitchenObject.Scriptable.objectName);
     }
 }

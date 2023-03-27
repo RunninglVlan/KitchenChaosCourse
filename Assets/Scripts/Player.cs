@@ -1,4 +1,5 @@
 using System;
+using System.Diagnostics.CodeAnalysis;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -17,6 +18,7 @@ public class Player : MonoBehaviour {
     private Vector3 interactDirection;
     private ClearCounter? selectedCounter;
 
+    [SuppressMessage("ReSharper", "ConditionIsAlwaysTrueOrFalseAccordingToNullableAPIContract")]
     void Awake() {
         if (Instance != null) {
             Debug.LogError("Multiple instances in the scene");
