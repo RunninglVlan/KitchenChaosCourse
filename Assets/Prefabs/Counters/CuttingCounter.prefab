@@ -365,12 +365,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   top: {fileID: 8250133519827116307}
   recipes:
-  - input: {fileID: 11400000, guid: d8f80294166cab649be9b877e1113e6f, type: 2}
+  - name: Cabbage-Slices
+    input: {fileID: 11400000, guid: d8f80294166cab649be9b877e1113e6f, type: 2}
     output: {fileID: 11400000, guid: 49e9c676c5c087b4a8e8758a83efc64a, type: 2}
-  - input: {fileID: 11400000, guid: 6fc7904527a175849a8040e9e73138d7, type: 2}
+    maxCuts: 5
+  - name: Cheese-Slices
+    input: {fileID: 11400000, guid: 6fc7904527a175849a8040e9e73138d7, type: 2}
     output: {fileID: 11400000, guid: 4ef0a3ea7ba69e64693b2709f05b24e0, type: 2}
-  - input: {fileID: 11400000, guid: 10a4c41018d66e345ae883cdc903d414, type: 2}
+    maxCuts: 3
+  - name: Tomato-Slices
+    input: {fileID: 11400000, guid: 10a4c41018d66e345ae883cdc903d414, type: 2}
     output: {fileID: 11400000, guid: 5eccbd5c36b9f4f479d20ef0b8ee4cc9, type: 2}
+    maxCuts: 3
 --- !u!4 &7947112567472615037 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1590965486082681986, guid: 2e70f998363bf3848b8a615d8327bb7e,

@@ -4,13 +4,16 @@ using UnityEngine;
 public class CuttingCounter : Counter {
     [SerializeField] private KitchenObjectRecipe[] recipes = Array.Empty<KitchenObjectRecipe>();
 
+    private int cuts;
+
     public override void Interact(Player player) {
         var counterHasObject = TryGetKitchenObject(out var counterObject);
         if (player.TryGetKitchenObject(out var playerObject)) {
-            if (counterHasObject || !TryGetOutput(playerObject.Scriptable, out _)) {
+            if (counterHasObject || !TryGetRecipe(playerObject.Scriptable, out _)) {
                 return;
             }
             playerObject.Parent = this;
+            cuts = 0;
         } else if (counterHasObject) {
             counterObject.Parent = player;
         }
@@ -20,20 +23,24 @@ public class CuttingCounter : Counter {
         if (!TryGetKitchenObject(out var counterObject)) {
             return;
         }
-        if (!TryGetOutput(counterObject.Scriptable, out var cutObject)) {
+        if (!TryGetRecipe(counterObject.Scriptable, out var recipe)) {
+            return;
+        }
+        cuts++;
+        if (cuts < recipe.maxCuts) {
             return;
         }
         counterObject.DestroySelf();
-        KitchenObject.Spawn(cutObject, this);
+        KitchenObject.Spawn(recipe.output, this);
     }
 
-    private bool TryGetOutput(KitchenObjectScriptable input, out KitchenObjectScriptable output) {
-        output = null!;
+    private bool TryGetRecipe(KitchenObjectScriptable input, out KitchenObjectRecipe result) {
+        result = null!;
         foreach (var recipe in recipes) {
             if (recipe.input != input) {
                 continue;
             }
-            output = recipe.output;
+            result = recipe;
             return true;
         }
         return false;
