@@ -26,4 +26,9 @@ public class KitchenObject : MonoBehaviour {
         var instance = Instantiate(scriptable.prefab);
         instance.Parent = parent;
     }
+
+    public void DestroySelf() {
+        parent!.ClearKitchenObject();
+        Destroy(gameObject);
+    }
 }

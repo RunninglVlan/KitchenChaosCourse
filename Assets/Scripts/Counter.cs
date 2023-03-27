@@ -6,4 +6,5 @@ public abstract class Counter : KitchenObjectParent {
     public override Transform ObjectLocation => top;
 
     public abstract void Interact(Player player);
+    public virtual void InteractAlternate() { }
 }

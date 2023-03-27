@@ -31,6 +31,7 @@ public class Player : KitchenObjectParent {
 
     void Start() {
         gameInput.Actions.Player.Interact.performed += Interact;
+        gameInput.Actions.Player.InteractAlternate.performed += InteractAlternate;
     }
 
     void Update() {
@@ -106,5 +107,12 @@ public class Player : KitchenObjectParent {
             return;
         }
         selectedCounter.Interact(this);
+    }
+
+    private void InteractAlternate(InputAction.CallbackContext _) {
+        if (selectedCounter == null) {
+            return;
+        }
+        selectedCounter.InteractAlternate();
     }
 }
