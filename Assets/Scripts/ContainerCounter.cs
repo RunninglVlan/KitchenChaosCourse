@@ -8,8 +8,7 @@ public class ContainerCounter : Counter {
         if (player.HasKitchenObject()) {
             return;
         }
-        var instance = Instantiate(kitchenObjectScriptable.prefab);
-        instance.Parent = player;
+        KitchenObject.Spawn(kitchenObjectScriptable, player);
         visual.Open();
     }
 }

@@ -6,13 +6,12 @@ public class KitchenObject : MonoBehaviour {
     public KitchenObjectScriptable Scriptable => scriptable;
     private KitchenObjectParent? parent;
 
-    public KitchenObjectParent? Parent {
-        get => parent;
+    public KitchenObjectParent Parent {
         set {
             if (parent != null) {
                 parent.ClearKitchenObject();
             }
-            parent = value!;
+            parent = value;
             if (parent.HasKitchenObject()) {
                 Debug.LogError($"Parent already has a {nameof(KitchenObject)}!");
             }
@@ -21,5 +20,10 @@ public class KitchenObject : MonoBehaviour {
             objectTransform.parent = parent.ObjectLocation;
             objectTransform.localPosition = Vector3.zero;
         }
+    }
+
+    public static void Spawn(KitchenObjectScriptable scriptable, KitchenObjectParent parent) {
+        var instance = Instantiate(scriptable.prefab);
+        instance.Parent = parent;
     }
 }
