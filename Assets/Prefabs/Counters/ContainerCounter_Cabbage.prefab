@@ -76,7 +76,7 @@ PrefabInstance:
         type: 3}
     - target: {fileID: 8877539620222608581, guid: 796dbe2c5d98bbb448d8913a1443e641,
         type: 3}
-      propertyPath: kitchenObjectScriptable
+      propertyPath: containerObject
       value: 
       objectReference: {fileID: 11400000, guid: d8f80294166cab649be9b877e1113e6f,
         type: 2}

@@ -685,12 +685,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: ClearCounter (6)
       objectReference: {fileID: 0}
-    - target: {fileID: 5150197618529145583, guid: b66684dbea6f2b242b4f114773b278f6,
-        type: 3}
-      propertyPath: kitchenObjectScriptable
-      value: 
-      objectReference: {fileID: 11400000, guid: 6fc7904527a175849a8040e9e73138d7,
-        type: 2}
     - target: {fileID: 7131612931624200040, guid: b66684dbea6f2b242b4f114773b278f6,
         type: 3}
       propertyPath: m_RootOrder
@@ -764,12 +758,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: ClearCounter (3)
       objectReference: {fileID: 0}
-    - target: {fileID: 5150197618529145583, guid: b66684dbea6f2b242b4f114773b278f6,
-        type: 3}
-      propertyPath: kitchenObjectScriptable
-      value: 
-      objectReference: {fileID: 11400000, guid: 6fc7904527a175849a8040e9e73138d7,
-        type: 2}
     - target: {fileID: 7131612931624200040, guid: b66684dbea6f2b242b4f114773b278f6,
         type: 3}
       propertyPath: m_RootOrder
@@ -1319,12 +1307,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: ClearCounter (1)
       objectReference: {fileID: 0}
-    - target: {fileID: 5150197618529145583, guid: b66684dbea6f2b242b4f114773b278f6,
-        type: 3}
-      propertyPath: kitchenObjectScriptable
-      value: 
-      objectReference: {fileID: 11400000, guid: 6fc7904527a175849a8040e9e73138d7,
-        type: 2}
     - target: {fileID: 7131612931624200040, guid: b66684dbea6f2b242b4f114773b278f6,
         type: 3}
       propertyPath: m_RootOrder
@@ -1780,12 +1762,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: ClearCounter (4)
       objectReference: {fileID: 0}
-    - target: {fileID: 5150197618529145583, guid: b66684dbea6f2b242b4f114773b278f6,
-        type: 3}
-      propertyPath: kitchenObjectScriptable
-      value: 
-      objectReference: {fileID: 11400000, guid: 6fc7904527a175849a8040e9e73138d7,
-        type: 2}
     - target: {fileID: 7131612931624200040, guid: b66684dbea6f2b242b4f114773b278f6,
         type: 3}
       propertyPath: m_RootOrder
@@ -1859,12 +1835,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: ClearCounter (5)
       objectReference: {fileID: 0}
-    - target: {fileID: 5150197618529145583, guid: b66684dbea6f2b242b4f114773b278f6,
-        type: 3}
-      propertyPath: kitchenObjectScriptable
-      value: 
-      objectReference: {fileID: 11400000, guid: 6fc7904527a175849a8040e9e73138d7,
-        type: 2}
     - target: {fileID: 7131612931624200040, guid: b66684dbea6f2b242b4f114773b278f6,
         type: 3}
       propertyPath: m_RootOrder
@@ -2017,12 +1987,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: ClearCounter (2)
       objectReference: {fileID: 0}
-    - target: {fileID: 5150197618529145583, guid: b66684dbea6f2b242b4f114773b278f6,
-        type: 3}
-      propertyPath: kitchenObjectScriptable
-      value: 
-      objectReference: {fileID: 11400000, guid: 6fc7904527a175849a8040e9e73138d7,
-        type: 2}
     - target: {fileID: 7131612931624200040, guid: b66684dbea6f2b242b4f114773b278f6,
         type: 3}
       propertyPath: m_RootOrder

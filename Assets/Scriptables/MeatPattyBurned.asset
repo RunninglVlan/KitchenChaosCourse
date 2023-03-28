@@ -14,4 +14,3 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   prefab: {fileID: 2565398661145489520, guid: c3705b7b075b85648b6e44ca4dcc240f, type: 3}
   sprite: {fileID: 21300000, guid: 713ea9afa60dd6e4ebf6503a33e8cc99, type: 3}
-  objectName: Meat Patty Burned

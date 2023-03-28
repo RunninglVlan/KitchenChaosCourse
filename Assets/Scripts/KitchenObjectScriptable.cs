@@ -4,5 +4,4 @@
 public class KitchenObjectScriptable : ScriptableObject {
     public KitchenObject prefab = null!;
     public Sprite sprite = null!;
-    public string objectName = null!;
 }

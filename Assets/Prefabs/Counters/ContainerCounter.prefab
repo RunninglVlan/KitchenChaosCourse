@@ -410,6 +410,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   top: {fileID: 4062193602577312117}
-  kitchenObjectScriptable: {fileID: 11400000, guid: 10a4c41018d66e345ae883cdc903d414,
+  containerObject: {fileID: 11400000, guid: 10a4c41018d66e345ae883cdc903d414,
     type: 2}
   visual: {fileID: 1863049887464802523}
