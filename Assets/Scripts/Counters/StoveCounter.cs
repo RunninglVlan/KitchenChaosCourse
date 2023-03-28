@@ -16,7 +16,11 @@ namespace Counters {
         public override void Interact(Player player) {
             var counterHasObject = TryGetKitchenObject(out var counterObject);
             if (player.TryGetKitchenObject(out var playerObject)) {
-                if (counterHasObject || !TryGetRecipe(fryingRecipes, playerObject.Scriptable, out var recipe)) {
+                if (counterHasObject) {
+                    ProcessBothHaveObjects();
+                    return;
+                }
+                if (!TryGetRecipe(fryingRecipes, playerObject.Scriptable, out var recipe)) {
                     return;
                 }
                 playerObject.Parent = this;
@@ -27,6 +31,17 @@ namespace Counters {
                 visual.SetEffectsActive(true);
             } else if (counterHasObject && state is State.Fried or State.Burned) {
                 counterObject.Parent = player;
+                GoToIdle();
+            }
+
+            void ProcessBothHaveObjects() {
+                if (!TryAddToPlate(playerObject, counterObject)) {
+                    return;
+                }
+                GoToIdle();
+            }
+
+            void GoToIdle() {
                 progressBar.Set(0);
                 state = State.Idle;
                 visual.SetEffectsActive(false);

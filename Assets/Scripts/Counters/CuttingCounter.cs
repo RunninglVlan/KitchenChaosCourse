@@ -13,7 +13,11 @@ namespace Counters {
         public override void Interact(Player player) {
             var counterHasObject = TryGetKitchenObject(out var counterObject);
             if (player.TryGetKitchenObject(out var playerObject)) {
-                if (counterHasObject || !TryGetRecipe(playerObject.Scriptable, out _)) {
+                if (counterHasObject) {
+                    TryAddToPlate(playerObject, counterObject);
+                    return;
+                }
+                if (!TryGetRecipe(playerObject.Scriptable, out _)) {
                     return;
                 }
                 playerObject.Parent = this;
