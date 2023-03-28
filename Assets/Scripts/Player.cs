@@ -1,5 +1,4 @@
 using System;
-using System.Diagnostics.CodeAnalysis;
 using Counters;
 using KitchenObjects;
 using UnityEngine;
@@ -18,14 +17,14 @@ public class Player : KitchenObjectParent {
 
     public override Transform ObjectLocation => hands;
 
-    public static Player Instance { get; private set; } = null!;
     public bool IsWalking { get; private set; }
     private Vector3 interactDirection;
     private Counter? selectedCounter;
 
-    [SuppressMessage("ReSharper", "ConditionIsAlwaysTrueOrFalseAccordingToNullableAPIContract")]
+    public static Player Instance { get; private set; } = null!;
+
     void Awake() {
-        if (Instance != null) {
+        if (Instance) {
             Debug.LogError("Multiple instances in the scene");
         }
         Instance = this;

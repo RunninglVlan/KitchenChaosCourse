@@ -347,6 +347,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a0b8395f35be435b971fb2620d7a4330, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  plateObject: {fileID: -3606880941013737868}
   iconTemplate: {fileID: 1992425229747613824}
 --- !u!114 &6928192403286847602
 MonoBehaviour:
@@ -416,8 +417,6 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 04f1f46564c42014395c93cc986f6b71, type: 2}
   - {fileID: 11400000, guid: 62af2e9bfd0b07c409154bb7f9950df7, type: 2}
   - {fileID: 11400000, guid: 5eccbd5c36b9f4f479d20ef0b8ee4cc9, type: 2}
-  visual: {fileID: 8831899224474867410}
-  icons: {fileID: 3362823698881904877}
 --- !u!1001 &6401441716967606859
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -664,6 +663,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d3e8e447de3d48e1a1e17a5c02aedd3a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  plateObject: {fileID: -3606880941013737868}
   ingredientObjects:
   - name: Bread
     scriptable: {fileID: 11400000, guid: a0ddac04176ef264687fc5bcbfa4946f, type: 2}

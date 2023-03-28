@@ -4,25 +4,20 @@ using UnityEngine;
 
 namespace KitchenObjects {
     public class PlateCompleteVisual : MonoBehaviour {
+        [SerializeField] private PlateObject plateObject = null!;
         [SerializeField] private IngredientObject[] ingredientObjects = Array.Empty<IngredientObject>();
 
-        public void ShowIngredient(KitchenObjectScriptable value) {
-            if (!TryGetObject(value, out var ingredient)) {
-                return;
-            }
-            ingredient.SetActive(true);
+        void Awake() {
+            plateObject.IngredientAdded += ShowIngredient;
         }
 
-        private bool TryGetObject(KitchenObjectScriptable input, out GameObject result) {
-            result = null!;
+        private void ShowIngredient(KitchenObjectScriptable value) {
             foreach (var ingredient in ingredientObjects) {
-                if (ingredient.scriptable != input) {
+                if (ingredient.scriptable != value) {
                     continue;
                 }
-                result = ingredient.gameObject;
-                return true;
+                ingredient.gameObject.SetActive(true);
             }
-            return false;
         }
 
         [Serializable]

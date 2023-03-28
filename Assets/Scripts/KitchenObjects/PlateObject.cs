@@ -5,19 +5,18 @@ using UnityEngine;
 
 namespace KitchenObjects {
     public class PlateObject : KitchenObject {
+        public event Action<KitchenObjectScriptable> IngredientAdded = delegate { };
+
         [SerializeField] private KitchenObjectScriptable[] validIngredients = Array.Empty<KitchenObjectScriptable>();
-        [SerializeField] private PlateCompleteVisual visual = null!;
-        [SerializeField] private PlateIcons icons = null!;
 
-        private readonly List<KitchenObjectScriptable> ingredients = new();
-
+        public List<KitchenObjectScriptable> Ingredients { get; } = new();
+        
         public bool TryAddIngredient(KitchenObjectScriptable value) {
-            if (ingredients.Contains(value) || !validIngredients.Contains(value)) {
+            if (Ingredients.Contains(value) || !validIngredients.Contains(value)) {
                 return false;
             }
-            ingredients.Add(value);
-            visual.ShowIngredient(value);
-            icons.ShowIngredients(ingredients);
+            Ingredients.Add(value);
+            IngredientAdded(value);
             return true;
         }
     }
