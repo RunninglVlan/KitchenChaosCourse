@@ -11,7 +11,7 @@ namespace Counters {
 
         private State state = State.Idle;
         private StoveRecipe currentRecipe = null!;
-        private float time;
+        private float seconds;
 
         public override void Interact(Player player) {
             var counterHasObject = TryGetKitchenObject(out var counterObject);
@@ -26,7 +26,7 @@ namespace Counters {
                 playerObject.Parent = this;
                 progressBar.SetColor(ProgressBar.ColorType.Normal);
                 state = State.Frying;
-                time = 0;
+                seconds = 0;
                 currentRecipe = recipe;
                 visual.SetEffectsActive(true);
             } else if (counterHasObject && state is State.Fried or State.Burned) {
@@ -62,8 +62,8 @@ namespace Counters {
             }
 
             void Fry(State nextState, StoveRecipe[]? recipes = null, ProgressBar.ColorType colorType = default) {
-                time += Time.deltaTime;
-                var progress = time / currentRecipe.maxSeconds;
+                seconds += Time.deltaTime;
+                var progress = seconds / currentRecipe.maxSeconds;
                 progressBar.Set(progress);
                 if (progress < 1) {
                     return;
@@ -71,7 +71,7 @@ namespace Counters {
                 counterObject.DestroySelf();
                 KitchenObject.Spawn(currentRecipe.output, this);
                 state = nextState;
-                time = 0;
+                seconds = 0;
                 if (!TryGetKitchenObject(out counterObject) || recipes == null ||
                     !TryGetRecipe(recipes, counterObject.Scriptable, out var recipe)) {
                     return;
