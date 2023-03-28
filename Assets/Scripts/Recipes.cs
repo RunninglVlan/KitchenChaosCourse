@@ -1,5 +1,6 @@
 ﻿using System;
 using JetBrains.Annotations;
+using KitchenObjects;
 
 [Serializable]
 public class CuttingRecipe {
