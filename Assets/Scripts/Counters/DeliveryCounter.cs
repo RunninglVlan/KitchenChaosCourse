@@ -6,9 +6,10 @@ namespace Counters {
             if (!player.TryGetKitchenObject(out var playerObject)) {
                 return;
             }
-            if (playerObject is not PlateObject) {
+            if (playerObject is not PlateObject plate) {
                 return;
             }
+            DeliveryManager.Instance.Deliver(plate);
             playerObject.DestroySelf();
         }
     }
