@@ -7,6 +7,7 @@ namespace KitchenObjects {
     public class PlateObject : KitchenObject {
         [SerializeField] private KitchenObjectScriptable[] validIngredients = Array.Empty<KitchenObjectScriptable>();
         [SerializeField] private PlateCompleteVisual visual = null!;
+        [SerializeField] private PlateIcons icons = null!;
 
         private readonly List<KitchenObjectScriptable> ingredients = new();
 
@@ -16,6 +17,7 @@ namespace KitchenObjects {
             }
             ingredients.Add(value);
             visual.ShowIngredient(value);
+            icons.ShowIngredients(ingredients);
             return true;
         }
     }
