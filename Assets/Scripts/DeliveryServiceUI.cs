@@ -2,8 +2,7 @@
 using UnityEngine;
 using UnityEngine.UIElements;
 
-public class DeliveryManagerUI : MonoBehaviour {
-    [SerializeField] private UIDocument document = null!;
+public class DeliveryServiceUI : UIService {
     [SerializeField] private VisualTreeAsset orderAsset = null!;
 
     private VisualElement orders = null!;

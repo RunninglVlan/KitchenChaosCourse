@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using KitchenObjects;
 using UnityEngine;
 
-public class DeliveryManager : MonoBehaviour {
+public class DeliveryService : MonoBehaviour {
     private const float MAX_RECIPE_SECONDS = 4;
     private const float MAX_ORDERS = 4;
 
@@ -11,12 +11,12 @@ public class DeliveryManager : MonoBehaviour {
     public event Action DeliveryFailed = delegate { };
 
     [SerializeField] private DeliveryRecipe[] recipes = Array.Empty<DeliveryRecipe>();
-    [SerializeField] private DeliveryManagerUI ui = null!;
+    [SerializeField] private DeliveryServiceUI ui = null!;
 
     private readonly List<DeliveryRecipe> orders = new();
     private float recipeSeconds;
 
-    public static DeliveryManager Instance { get; private set; } = null!;
+    public static DeliveryService Instance { get; private set; } = null!;
 
     void Awake() {
         if (Instance) {

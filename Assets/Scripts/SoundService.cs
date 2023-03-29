@@ -1,10 +1,10 @@
 ﻿using Counters;
 using UnityEngine;
 
-public class SoundManager : MonoBehaviour {
+public class SoundService : MonoBehaviour {
     [SerializeField] private Sounds sounds = null!;
 
-    public static SoundManager Instance { get; private set; } = null!;
+    public static SoundService Instance { get; private set; } = null!;
 
     void Awake() {
         if (Instance) {
@@ -14,8 +14,8 @@ public class SoundManager : MonoBehaviour {
     }
 
     void Start() {
-        DeliveryManager.Instance.DeliverySucceeded += PlayDeliverySuccess;
-        DeliveryManager.Instance.DeliveryFailed += PlayDeliveryFail;
+        DeliveryService.Instance.DeliverySucceeded += PlayDeliverySuccess;
+        DeliveryService.Instance.DeliveryFailed += PlayDeliveryFail;
         CuttingCounter.Cut += PlayChop;
         Player.Instance.PickedUp += PlayPickup;
         Counter.ObjectPlaced += PlayDrop;

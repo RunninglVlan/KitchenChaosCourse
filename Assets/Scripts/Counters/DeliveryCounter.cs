@@ -19,7 +19,7 @@ namespace Counters {
             if (playerObject is not PlateObject plate) {
                 return;
             }
-            DeliveryManager.Instance.Deliver(plate);
+            DeliveryService.Instance.Deliver(plate);
             playerObject.DestroySelf();
         }
     }

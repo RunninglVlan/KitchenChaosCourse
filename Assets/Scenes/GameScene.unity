@@ -568,7 +568,7 @@ GameObject:
   - component: {fileID: 386325388}
   - component: {fileID: 386325389}
   m_Layer: 0
-  m_Name: DeliveryManager
+  m_Name: DeliveryService
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1992,7 +1992,7 @@ GameObject:
   - component: {fileID: 1349031371}
   - component: {fileID: 1349031372}
   m_Layer: 0
-  m_Name: SoundManager
+  m_Name: SoundService
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2067,7 +2067,7 @@ GameObject:
   - component: {fileID: 1359690104}
   - component: {fileID: 1359690103}
   m_Layer: 0
-  m_Name: MusicManager
+  m_Name: Music
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
