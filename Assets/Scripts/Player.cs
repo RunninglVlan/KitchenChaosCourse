@@ -105,14 +105,14 @@ public class Player : KitchenObjectParent {
     }
 
     private void Interact(InputAction.CallbackContext _) {
-        if (selectedCounter == null) {
+        if (!GameService.Instance.IsPlaying || selectedCounter == null) {
             return;
         }
         selectedCounter.Interact(this);
     }
 
     private void InteractAlternate(InputAction.CallbackContext _) {
-        if (selectedCounter == null) {
+        if (!GameService.Instance.IsPlaying || selectedCounter == null) {
             return;
         }
         selectedCounter.InteractAlternate();
