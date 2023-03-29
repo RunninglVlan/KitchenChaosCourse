@@ -4,7 +4,7 @@ using UnityEngine;
 public class GameService : MonoBehaviour {
     private const float MAX_WAITING_SECONDS = 1;
     private const float MAX_COUNTDOWN_SECONDS = 3;
-    private const float MAX_GAME_SECONDS = 10;
+    private const float MAX_GAME_SECONDS = 60;
 
     public event Action StateChanged = delegate { };
 
