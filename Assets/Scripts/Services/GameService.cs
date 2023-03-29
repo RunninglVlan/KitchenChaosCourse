@@ -5,7 +5,7 @@ namespace Services {
     public class GameService : MonoBehaviour {
         private const float MAX_WAITING_SECONDS = 1;
         private const float MAX_COUNTDOWN_SECONDS = 3;
-        private const float MAX_PLAYING_SECONDS = 60;
+        public const float MAX_PLAYING_SECONDS = 60;
 
         public event Action StateChanged = delegate { };
 
@@ -14,6 +14,7 @@ namespace Services {
         public bool IsPlaying => state == State.GamePlaying;
         public bool IsCountingDownToStart => state == State.CountdownToStart;
         public bool IsGameOver => state == State.GameOver;
+        public int PlayingSeconds => IsPlaying ? (int) MAX_PLAYING_SECONDS - Mathf.CeilToInt(seconds) : 0;
 
         public int CountdownSeconds =>
             IsCountingDownToStart ? (int) MAX_COUNTDOWN_SECONDS - Mathf.FloorToInt(seconds) : 0;
