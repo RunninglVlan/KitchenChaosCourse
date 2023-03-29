@@ -15,7 +15,7 @@ namespace KitchenObjects {
         }
 
         public void ClearKitchenObject() => kitchenObject = null;
-        public void SetKitchenObject(KitchenObject value) => kitchenObject = value;
+        public virtual void SetKitchenObject(KitchenObject value) => kitchenObject = value;
         public bool HasKitchenObject() => kitchenObject;
     }
 }

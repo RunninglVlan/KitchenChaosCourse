@@ -8,6 +8,7 @@ public class Player : KitchenObjectParent {
     private const float ROTATE_SPEED = 10;
 
     public event Action<Counter?> SelectedCounterChanged = delegate { };
+    public event Action PickedUp = delegate { };
 
     [SerializeField] private GameInput gameInput = null!;
     [SerializeField] private float speed = 1;
@@ -115,5 +116,10 @@ public class Player : KitchenObjectParent {
             return;
         }
         selectedCounter.InteractAlternate();
+    }
+
+    public override void SetKitchenObject(KitchenObject value) {
+        base.SetKitchenObject(value);
+        PickedUp();
     }
 }

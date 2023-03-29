@@ -7,6 +7,9 @@ public class DeliveryManager : MonoBehaviour {
     private const float MAX_RECIPE_SECONDS = 4;
     private const float MAX_ORDERS = 4;
 
+    public event Action DeliverySucceeded = delegate { };
+    public event Action DeliveryFailed = delegate { };
+
     [SerializeField] private DeliveryRecipe[] recipes = Array.Empty<DeliveryRecipe>();
     [SerializeField] private DeliveryManagerUI ui = null!;
 
@@ -46,9 +49,10 @@ public class DeliveryManager : MonoBehaviour {
             }
             orders.RemoveAt(index);
             ui.ShowOrders(orders.AsReadOnly());
+            DeliverySucceeded();
             return;
         }
-        Debug.Log("Incorrect plate content");
+        DeliveryFailed();
 
         bool PlateContentMatchesRecipe(DeliveryRecipe recipe) {
             var result = true;

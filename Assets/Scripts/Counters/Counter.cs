@@ -1,8 +1,11 @@
+using System;
 using KitchenObjects;
 using UnityEngine;
 
 namespace Counters {
     public abstract class Counter : KitchenObjectParent {
+        public static event Action<Counter> ObjectPlaced = delegate { };
+
         [SerializeField] private Transform top = null!;
 
         public override Transform ObjectLocation => top;
@@ -19,6 +22,11 @@ namespace Counters {
                 ingredient.DestroySelf();
             }
             return added;
+        }
+
+        public override void SetKitchenObject(KitchenObject value) {
+            base.SetKitchenObject(value);
+            ObjectPlaced(this);
         }
     }
 }
