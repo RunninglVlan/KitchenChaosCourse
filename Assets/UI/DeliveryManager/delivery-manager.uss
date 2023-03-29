@@ -1,0 +1,27 @@
+:root {
+    color: white;
+    margin: 10px;
+}
+
+.title {
+    font-size: 30px;
+    -unity-font-style: bold;
+    text-shadow: 0 0 1px black;
+}
+
+.order {
+    width: 150px;
+    background-color: rgba(0, 0, 0, 0.75);
+    margin: 5px 0;
+}
+
+.order__label {
+    font-size: 20px;
+    padding-left: 5px;
+}
+
+.order__ingredients {
+    flex-direction: row;
+    flex-wrap: wrap;
+    padding: 5px;
+}

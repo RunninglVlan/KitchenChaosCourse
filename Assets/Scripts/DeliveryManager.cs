@@ -9,6 +9,7 @@ public class DeliveryManager : MonoBehaviour {
     private const float MAX_ORDERS = 4;
 
     [SerializeField] private DeliveryRecipe[] recipes = Array.Empty<DeliveryRecipe>();
+    [SerializeField] private DeliveryManagerUI ui = null!;
 
     private readonly List<DeliveryRecipe> orders = new();
     private float recipeSeconds;
@@ -32,8 +33,8 @@ public class DeliveryManager : MonoBehaviour {
         }
         recipeSeconds = 0;
         var newRecipe = recipes[Random.Range(0, recipes.Length)];
-        Debug.Log($"New: {newRecipe.name}");
         orders.Add(newRecipe);
+        ui.ShowOrders(orders.AsReadOnly());
     }
 
     public void Deliver(PlateObject plate) {
@@ -46,7 +47,7 @@ public class DeliveryManager : MonoBehaviour {
                 continue;
             }
             orders.RemoveAt(index);
-            Debug.Log($"Delivered {recipe.name}");
+            ui.ShowOrders(orders.AsReadOnly());
             return;
         }
         Debug.Log("Incorrect plate content");

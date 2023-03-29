@@ -1,0 +1,6 @@
+﻿<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <ui:VisualElement class="order">
+        <ui:Label name="order-label" text="Recipe" class="order__label" />
+        <ui:VisualElement name="ingredients" class="order__ingredients" />
+    </ui:VisualElement>
+</ui:UXML>
