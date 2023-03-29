@@ -410,6 +410,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a31bea19e66b45d0819eb959af1a5b1a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  counter: {fileID: 4338821657615712343}
   effects:
   - {fileID: 7291644638988906784}
   - {fileID: 3278151649564714665}
@@ -560,7 +561,6 @@ MonoBehaviour:
     output: {fileID: 11400000, guid: 62af2e9bfd0b07c409154bb7f9950df7, type: 2}
     maxSeconds: 5
   progressBar: {fileID: 8273822932364800719}
-  visual: {fileID: 1442346479730719896}
 --- !u!4 &4848310096436140113 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1590965486082681986, guid: 2e70f998363bf3848b8a615d8327bb7e,

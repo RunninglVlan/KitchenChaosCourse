@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using KitchenObjects;
 using UnityEngine;
-using Random = UnityEngine.Random;
 
 public class DeliveryManager : MonoBehaviour {
     private const float MAX_RECIPE_SECONDS = 4;
@@ -32,8 +31,7 @@ public class DeliveryManager : MonoBehaviour {
             return;
         }
         recipeSeconds = 0;
-        var newRecipe = recipes[Random.Range(0, recipes.Length)];
-        orders.Add(newRecipe);
+        orders.Add(recipes.GetRandom());
         ui.ShowOrders(orders.AsReadOnly());
     }
 

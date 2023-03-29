@@ -4,10 +4,11 @@ using UnityEngine;
 
 namespace Counters {
     public class StoveCounter : Counter {
+        public event Action<bool> ActiveChanged = delegate { };
+
         [SerializeField] private StoveRecipe[] fryingRecipes = Array.Empty<StoveRecipe>();
         [SerializeField] private StoveRecipe[] burningRecipes = Array.Empty<StoveRecipe>();
         [SerializeField] private ProgressBar progressBar = null!;
-        [SerializeField] private StoveCounterVisual visual = null!;
 
         private State state = State.Idle;
         private StoveRecipe currentRecipe = null!;
@@ -28,7 +29,7 @@ namespace Counters {
                 state = State.Frying;
                 seconds = 0;
                 currentRecipe = recipe;
-                visual.SetEffectsActive(true);
+                ActiveChanged(true);
             } else if (counterHasObject && state is State.Fried or State.Burned) {
                 counterObject.Parent = player;
                 GoToIdle();
@@ -44,7 +45,7 @@ namespace Counters {
             void GoToIdle() {
                 progressBar.Set(0);
                 state = State.Idle;
-                visual.SetEffectsActive(false);
+                ActiveChanged(false);
             }
         }
 
