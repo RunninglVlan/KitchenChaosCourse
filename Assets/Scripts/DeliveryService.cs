@@ -15,6 +15,7 @@ public class DeliveryService : MonoBehaviour {
 
     private readonly List<DeliveryRecipe> orders = new();
     private float recipeSeconds;
+    public int DeliveredOrders { get; private set; }
 
     public static DeliveryService Instance { get; private set; } = null!;
 
@@ -50,6 +51,7 @@ public class DeliveryService : MonoBehaviour {
             orders.RemoveAt(index);
             ui.ShowOrders(orders.AsReadOnly());
             DeliverySucceeded();
+            DeliveredOrders++;
             return;
         }
         DeliveryFailed();

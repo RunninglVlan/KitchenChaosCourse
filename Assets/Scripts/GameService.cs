@@ -12,6 +12,7 @@ public class GameService : MonoBehaviour {
     private float seconds;
     public bool IsPlaying => state == State.GamePlaying;
     public bool IsCountingDownToStart => state == State.CountdownToStart;
+    public bool IsGameOver => state == State.GameOver;
     public int CountdownSeconds => IsCountingDownToStart ? (int) MAX_COUNTDOWN_SECONDS - Mathf.FloorToInt(seconds) : 0;
 
     public static GameService Instance { get; private set; } = null!;
