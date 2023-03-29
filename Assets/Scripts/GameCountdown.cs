@@ -5,12 +5,12 @@ public class GameCountdown : UIService {
 
     void Start() {
         counter = document.rootVisualElement.Q<Label>("counter");
-        counter.SetActive(false);
+        document.rootVisualElement.SetActive(false);
         GameService.Instance.StateChanged += SetActive;
     }
 
     private void SetActive() {
-        counter.SetActive(GameService.Instance.IsCountingDownToStart);
+        document.rootVisualElement.SetActive(GameService.Instance.IsCountingDownToStart);
     }
 
     void Update() {
