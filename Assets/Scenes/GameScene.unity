@@ -3229,7 +3229,7 @@ MonoBehaviour:
   m_ParentUI: {fileID: 0}
   sourceAsset: {fileID: 9197481963319205126, guid: 5a902b3a350943b392c1121880cd0621,
     type: 3}
-  m_SortingOrder: 0
+  m_SortingOrder: 1
 --- !u!114 &2037219247
 MonoBehaviour:
   m_ObjectHideFlags: 0
