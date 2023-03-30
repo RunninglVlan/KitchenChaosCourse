@@ -12,7 +12,9 @@ namespace Services {
             }
             Instance = this;
             Actions = new InputActions();
-            Actions.Enable();
         }
+
+        void OnEnable() => Actions.Enable();
+        void OnDisable() => Actions.Dispose();
     }
 }
