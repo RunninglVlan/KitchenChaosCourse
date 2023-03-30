@@ -11,7 +11,6 @@ public class Player : KitchenObjectParent {
     public event Action<Counter?> SelectedCounterChanged = delegate { };
     public event Action PickedUp = delegate { };
 
-    [SerializeField] private GameInput gameInput = null!;
     [SerializeField] private float speed = 1;
     [SerializeField] private float height = 2;
     [SerializeField] private float radius = .5f;
@@ -33,12 +32,12 @@ public class Player : KitchenObjectParent {
     }
 
     void Start() {
-        gameInput.Actions.Player.Interact.performed += Interact;
-        gameInput.Actions.Player.InteractAlternate.performed += InteractAlternate;
+        GameInput.Instance.Actions.Player.Interact.performed += Interact;
+        GameInput.Instance.Actions.Player.InteractAlternate.performed += InteractAlternate;
     }
 
     void Update() {
-        var input = gameInput.Actions.Player.Move.ReadValue<Vector2>();
+        var input = GameInput.Instance.Actions.Player.Move.ReadValue<Vector2>();
         Move(input);
         SelectCounter(input);
     }

@@ -1308,7 +1308,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c75774d942d62d04aa9651a147592fed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameInput: {fileID: 2067581272}
   speed: 7
   height: 2
   radius: 0.5
