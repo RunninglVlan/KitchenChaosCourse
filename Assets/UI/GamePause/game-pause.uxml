@@ -1,0 +1,9 @@
+﻿<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/UI/generic.uss?fileID=7433441132597879392&amp;guid=922dfd8c0a454fd791ffc976da3269d8&amp;type=3#generic" />
+    <Style src="project://database/Assets/UI/GamePause/game-pause.uss?fileID=7433441132597879392&amp;guid=d906e8f63f07485b863d1399c63d70c7&amp;type=3#game-pause" />
+    <ui:VisualElement class="background">
+        <ui:Label text="Paused" class="title" />
+        <ui:Button text="Resume" name="resume" class="button" />
+        <ui:Button text="Main Menu" name="menu" class="button" />
+    </ui:VisualElement>
+</ui:UXML>

@@ -1,4 +1,5 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/UI/generic.uss?fileID=7433441132597879392&amp;guid=922dfd8c0a454fd791ffc976da3269d8&amp;type=3#generic" />
     <Style src="project://database/Assets/UI/MainMenu/main-menu.uss?fileID=7433441132597879392&amp;guid=05bd6c65ca644cb8b41cf14a91bfcf22&amp;type=3#main-menu" />
     <ui:VisualElement class="logo" />
     <ui:VisualElement class="buttons">

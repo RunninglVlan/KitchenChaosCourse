@@ -5,27 +5,6 @@
     margin-bottom: 150px;
 }
 
-.button {
-    width: 400px;
-    height: 150px;
-    font-size: 70px;
-    -unity-font-style: bold;
-    color: white;
-    background-color: rgb(50, 50, 50);
-    border-radius: 20px;
-    border-width: 3px;
-    border-color: black;
-    margin: 10px;
-}
-
-.button:hover {
-    background-color: rgb(128, 128, 128);
-}
-
-.button:active {
-    background-color: rgb(80, 80, 80);
-}
-
 .button--quit {
     height: 140px;
     font-size: 60px;

@@ -1,4 +1,4 @@
-.background {
+﻿.background {
     background-color: var(--color-bg);
     align-items: center;
     justify-content: center;
@@ -10,13 +10,4 @@
     font-size: 100px;
     -unity-font-style: bold;
     color: var(--color-yellow);
-}
-
-.subtitle {
-    font-size: 60px;
-}
-
-.order-count {
-    font-size: 80px;
-    -unity-font-style: bold;
 }

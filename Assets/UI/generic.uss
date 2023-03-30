@@ -1,3 +1,25 @@
 ﻿:root {
     --color-bg: rgba(0, 0, 0, 0.75);
+    --color-yellow: rgb(255, 208, 0);
+}
+
+.button {
+    width: 450px;
+    height: 150px;
+    font-size: 70px;
+    -unity-font-style: bold;
+    color: white;
+    background-color: rgb(50, 50, 50);
+    border-radius: 20px;
+    border-width: 3px;
+    border-color: black;
+    margin: 10px;
+}
+
+.button:hover {
+    background-color: rgb(128, 128, 128);
+}
+
+.button:active {
+    background-color: rgb(80, 80, 80);
 }

@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 namespace Services {
     public class GameService : MonoBehaviour {
@@ -15,6 +16,7 @@ namespace Services {
         public bool IsCountingDownToStart => state == State.CountdownToStart;
         public bool IsGameOver => state == State.GameOver;
         public int PlayingSeconds => IsPlaying ? (int) MAX_PLAYING_SECONDS - Mathf.CeilToInt(seconds) : 0;
+        public bool IsGamePaused { get; private set; }
 
         public int CountdownSeconds =>
             IsCountingDownToStart ? (int) MAX_COUNTDOWN_SECONDS - Mathf.FloorToInt(seconds) : 0;
@@ -26,6 +28,10 @@ namespace Services {
                 Debug.LogError("Multiple instances in the scene");
             }
             Instance = this;
+        }
+
+        void Start() {
+            GameInput.Instance.Actions.Player.Pause.performed += TogglePause;
         }
 
         void Update() {
@@ -52,6 +58,17 @@ namespace Services {
                 state = nextState;
                 StateChanged();
             }
+        }
+
+        private void TogglePause(InputAction.CallbackContext _) => TogglePause();
+
+        public void TogglePause() {
+            if (IsGameOver) {
+                return;
+            }
+            IsGamePaused = !IsGamePaused;
+            Time.timeScale = IsGamePaused ? 0 : 1;
+            StateChanged();
         }
 
         private enum State {
