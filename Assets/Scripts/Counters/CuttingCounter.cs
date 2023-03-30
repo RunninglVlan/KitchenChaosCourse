@@ -1,11 +1,10 @@
 using System;
 using KitchenObjects;
+using Services;
 using UnityEngine;
 
 namespace Counters {
     public class CuttingCounter : Counter {
-        public static event Action<CuttingCounter> Cut = delegate { };
-
         [SerializeField] private CuttingRecipe[] recipes = Array.Empty<CuttingRecipe>();
         [SerializeField] private ProgressBar progressBar = null!;
         [SerializeField] private CuttingCounterVisual visual = null!;
@@ -41,7 +40,7 @@ namespace Counters {
             cuts++;
             progressBar.Set((float)cuts / recipe.maxCuts);
             visual.Cut();
-            Cut(this);
+            SoundService.Instance.PlayChop(this);
             if (cuts < recipe.maxCuts) {
                 return;
             }

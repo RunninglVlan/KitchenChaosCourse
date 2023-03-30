@@ -17,10 +17,7 @@ namespace Services {
         void Start() {
             DeliveryService.Instance.DeliverySucceeded += PlayDeliverySuccess;
             DeliveryService.Instance.DeliveryFailed += PlayDeliveryFail;
-            CuttingCounter.Cut += PlayChop;
             Player.Instance.PickedUp += PlayPickup;
-            Counter.ObjectPlaced += PlayDrop;
-            TrashCounter.Trashed += PlayTrash;
         }
 
         private void PlayDeliverySuccess() {
@@ -31,7 +28,7 @@ namespace Services {
             Play(sounds.deliveryFail, DeliveryCounter.Instance.transform.position);
         }
 
-        private void PlayChop(CuttingCounter counter) {
+        public void PlayChop(CuttingCounter counter) {
             Play(sounds.chop, counter.transform.position);
         }
 
@@ -39,11 +36,11 @@ namespace Services {
             Play(sounds.objectPickup, Player.Instance.transform.position);
         }
 
-        private void PlayDrop(Counter counter) {
+        public void PlayDrop(Counter counter) {
             Play(sounds.objectDrop, counter.transform.position);
         }
 
-        private void PlayTrash(TrashCounter counter) {
+        public void PlayTrash(TrashCounter counter) {
             Play(sounds.trash, counter.transform.position);
         }
 
