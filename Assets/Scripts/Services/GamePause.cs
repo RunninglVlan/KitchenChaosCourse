@@ -10,6 +10,7 @@ namespace Services {
         void Start() {
             var root = document.rootVisualElement;
             root.Q<Button>("resume").clicked += Resume;
+            root.Q<Button>("options").clicked += ShowOptions;
             root.Q<Button>("menu").clicked += LoadMainMenu;
             root.SetActive(false);
             GameService.Instance.Paused += Show;
@@ -21,6 +22,10 @@ namespace Services {
 
         private static void Resume() {
             GameService.Instance.TogglePause();
+        }
+
+        private static void ShowOptions() {
+            Options.Instance.Show();
         }
 
         private void LoadMainMenu() {

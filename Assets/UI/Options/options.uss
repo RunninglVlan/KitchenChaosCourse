@@ -1,0 +1,36 @@
+.background {
+    background-color: rgba(0, 0, 0, 0.95);
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    color: white;
+}
+
+.title {
+    font-size: 100px;
+    -unity-font-style: bold;
+    color: var(--color-yellow);
+}
+
+.option-slider {
+    width: 600px;
+}
+
+.option-slider .unity-slider__label {
+    min-width: 160px;
+    font-size: 40px;
+}
+
+.option-slider:focus .unity-slider__label {
+    color: white;
+}
+
+.option-slider__value {
+    min-width: 85px;
+    -unity-text-align: middle-right;
+    font-size: 40px;
+}
+
+.button--hide {
+    margin-top: 200px;
+}

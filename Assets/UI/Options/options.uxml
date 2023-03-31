@@ -1,0 +1,14 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/UI/generic.uss?fileID=7433441132597879392&amp;guid=922dfd8c0a454fd791ffc976da3269d8&amp;type=3#generic" />
+    <Style src="project://database/Assets/UI/Options/options.uss?fileID=7433441132597879392&amp;guid=3b00810d117f49248f6d86811158349f&amp;type=3#options" />
+    <ui:VisualElement class="background">
+        <ui:Label text="Options" class="title" />
+        <ui:Slider label="Sounds" name="sounds" class="option-slider">
+            <ui:Label text="10" name="value" class="option-slider__value" />
+        </ui:Slider>
+        <ui:Slider label="Music" name="music" class="option-slider">
+            <ui:Label text="10" name="value" class="option-slider__value" />
+        </ui:Slider>
+        <ui:Button text="Close" name="hide" class="button button--hide" />
+    </ui:VisualElement>
+</ui:UXML>

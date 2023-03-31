@@ -4,6 +4,7 @@
     <ui:VisualElement class="background">
         <ui:Label text="Paused" class="title" />
         <ui:Button text="Resume" name="resume" class="button" />
+        <ui:Button text="Options" name="options" class="button" />
         <ui:Button text="Main Menu" name="menu" class="button" />
     </ui:VisualElement>
 </ui:UXML>

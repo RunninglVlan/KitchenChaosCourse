@@ -3,7 +3,19 @@ using UnityEngine;
 
 namespace Services {
     public class SoundService : MonoBehaviour {
+        private const string VOLUME = "SoundVolume";
+
         [SerializeField] private Sounds sounds = null!;
+
+        private float baseVolume;
+
+        public float Volume {
+            get => PlayerPrefs.GetFloat(VOLUME, 1);
+            set {
+                baseVolume = value;
+                PlayerPrefs.SetFloat(VOLUME, value);
+            }
+        }
 
         public static SoundService Instance { get; private set; } = null!;
 
@@ -12,6 +24,7 @@ namespace Services {
                 Debug.LogError("Multiple instances in the scene");
             }
             Instance = this;
+            baseVolume = Volume;
         }
 
         void Start() {
@@ -48,12 +61,12 @@ namespace Services {
             Play(sounds.footstep, position, volume);
         }
 
-        private static void Play(AudioClip[] clips, Vector3 position, float volume = 1) {
+        private void Play(AudioClip[] clips, Vector3 position, float volume = 1) {
             Play(clips.GetRandom(), position, volume);
         }
 
-        private static void Play(AudioClip clip, Vector3 position, float volume = 1) {
-            AudioSource.PlayClipAtPoint(clip, position, volume);
+        private void Play(AudioClip clip, Vector3 position, float volume = 1) {
+            AudioSource.PlayClipAtPoint(clip, position, baseVolume * volume);
         }
     }
 }
