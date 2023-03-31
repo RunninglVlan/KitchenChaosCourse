@@ -9,6 +9,8 @@ namespace Services {
         public const float MAX_PLAYING_SECONDS = 60;
 
         public event Action StateChanged = delegate { };
+        public event Action Paused = delegate { };
+        public event Action Unpaused = delegate { };
 
         private State state = State.WaitingToStart;
         private float seconds;
@@ -16,7 +18,7 @@ namespace Services {
         public bool IsCountingDownToStart => state == State.CountdownToStart;
         public bool IsGameOver => state == State.GameOver;
         public int PlayingSeconds => IsPlaying ? (int) MAX_PLAYING_SECONDS - Mathf.CeilToInt(seconds) : 0;
-        public bool IsGamePaused { get; private set; }
+        private bool paused;
 
         public int CountdownSeconds =>
             IsCountingDownToStart ? (int) MAX_COUNTDOWN_SECONDS - Mathf.FloorToInt(seconds) : 0;
@@ -66,9 +68,13 @@ namespace Services {
             if (IsGameOver) {
                 return;
             }
-            IsGamePaused = !IsGamePaused;
-            Time.timeScale = IsGamePaused ? 0 : 1;
-            StateChanged();
+            paused = !paused;
+            Time.timeScale = paused ? 0 : 1;
+            if (paused) {
+                Paused();
+            } else {
+                Unpaused();
+            }
         }
 
         private enum State {

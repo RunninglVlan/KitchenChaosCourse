@@ -8,14 +8,15 @@ namespace Services {
         private string mainMenu = null!;
 
         void Start() {
-            document.rootVisualElement.Q<Button>("resume").clicked += Resume;
-            document.rootVisualElement.Q<Button>("menu").clicked += LoadMainMenu;
-            document.rootVisualElement.SetActive(false);
-            GameService.Instance.StateChanged += SetActive;
-        }
+            var root = document.rootVisualElement;
+            root.Q<Button>("resume").clicked += Resume;
+            root.Q<Button>("menu").clicked += LoadMainMenu;
+            root.SetActive(false);
+            GameService.Instance.Paused += Show;
+            GameService.Instance.Unpaused += Hide;
 
-        private void SetActive() {
-            document.rootVisualElement.SetActive(GameService.Instance.IsGamePaused);
+            void Show() => root.SetActive(true);
+            void Hide() => root.SetActive(false);
         }
 
         private static void Resume() {
