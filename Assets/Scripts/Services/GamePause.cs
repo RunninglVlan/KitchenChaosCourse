@@ -1,11 +1,11 @@
-﻿using UnityEngine;
+﻿using NaughtyAttributes;
+using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UIElements;
 
 namespace Services {
     public class GamePause : UIService {
-        [NaughtyAttributes.Scene, SerializeField]
-        private string mainMenu = null!;
+        [SerializeField, Scene] private string mainMenu = null!;
 
         void Start() {
             var root = document.rootVisualElement;

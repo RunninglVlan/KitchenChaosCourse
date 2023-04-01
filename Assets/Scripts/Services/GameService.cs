@@ -17,11 +17,11 @@ namespace Services {
         public bool IsPlaying => state == State.GamePlaying;
         public bool IsCountingDownToStart => state == State.CountdownToStart;
         public bool IsGameOver => state == State.GameOver;
-        public int PlayingSeconds => IsPlaying ? (int) MAX_PLAYING_SECONDS - Mathf.CeilToInt(seconds) : 0;
+        public int PlayingSeconds => IsPlaying ? (int)MAX_PLAYING_SECONDS - Mathf.CeilToInt(seconds) : 0;
         private bool paused;
 
         public int CountdownSeconds =>
-            IsCountingDownToStart ? (int) MAX_COUNTDOWN_SECONDS - Mathf.FloorToInt(seconds) : 0;
+            IsCountingDownToStart ? (int)MAX_COUNTDOWN_SECONDS - Mathf.FloorToInt(seconds) : 0;
 
         public static GameService Instance { get; private set; } = null!;
 

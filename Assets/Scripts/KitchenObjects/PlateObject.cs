@@ -10,7 +10,7 @@ namespace KitchenObjects {
         [SerializeField] private KitchenObjectScriptable[] validIngredients = Array.Empty<KitchenObjectScriptable>();
 
         public List<KitchenObjectScriptable> Ingredients { get; } = new();
-        
+
         public bool TryAddIngredient(KitchenObjectScriptable value) {
             if (Ingredients.Contains(value) || !validIngredients.Contains(value)) {
                 return false;
