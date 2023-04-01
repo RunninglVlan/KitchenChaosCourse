@@ -3448,6 +3448,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   document: {fileID: 2037958969}
+  controlAsset: {fileID: 9197481963319205126, guid: d49019d4a86e491ea22b85df55894e42,
+    type: 3}
 --- !u!1 &2067581271
 GameObject:
   m_ObjectHideFlags: 0

@@ -8,6 +8,8 @@
     color: white;
     background-color: rgb(50, 50, 50);
     border-color: black;
+    border-radius: 10px;
+    border-width: 1px;
 }
 
 .button--big {

@@ -12,3 +12,9 @@ public static class VisualElementExtensions {
         element.style.display = value ? DisplayStyle.Flex : DisplayStyle.None;
     }
 }
+
+public static class StringExtensions {
+    public static string ToCamel(this string value) {
+        return $"{char.ToUpper(value[0])}{value[1..]}";
+    }
+}

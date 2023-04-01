@@ -9,6 +9,10 @@
         <ui:Slider label="Music" name="music" class="option-slider">
             <ui:Label text="10" name="value" class="option-slider__value" />
         </ui:Slider>
-        <ui:Button text="Close" name="hide" class="button button--big button--hide" />
+        <ui:VisualElement name="controls" />
+        <ui:Button text="Close" name="hide" class="button button--big" />
+    </ui:VisualElement>
+    <ui:VisualElement name="overlay" class="background" style="position: absolute;">
+        <ui:Label text="Waiting for a key" class="overlay-label" />
     </ui:VisualElement>
 </ui:UXML>

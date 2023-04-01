@@ -3,6 +3,7 @@
     align-items: center;
     justify-content: center;
     height: 100%;
+    width: 100%;
     color: white;
 }
 
@@ -31,6 +32,21 @@
     font-size: 40px;
 }
 
-.button--hide {
-    margin-top: 200px;
+.option-control {
+    flex-direction: row;
+    font-size: 40px;
+    width: 400px;
+}
+
+.option-control__label {
+    -unity-text-align: middle-left;
+    flex-grow: 1;
+}
+
+.option-control__button {
+    min-width: 65px;
+}
+
+.overlay-label {
+    font-size: 60px;
 }
