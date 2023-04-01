@@ -3,7 +3,7 @@
     <Style src="project://database/Assets/UI/MainMenu/main-menu.uss?fileID=7433441132597879392&amp;guid=05bd6c65ca644cb8b41cf14a91bfcf22&amp;type=3#main-menu" />
     <ui:VisualElement class="logo" />
     <ui:VisualElement class="buttons">
-        <ui:Button text="Play" name="play" class="button" />
-        <ui:Button text="Quit" name="quit" class="button button--quit" />
+        <ui:Button text="Play" name="play" class="button button--big" />
+        <ui:Button text="Quit" name="quit" class="button button--big button--quit" />
     </ui:VisualElement>
 </ui:UXML>
