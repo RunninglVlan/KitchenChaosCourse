@@ -14,7 +14,8 @@ namespace Services {
 
         public static Options Instance { get; private set; } = null!;
 
-        void Awake() {
+        protected override void Awake() {
+            base.Awake();
             if (Instance) {
                 Debug.LogError("Multiple instances in the scene");
             }

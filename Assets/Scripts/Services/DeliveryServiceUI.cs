@@ -8,6 +8,16 @@ namespace Services {
 
         private VisualElement orders = null!;
 
+        public static DeliveryServiceUI Instance { get; private set; } = null!;
+
+        protected override void Awake() {
+            base.Awake();
+            if (Instance) {
+                Debug.LogError("Multiple instances in the scene");
+            }
+            Instance = this;
+        }
+
         void Start() {
             orders = document.rootVisualElement.Q<VisualElement>("orders");
         }

@@ -12,7 +12,6 @@ namespace Services {
         public event Action DeliveryFailed = delegate { };
 
         [SerializeField] private DeliveryRecipe[] recipes = Array.Empty<DeliveryRecipe>();
-        [SerializeField] private DeliveryServiceUI ui = null!;
 
         private readonly List<DeliveryRecipe> orders = new();
         private float recipeSeconds;
@@ -37,7 +36,7 @@ namespace Services {
             }
             recipeSeconds = 0;
             orders.Add(recipes.GetRandom());
-            ui.ShowOrders(orders.AsReadOnly());
+            DeliveryServiceUI.Instance.ShowOrders(orders.AsReadOnly());
         }
 
         public void Deliver(PlateObject plate) {
@@ -50,7 +49,7 @@ namespace Services {
                     continue;
                 }
                 orders.RemoveAt(index);
-                ui.ShowOrders(orders.AsReadOnly());
+                DeliveryServiceUI.Instance.ShowOrders(orders.AsReadOnly());
                 DeliverySucceeded();
                 DeliveredOrders++;
                 return;
