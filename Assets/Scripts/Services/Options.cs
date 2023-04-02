@@ -8,6 +8,7 @@ namespace Services {
     public class Options : UIService {
         private const string CONTROL_VECTOR = "Vector2";
         private const string ESC = "<Keyboard>/escape";
+        private const string GAMEPAD = "<Gamepad>";
 
         [SerializeField] private VisualTreeAsset controlAsset = null!;
 
@@ -60,7 +61,17 @@ namespace Services {
                 if (action.expectedControlType == CONTROL_VECTOR) {
                     AddCompositeActions(action);
                 } else {
-                    AddAction(action, action.name);
+                    var keyboardBinding = 0;
+                    int? gamepadBinding = null;
+                    for (var index = 0; index < action.bindings.Count; index++) {
+                        var binding = action.bindings[index];
+                        if (!binding.path.Contains(GAMEPAD)) {
+                            keyboardBinding = index;
+                        } else {
+                            gamepadBinding = index;
+                        }
+                    }
+                    AddAction(action, action.name, keyboardBinding, gamepadBinding);
                 }
             }
 
@@ -75,17 +86,26 @@ namespace Services {
             }
         }
 
-        private void AddAction(InputAction action, string actionName, int binding = 0) {
+        private void AddAction(InputAction action, string actionName, int keyboardBinding, int? gamepadBinding = null) {
             var element = controlAsset.Instantiate();
             document.rootVisualElement.Q<VisualElement>("controls").Add(element);
             element.Q<Label>().text = actionName;
-            var button = element.Q<Button>();
-            SetBindingText();
-            button.clicked += () => {
-                Rebind(action, binding, SetBindingText);
+            var keyboardButton = element.Q<Button>("keyboard");
+            SetBindingText(keyboardButton, keyboardBinding);
+            keyboardButton.clicked += () => {
+                Rebind(action, keyboardBinding, () => SetBindingText(keyboardButton, keyboardBinding));
+            };
+            var gamepadButton = element.Q<Button>("gamepad");
+            gamepadButton.visible = gamepadBinding.HasValue;
+            if (!gamepadBinding.HasValue) {
+                return;
+            }
+            SetBindingText(gamepadButton, gamepadBinding.Value);
+            gamepadButton.clicked += () => {
+                Rebind(action, gamepadBinding.Value, () => SetBindingText(gamepadButton, gamepadBinding.Value));
             };
 
-            void SetBindingText() {
+            void SetBindingText(Button button, int binding) {
                 button.text = action.GetBindingDisplayString(binding);
             }
         }

@@ -67,16 +67,15 @@ public class Player : KitchenObjectParent {
             return true;
         }
         move = new Vector3(input.x, 0, 0).normalized;
-        if (IsAllowed(move)) {
+        if (input.x is < -.5f or > .5f && IsAllowed(move)) {
             return true;
         }
         move = new Vector3(0, 0, input.y).normalized;
-        return IsAllowed(move);
+        return input.y is < -.5f or > .5f && IsAllowed(move);
 
         bool IsAllowed(Vector3 direction) {
             const float capsuleMoveDistance = .1f;
-            return direction != Vector3.zero &&
-                   !Physics.CapsuleCast(origin, playerTop, radius, direction, capsuleMoveDistance);
+            return !Physics.CapsuleCast(origin, playerTop, radius, direction, capsuleMoveDistance);
         }
     }
 

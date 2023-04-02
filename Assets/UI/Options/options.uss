@@ -36,12 +36,25 @@
 .option-control {
     flex-direction: row;
     font-size: 40px;
-    width: 400px;
+    width: 700px;
 }
 
 .option-control__label {
     -unity-text-align: middle-left;
     flex-grow: 1;
+}
+
+.option-control__button-container {
+    width: 150px;
+    justify-content: center;
+}
+
+.option-control__button-container--keyboard {
+    flex-direction: row-reverse;
+}
+
+.option-control__button-container--gamepad {
+    flex-direction: row;
 }
 
 .option-control__button {
