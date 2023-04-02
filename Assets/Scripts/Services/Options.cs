@@ -7,6 +7,7 @@ using UnityEngine.UIElements;
 namespace Services {
     public class Options : UIService {
         private const string CONTROL_VECTOR = "Vector2";
+        private const string ESC = "<Keyboard>/escape";
 
         [SerializeField] private VisualTreeAsset controlAsset = null!;
 
@@ -94,14 +95,20 @@ namespace Services {
             rebindingOverlay.SetActive(true);
             action.Disable();
             action.PerformInteractiveRebinding(binding)
+                .WithCancelingThrough(ESC)
+                .OnCancel(OnEnd)
                 .OnComplete(operation => {
-                    operation.Dispose();
-                    action.Enable();
+                    OnEnd(operation);
                     completeAction();
-                    rebindingOverlay.SetActive(false);
                     GameInput.Instance.Save();
                 })
                 .Start();
+
+            void OnEnd(InputActionRebindingExtensions.RebindingOperation operation) {
+                operation.Dispose();
+                action.Enable();
+                rebindingOverlay.SetActive(false);
+            }
         }
 
         public void Show() {
