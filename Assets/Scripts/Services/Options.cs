@@ -55,7 +55,6 @@ namespace Services {
         }
 
         private void AddControls() {
-            var controls = document.rootVisualElement.Q<VisualElement>("controls");
             var map = GameInput.Instance.Actions.asset.actionMaps.First();
             foreach (var action in map.actions) {
                 if (action.expectedControlType == CONTROL_VECTOR) {
@@ -74,19 +73,19 @@ namespace Services {
                     AddAction(action, $"{action.name} {binding.name.ToCamel()}", index);
                 }
             }
+        }
 
-            void AddAction(InputAction action, string actionName, int binding = 0) {
-                var element = controlAsset.Instantiate();
-                controls.Add(element);
-                element.Q<Label>().text = actionName;
-                var button = element.Q<Button>();
-                SetBindingText(button, action, binding);
-                button.clicked += () => {
-                    Rebind(action, binding, () => SetBindingText(button, action, binding));
-                };
-            }
+        private void AddAction(InputAction action, string actionName, int binding = 0) {
+            var element = controlAsset.Instantiate();
+            document.rootVisualElement.Q<VisualElement>("controls").Add(element);
+            element.Q<Label>().text = actionName;
+            var button = element.Q<Button>();
+            SetBindingText();
+            button.clicked += () => {
+                Rebind(action, binding, SetBindingText);
+            };
 
-            void SetBindingText(Button button, InputAction action, int binding) {
+            void SetBindingText() {
                 button.text = action.GetBindingDisplayString(binding);
             }
         }
