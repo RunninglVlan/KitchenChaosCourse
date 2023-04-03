@@ -265,29 +265,57 @@ PrefabInstance:
       propertyPath: hasProgressObject
       value: 
       objectReference: {fileID: 3480082205354381874}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 8866937574054294596, guid: 4982ca57a002d40448c2333511d5ef29, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 8082711820434556117, guid: 4982ca57a002d40448c2333511d5ef29,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 6481716099611798406}
   m_SourcePrefab: {fileID: 100100000, guid: 4982ca57a002d40448c2333511d5ef29, type: 3}
---- !u!224 &7163689188468858431 stripped
-RectTransform:
-  m_CorrespondingSourceObject: {fileID: 7689263031732820148, guid: 4982ca57a002d40448c2333511d5ef29,
-    type: 3}
-  m_PrefabInstance: {fileID: 711347328195511947}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &8273822932364800719 stripped
+--- !u!114 &1111630154198687260 stripped
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 8866937574054294596, guid: 4982ca57a002d40448c2333511d5ef29,
+  m_CorrespondingSourceObject: {fileID: 482583470399576215, guid: 4982ca57a002d40448c2333511d5ef29,
     type: 3}
   m_PrefabInstance: {fileID: 711347328195511947}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4968fe56d7194a5b88d3ccddb6cbca11, type: 3}
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!224 &7163689188468858431 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 7689263031732820148, guid: 4982ca57a002d40448c2333511d5ef29,
+    type: 3}
+  m_PrefabInstance: {fileID: 711347328195511947}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &8787852405222802014 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8082711820434556117, guid: 4982ca57a002d40448c2333511d5ef29,
+    type: 3}
+  m_PrefabInstance: {fileID: 711347328195511947}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &6481716099611798406
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8787852405222802014}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a4fc43e7304e454f810e795f57be5e4a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hasProgressObject: {fileID: 3480082205354381874}
+  progress: {fileID: 1111630154198687260}
+  counter: {fileID: 4338821657615712343}
+  normalColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
+  warningColor: {r: 1, g: 0, b: 0, a: 1}
 --- !u!1001 &3250884399195826184
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -711,7 +739,6 @@ MonoBehaviour:
     input: {fileID: 11400000, guid: 04f1f46564c42014395c93cc986f6b71, type: 2}
     output: {fileID: 11400000, guid: 62af2e9bfd0b07c409154bb7f9950df7, type: 2}
     maxSeconds: 5
-  progressBar: {fileID: 8273822932364800719}
 --- !u!4 &4848310096436140113 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1590965486082681986, guid: 2e70f998363bf3848b8a615d8327bb7e,

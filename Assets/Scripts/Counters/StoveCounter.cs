@@ -10,7 +10,6 @@ namespace Counters {
 
         [SerializeField] private StoveRecipe[] fryingRecipes = Array.Empty<StoveRecipe>();
         [SerializeField] private StoveRecipe[] burningRecipes = Array.Empty<StoveRecipe>();
-        [SerializeField] private ProgressBar progressBar = null!;
 
         private State state = State.Idle;
         private StoveRecipe currentRecipe = null!;
@@ -28,7 +27,6 @@ namespace Counters {
                     return;
                 }
                 playerObject.Parent = this;
-                progressBar.SetColor(ProgressBar.ColorType.Normal);
                 setWarning = false;
                 seconds = 0;
                 currentRecipe = recipe;
@@ -65,7 +63,6 @@ namespace Counters {
                     Fry(State.Burned);
                     var progress = seconds / currentRecipe.maxSeconds;
                     if (!setWarning && progress > .5f) {
-                        progressBar.SetColor(ProgressBar.ColorType.Warning);
                         setWarning = true;
                         WarningSet();
                     }
