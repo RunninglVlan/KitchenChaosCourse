@@ -9,7 +9,9 @@ namespace Services {
         [SerializeField, Scene] private string gameScene = null!;
 
         void Start() {
-            document.rootVisualElement.Q<Button>("play").clicked += LoadGameScene;
+            var play = document.rootVisualElement.Q<Button>("play");
+            play.Focus();
+            play.clicked += LoadGameScene;
             document.rootVisualElement.Q<Button>("quit").clicked += Application.Quit;
         }
 

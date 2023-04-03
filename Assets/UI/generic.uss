@@ -21,7 +21,7 @@
     margin: 10px;
 }
 
-.button:hover {
+.button:hover, .button:focus {
     background-color: rgb(128, 128, 128);
 }
 

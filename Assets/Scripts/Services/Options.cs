@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -14,6 +15,7 @@ namespace Services {
         [SerializeField] private VisualTreeAsset controlAsset = null!;
 
         private VisualElement rebindingOverlay = null!;
+        private Action hideAction = null!;
 
         public static Options Instance { get; private set; } = null!;
 
@@ -44,7 +46,10 @@ namespace Services {
                 Music.Instance.Volume = value;
             }
 
-            void Hide() => root.SetActive(false);
+            void Hide() {
+                hideAction();
+                root.SetActive(false);
+            }
         }
 
         private static void AddOptionSlider(Slider root, float value, Action<float> callback) {
@@ -135,7 +140,9 @@ namespace Services {
             }
         }
 
-        public void Show() {
+        [SuppressMessage("ReSharper", "ParameterHidesMember")]
+        public void Show(Action hideAction) {
+            this.hideAction = hideAction;
             document.rootVisualElement.SetActive(true);
         }
     }
