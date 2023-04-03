@@ -3,7 +3,8 @@ using KitchenObjects;
 using UnityEngine;
 
 namespace Counters {
-    public class StoveCounter : Counter {
+    public class StoveCounter : Counter, IHasProgress {
+        public event Action<float> ProgressSet = delegate { };
         public event Action<State> StateChanged = delegate { };
         public event Action WarningSet = delegate { };
 
@@ -46,9 +47,9 @@ namespace Counters {
             }
 
             void GoToIdle() {
-                progressBar.Set(0);
                 state = State.Idle;
                 StateChanged(state);
+                ProgressSet(0);
             }
         }
 
@@ -74,7 +75,7 @@ namespace Counters {
             void Fry(State nextState, StoveRecipe[]? recipes = null) {
                 seconds += Time.deltaTime;
                 var progress = seconds / currentRecipe.maxSeconds;
-                progressBar.Set(progress);
+                ProgressSet(progress);
                 if (progress < 1) {
                     return;
                 }

@@ -395,6 +395,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: ProgressBar
       objectReference: {fileID: 0}
+    - target: {fileID: 8866937574054294596, guid: 4982ca57a002d40448c2333511d5ef29,
+        type: 3}
+      propertyPath: hasProgressObject
+      value: 
+      objectReference: {fileID: 2110715764191601694}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -406,18 +411,6 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 7179642130441386133}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1778507083330800849 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 8866937574054294596, guid: 4982ca57a002d40448c2333511d5ef29,
-    type: 3}
-  m_PrefabInstance: {fileID: 7179642130441386133}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4968fe56d7194a5b88d3ccddb6cbca11, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &8673350589471654655
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -544,7 +537,6 @@ MonoBehaviour:
     input: {fileID: 11400000, guid: 10a4c41018d66e345ae883cdc903d414, type: 2}
     output: {fileID: 11400000, guid: 5eccbd5c36b9f4f479d20ef0b8ee4cc9, type: 2}
     maxCuts: 3
-  progressBar: {fileID: 1778507083330800849}
   visual: {fileID: 2581679178038275952}
 --- !u!4 &7947112567472615037 stripped
 Transform:

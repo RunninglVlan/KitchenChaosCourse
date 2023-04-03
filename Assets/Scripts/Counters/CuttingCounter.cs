@@ -4,15 +4,18 @@ using Services;
 using UnityEngine;
 
 namespace Counters {
-    public class CuttingCounter : Counter {
+    public class CuttingCounter : Counter, IHasProgress {
+        public event Action<float> ProgressSet = delegate { };
+
         [SerializeField] private CuttingRecipe[] recipes = Array.Empty<CuttingRecipe>();
-        [SerializeField] private ProgressBar progressBar = null!;
         [SerializeField] private CuttingCounterVisual visual = null!;
 
         private int cuts;
+        private float progress;
 
         public override void Interact(Player player) {
             var counterHasObject = TryGetKitchenObject(out var counterObject);
+            var canTake = Mathf.Approximately(progress, 0) || Mathf.Approximately(progress, 1);
             if (player.TryGetKitchenObject(out var playerObject)) {
                 if (counterHasObject) {
                     TryAddToPlate(playerObject, counterObject);
@@ -23,10 +26,10 @@ namespace Counters {
                 }
                 playerObject.Parent = this;
                 cuts = 0;
-                progressBar.Set(0);
-            } else if (counterHasObject && progressBar.IsEmptyOrFilled) {
+                ProgressSet(progress = 0);
+            } else if (counterHasObject && canTake) {
                 counterObject.Parent = player;
-                progressBar.Set(0);
+                ProgressSet(progress = 0);
             }
         }
 
@@ -38,7 +41,7 @@ namespace Counters {
                 return;
             }
             cuts++;
-            progressBar.Set((float)cuts / recipe.maxCuts);
+            ProgressSet(progress = (float)cuts / recipe.maxCuts);
             visual.Cut();
             SoundService.Instance.PlayChop(this);
             if (cuts < recipe.maxCuts) {
