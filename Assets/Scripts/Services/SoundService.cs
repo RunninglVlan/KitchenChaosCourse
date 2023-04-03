@@ -61,7 +61,7 @@ namespace Services {
             Play(sounds.footstep, position, volume);
         }
 
-        public void PlayWarning() => Play(sounds.warning, Vector3.zero);
+        public void PlayWarning(Vector3 position) => Play(sounds.warning, position);
 
         private void Play(AudioClip[] clips, Vector3 position, float volume = 1) {
             Play(clips.GetRandom(), position, volume);

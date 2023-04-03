@@ -5,6 +5,7 @@ using UnityEngine;
 namespace Counters {
     public class StoveCounter : Counter {
         public event Action<State> StateChanged = delegate { };
+        public event Action WarningSet = delegate { };
 
         [SerializeField] private StoveRecipe[] fryingRecipes = Array.Empty<StoveRecipe>();
         [SerializeField] private StoveRecipe[] burningRecipes = Array.Empty<StoveRecipe>();
@@ -13,6 +14,7 @@ namespace Counters {
         private State state = State.Idle;
         private StoveRecipe currentRecipe = null!;
         private float seconds;
+        private bool setWarning;
 
         public override void Interact(Player player) {
             var counterHasObject = TryGetKitchenObject(out var counterObject);
@@ -26,6 +28,7 @@ namespace Counters {
                 }
                 playerObject.Parent = this;
                 progressBar.SetColor(ProgressBar.ColorType.Normal);
+                setWarning = false;
                 seconds = 0;
                 currentRecipe = recipe;
                 state = State.Frying;
@@ -55,14 +58,20 @@ namespace Counters {
             }
             switch (state) {
                 case State.Frying:
-                    Fry(State.Fried, burningRecipes, ProgressBar.ColorType.Warning);
+                    Fry(State.Fried, burningRecipes);
                     break;
                 case State.Fried:
                     Fry(State.Burned);
+                    var progress = seconds / currentRecipe.maxSeconds;
+                    if (!setWarning && progress > .5f) {
+                        progressBar.SetColor(ProgressBar.ColorType.Warning);
+                        setWarning = true;
+                        WarningSet();
+                    }
                     break;
             }
 
-            void Fry(State nextState, StoveRecipe[]? recipes = null, ProgressBar.ColorType colorType = default) {
+            void Fry(State nextState, StoveRecipe[]? recipes = null) {
                 seconds += Time.deltaTime;
                 var progress = seconds / currentRecipe.maxSeconds;
                 progressBar.Set(progress);
@@ -78,7 +87,6 @@ namespace Counters {
                     !TryGetRecipe(recipes, counterObject.Scriptable, out var recipe)) {
                     return;
                 }
-                progressBar.SetColor(colorType);
                 currentRecipe = recipe;
             }
         }

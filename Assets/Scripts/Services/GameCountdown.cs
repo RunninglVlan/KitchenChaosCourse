@@ -1,3 +1,4 @@
+using UnityEngine;
 using UnityEngine.UIElements;
 
 namespace Services {
@@ -31,7 +32,7 @@ namespace Services {
             if (previousSeconds == seconds) {
                 return;
             }
-            SoundService.Instance.PlayWarning();
+            SoundService.Instance.PlayWarning(Vector3.zero);
             counter.RemoveFromClassList(SMALL);
             previousSeconds = seconds;
             secondsChanged = true;
