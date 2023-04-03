@@ -6,4 +6,17 @@
     color: white;
     -unity-text-outline-width: 5px;
     -unity-text-outline-color: rgb(0, 166, 255);
+    display: none;
+    transition-timing-function: ease-out;
+    transition-property: scale, opacity;
+    transition-duration: .01s;
+    scale: 5 5;
+    opacity: 0;
+}
+
+.counter.cs-small {
+    display: flex;
+    scale: 1 1;
+    opacity: 1;
+    transition-duration: .3s;
 }

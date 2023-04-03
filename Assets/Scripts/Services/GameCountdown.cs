@@ -2,7 +2,11 @@ using UnityEngine.UIElements;
 
 namespace Services {
     public class GameCountdown : UIService {
+        private const string SMALL = "cs-small";
+
         private Label counter = null!;
+        private int previousSeconds;
+        private bool secondsChanged;
 
         void Start() {
             counter = document.rootVisualElement.Q<Label>("counter");
@@ -18,7 +22,19 @@ namespace Services {
             if (!GameService.Instance.IsCountingDownToStart) {
                 return;
             }
-            counter.text = GameService.Instance.CountdownSeconds.ToString();
+            var seconds = GameService.Instance.CountdownSeconds;
+            counter.text = seconds.ToString();
+            if (secondsChanged) {
+                counter.AddToClassList(SMALL);
+                secondsChanged = false;
+            }
+            if (previousSeconds == seconds) {
+                return;
+            }
+            SoundService.Instance.PlayWarning();
+            counter.RemoveFromClassList(SMALL);
+            previousSeconds = seconds;
+            secondsChanged = true;
         }
     }
 }
