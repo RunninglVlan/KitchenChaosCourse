@@ -733,12 +733,12 @@ MonoBehaviour:
   - name: Meat-Cooked
     input: {fileID: 11400000, guid: b8ba431b8c7e43e4a99f4eca4fb3d6c1, type: 2}
     output: {fileID: 11400000, guid: 04f1f46564c42014395c93cc986f6b71, type: 2}
-    maxSeconds: 3
+    maxSeconds: 5
   burningRecipes:
   - name: Meat-Burned
     input: {fileID: 11400000, guid: 04f1f46564c42014395c93cc986f6b71, type: 2}
     output: {fileID: 11400000, guid: 62af2e9bfd0b07c409154bb7f9950df7, type: 2}
-    maxSeconds: 5
+    maxSeconds: 6
 --- !u!4 &4848310096436140113 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1590965486082681986, guid: 2e70f998363bf3848b8a615d8327bb7e,
