@@ -46,8 +46,7 @@
 
 .option-control__button-container {
     width: 150px;
-    justify-content: center;
-    flex-direction: row;
+    align-items: center;
 }
 
 .option-control__button-container--keyboard, .option-control__button-container--gamepad {

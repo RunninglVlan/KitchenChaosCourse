@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 1744261547783366319}
   - component: {fileID: 93158289400546703}
   m_Layer: 0
-  m_Name: Sound
+  m_Name: Sounds
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -595,7 +595,7 @@ PrefabInstance:
     - target: {fileID: 1590965486082681986, guid: 2e70f998363bf3848b8a615d8327bb7e,
         type: 3}
       propertyPath: m_RootOrder
-      value: 0
+      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 1590965486082681986, guid: 2e70f998363bf3848b8a615d8327bb7e,
         type: 3}

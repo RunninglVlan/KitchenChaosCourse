@@ -1,18 +1,18 @@
 using UnityEngine;
 
 namespace Counters {
-    public class StoveCounterSound : MonoBehaviour {
+    public class StoveCounterSounds : MonoBehaviour {
         [SerializeField] private StoveCounter counter = null!;
 
         private AudioSource audioSource = null!;
 
         void Awake() {
             audioSource = GetComponent<AudioSource>();
-            counter.ActiveChanged += SetEffectsActive;
+            counter.StateChanged += SetEffectsActive;
         }
 
-        private void SetEffectsActive(bool value) {
-            if (value) {
+        private void SetEffectsActive(StoveCounter.State state) {
+            if (state is not StoveCounter.State.Idle) {
                 audioSource.Play();
             } else {
                 audioSource.Pause();

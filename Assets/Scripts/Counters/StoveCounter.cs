@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Counters {
     public class StoveCounter : Counter {
-        public event Action<bool> ActiveChanged = delegate { };
+        public event Action<State> StateChanged = delegate { };
 
         [SerializeField] private StoveRecipe[] fryingRecipes = Array.Empty<StoveRecipe>();
         [SerializeField] private StoveRecipe[] burningRecipes = Array.Empty<StoveRecipe>();
@@ -26,10 +26,10 @@ namespace Counters {
                 }
                 playerObject.Parent = this;
                 progressBar.SetColor(ProgressBar.ColorType.Normal);
-                state = State.Frying;
                 seconds = 0;
                 currentRecipe = recipe;
-                ActiveChanged(true);
+                state = State.Frying;
+                StateChanged(state);
             } else if (counterHasObject && state is State.Fried or State.Burned) {
                 counterObject.Parent = player;
                 GoToIdle();
@@ -45,7 +45,7 @@ namespace Counters {
             void GoToIdle() {
                 progressBar.Set(0);
                 state = State.Idle;
-                ActiveChanged(false);
+                StateChanged(state);
             }
         }
 
@@ -71,8 +71,9 @@ namespace Counters {
                 }
                 counterObject.DestroySelf();
                 KitchenObject.Spawn(currentRecipe.output, this);
-                state = nextState;
                 seconds = 0;
+                state = nextState;
+                StateChanged(state);
                 if (!TryGetKitchenObject(out counterObject) || recipes == null ||
                     !TryGetRecipe(recipes, counterObject.Scriptable, out var recipe)) {
                     return;
@@ -94,7 +95,7 @@ namespace Counters {
             return false;
         }
 
-        private enum State {
+        public enum State {
             Idle,
             Frying,
             Fried,

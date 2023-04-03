@@ -7,12 +7,12 @@ namespace Counters {
         [SerializeField] private GameObject[] effects = Array.Empty<GameObject>();
 
         void Awake() {
-            counter.ActiveChanged += SetEffectsActive;
+            counter.StateChanged += SetEffectsActive;
         }
 
-        private void SetEffectsActive(bool value) {
+        private void SetEffectsActive(StoveCounter.State state) {
             foreach (var effect in effects) {
-                effect.SetActive(value);
+                effect.SetActive(state is not StoveCounter.State.Idle);
             }
         }
     }

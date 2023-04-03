@@ -88,9 +88,9 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
                     ""isPartOfComposite"": true
                 },
                 {
-                    ""name"": ""down"",
-                    ""id"": ""9ac6f970-e427-4ba8-9199-75822f57198d"",
-                    ""path"": ""<Keyboard>/s"",
+                    ""name"": ""left"",
+                    ""id"": ""4860671d-ef97-4886-bbbd-67c30e34754f"",
+                    ""path"": ""<Keyboard>/a"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -99,9 +99,9 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
                     ""isPartOfComposite"": true
                 },
                 {
-                    ""name"": ""left"",
-                    ""id"": ""4860671d-ef97-4886-bbbd-67c30e34754f"",
-                    ""path"": ""<Keyboard>/a"",
+                    ""name"": ""down"",
+                    ""id"": ""9ac6f970-e427-4ba8-9199-75822f57198d"",
+                    ""path"": ""<Keyboard>/s"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
