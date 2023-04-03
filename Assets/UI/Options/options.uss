@@ -47,14 +47,19 @@
 .option-control__button-container {
     width: 150px;
     justify-content: center;
+    flex-direction: row;
+}
+
+.option-control__button-container--keyboard, .option-control__button-container--gamepad {
+    -unity-background-scale-mode: scale-to-fit;
 }
 
 .option-control__button-container--keyboard {
-    flex-direction: row-reverse;
+    background-image: url('project://database/Assets/UI/Icons/keyboard.png?fileID=2800000&guid=5b2520dbb4ffffd4eb88f81a8b1b826b&type=3#keyboard');
 }
 
 .option-control__button-container--gamepad {
-    flex-direction: row;
+    background-image: url('project://database/Assets/UI/Icons/gamepad.png?fileID=2800000&guid=88d55df2dfbfbd24283b7d8383c0a86b&type=3#gamepad');
 }
 
 .option-control__button {

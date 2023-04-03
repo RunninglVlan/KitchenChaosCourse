@@ -8,6 +8,7 @@ namespace Services {
     public class Options : UIService {
         private const string CONTROL_VECTOR = "Vector2";
         private const string ESC = "<Keyboard>/escape";
+        private const string KEYBOARD = "<Keyboard>";
         private const string GAMEPAD = "<Gamepad>";
 
         [SerializeField] private VisualTreeAsset controlAsset = null!;
@@ -93,7 +94,7 @@ namespace Services {
             var keyboardButton = element.Q<Button>("keyboard");
             SetBindingText(keyboardButton, keyboardBinding);
             keyboardButton.clicked += () => {
-                Rebind(action, keyboardBinding, () => SetBindingText(keyboardButton, keyboardBinding));
+                Rebind(action, keyboardBinding, KEYBOARD, () => SetBindingText(keyboardButton, keyboardBinding));
             };
             var gamepadButton = element.Q<Button>("gamepad");
             gamepadButton.visible = gamepadBinding.HasValue;
@@ -102,7 +103,8 @@ namespace Services {
             }
             SetBindingText(gamepadButton, gamepadBinding.Value);
             gamepadButton.clicked += () => {
-                Rebind(action, gamepadBinding.Value, () => SetBindingText(gamepadButton, gamepadBinding.Value));
+                Rebind(action, gamepadBinding.Value, GAMEPAD,
+                    () => SetBindingText(gamepadButton, gamepadBinding.Value));
             };
 
             void SetBindingText(Button button, int binding) {
@@ -110,10 +112,13 @@ namespace Services {
             }
         }
 
-        private void Rebind(InputAction action, int binding, Action completeAction) {
+        private void Rebind(InputAction action, int binding, string devicePath, Action completeAction) {
             rebindingOverlay.SetActive(true);
+            var deviceInput = devicePath == KEYBOARD ? "Keyboard key" : "Controller button";
+            rebindingOverlay.Q<Label>("overlay-label").text = $"Waiting for the {deviceInput}";
             action.Disable();
             action.PerformInteractiveRebinding(binding)
+                .WithControlsHavingToMatchPath(devicePath)
                 .WithCancelingThrough(ESC)
                 .OnCancel(OnEnd)
                 .OnComplete(operation => {

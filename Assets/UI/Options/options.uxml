@@ -9,10 +9,16 @@
         <ui:Slider label="Music" name="music" class="option-slider">
             <ui:Label text="10" name="value" class="option-slider__value" />
         </ui:Slider>
-        <ui:VisualElement name="controls" />
+        <ui:VisualElement name="controls">
+            <ui:VisualElement class="option-control">
+                <ui:Label class="option-control__label" />
+                <ui:VisualElement class="option-control__button-container option-control__button-container--keyboard" />
+                <ui:VisualElement class="option-control__button-container option-control__button-container--gamepad" />
+            </ui:VisualElement>
+        </ui:VisualElement>
         <ui:Button text="Close" name="hide" class="button button--big" />
     </ui:VisualElement>
     <ui:VisualElement name="overlay" class="background">
-        <ui:Label text="Waiting for a key" class="overlay-label" />
+        <ui:Label text="Waiting for a key" name="overlay-label" class="overlay-label" />
     </ui:VisualElement>
 </ui:UXML>
