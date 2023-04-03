@@ -4,7 +4,6 @@ using UnityEngine.InputSystem;
 
 namespace Services {
     public class GameService : MonoBehaviour {
-        private const float MAX_WAITING_SECONDS = 1;
         private const float MAX_COUNTDOWN_SECONDS = 3;
         public const float MAX_PLAYING_SECONDS = 60;
 
@@ -33,13 +32,21 @@ namespace Services {
         }
 
         void Start() {
+            GameInput.Instance.Actions.Player.Interact.performed += GoToCountdown;
             GameInput.Instance.Actions.Player.Pause.performed += TogglePause;
+
+            void GoToCountdown(InputAction.CallbackContext _) {
+                if (state != State.WaitingToStart) {
+                    return;
+                }
+                state = State.CountdownToStart;
+                StateChanged();
+            }
         }
 
         void Update() {
             switch (state) {
                 case State.WaitingToStart:
-                    Count(State.CountdownToStart, MAX_WAITING_SECONDS);
                     break;
                 case State.CountdownToStart:
                     Count(State.GamePlaying, MAX_COUNTDOWN_SECONDS);

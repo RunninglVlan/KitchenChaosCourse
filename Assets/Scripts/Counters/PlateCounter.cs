@@ -1,4 +1,5 @@
 using KitchenObjects;
+using Services;
 using UnityEngine;
 
 namespace Counters {
@@ -22,7 +23,7 @@ namespace Counters {
         }
 
         void Update() {
-            if (spawnedPlates >= MAX_SPAWNED_PLATES) {
+            if (!GameService.Instance.IsPlaying || spawnedPlates >= MAX_SPAWNED_PLATES) {
                 return;
             }
             spawnSeconds += Time.deltaTime;

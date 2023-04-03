@@ -7,10 +7,12 @@ using UnityEngine.UIElements;
 
 namespace Services {
     public class Options : UIService {
-        private const string CONTROL_VECTOR = "Vector2";
+        public const string CONTROL_VECTOR = "Vector2";
         private const string ESC = "<Keyboard>/escape";
-        private const string KEYBOARD = "<Keyboard>";
-        private const string GAMEPAD = "<Gamepad>";
+        public const string KEYBOARD = "<Keyboard>";
+        public const string GAMEPAD = "<Gamepad>";
+
+        public event Action ControlsRebound = delegate { };
 
         [SerializeField] private VisualTreeAsset controlAsset = null!;
 
@@ -130,6 +132,7 @@ namespace Services {
                     OnEnd(operation);
                     completeAction();
                     GameInput.Instance.Save();
+                    ControlsRebound();
                 })
                 .Start();
 

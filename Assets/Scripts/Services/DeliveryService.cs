@@ -27,7 +27,7 @@ namespace Services {
         }
 
         void Update() {
-            if (orders.Count >= MAX_ORDERS) {
+            if (!GameService.Instance.IsPlaying || orders.Count >= MAX_ORDERS) {
                 return;
             }
             recipeSeconds += Time.deltaTime;
