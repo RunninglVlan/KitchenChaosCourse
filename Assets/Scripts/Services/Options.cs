@@ -15,7 +15,7 @@ namespace Services {
         [SerializeField] private VisualTreeAsset controlAsset = null!;
 
         private VisualElement rebindingOverlay = null!;
-        private Action hideAction = null!;
+        private Action? hideAction;
 
         public static Options Instance { get; private set; } = null!;
 
@@ -47,7 +47,7 @@ namespace Services {
             }
 
             void Hide() {
-                hideAction();
+                hideAction?.Invoke();
                 root.SetActive(false);
             }
         }
