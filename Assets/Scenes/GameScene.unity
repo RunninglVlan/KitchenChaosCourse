@@ -2614,6 +2614,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   document: {fileID: 2037219246}
+  loadingScene: LoadingScene
 --- !u!114 &1228013216
 MonoBehaviour:
   m_ObjectHideFlags: 0
