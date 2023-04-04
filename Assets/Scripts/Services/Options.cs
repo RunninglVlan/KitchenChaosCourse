@@ -6,7 +6,7 @@ using UnityEngine.InputSystem;
 using UnityEngine.UIElements;
 
 namespace Services {
-    public class Options : UIService {
+    public partial class Options : UIService {
         public const string CONTROL_VECTOR = "Vector2";
         private const string ESC = "<Keyboard>/escape";
         public const string KEYBOARD = "<Keyboard>";
@@ -18,16 +18,6 @@ namespace Services {
 
         private VisualElement rebindingOverlay = null!;
         private Action? hideAction;
-
-        public static Options Instance { get; private set; } = null!;
-
-        protected override void Awake() {
-            base.Awake();
-            if (Instance) {
-                Debug.LogError("Multiple instances in the scene");
-            }
-            Instance = this;
-        }
 
         void Start() {
             var root = document.rootVisualElement;

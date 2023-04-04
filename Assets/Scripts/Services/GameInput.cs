@@ -2,7 +2,7 @@
 using UnityEngine.InputSystem;
 
 namespace Services {
-    public class GameInput : MonoBehaviour {
+    public class GameInput : Singleton<GameInput> {
         private const string BINDING_OVERRIDES = "BindingOverrides";
 
         public InputActions Actions { get; private set; } = null!;
@@ -12,13 +12,8 @@ namespace Services {
             set => PlayerPrefs.SetString(BINDING_OVERRIDES, value);
         }
 
-        public static GameInput Instance { get; private set; } = null!;
-
-        void Awake() {
-            if (Instance) {
-                Debug.LogError("Multiple instances in the scene");
-            }
-            Instance = this;
+        protected override void Awake() {
+            base.Awake();
             Actions = new InputActions();
             Actions.LoadBindingOverridesFromJson(BindOverrides);
         }

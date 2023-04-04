@@ -3,20 +3,10 @@ using UnityEngine;
 using UnityEngine.UIElements;
 
 namespace Services {
-    public class DeliveryServiceUI : UIService {
+    public partial class DeliveryServiceUI : UIService {
         [SerializeField] private VisualTreeAsset orderAsset = null!;
 
         private VisualElement orders = null!;
-
-        public static DeliveryServiceUI Instance { get; private set; } = null!;
-
-        protected override void Awake() {
-            base.Awake();
-            if (Instance) {
-                Debug.LogError("Multiple instances in the scene");
-            }
-            Instance = this;
-        }
 
         void Start() {
             orders = document.rootVisualElement.Q<VisualElement>("orders");

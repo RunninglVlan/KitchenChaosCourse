@@ -2,7 +2,7 @@
 using UnityEngine;
 
 namespace Services {
-    public class SoundService : MonoBehaviour {
+    public class SoundService : Singleton<SoundService> {
         private const string VOLUME = "SoundVolume";
 
         [SerializeField] private Sounds sounds = null!;
@@ -17,13 +17,8 @@ namespace Services {
             }
         }
 
-        public static SoundService Instance { get; private set; } = null!;
-
-        void Awake() {
-            if (Instance) {
-                Debug.LogError("Multiple instances in the scene");
-            }
-            Instance = this;
+        protected override void Awake() {
+            base.Awake();
             baseVolume = Volume;
         }
 

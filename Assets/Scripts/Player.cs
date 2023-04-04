@@ -5,7 +5,7 @@ using Services;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class Player : KitchenObjectParent {
+public partial class Player : KitchenObjectParent {
     private const float ROTATE_SPEED = 10;
 
     public event Action<Counter?> SelectedCounterChanged = delegate { };
@@ -21,15 +21,6 @@ public class Player : KitchenObjectParent {
     public bool IsWalking { get; private set; }
     private Vector3 interactDirection;
     private Counter? selectedCounter;
-
-    public static Player Instance { get; private set; } = null!;
-
-    void Awake() {
-        if (Instance) {
-            Debug.LogError("Multiple instances in the scene");
-        }
-        Instance = this;
-    }
 
     void Start() {
         GameInput.Instance.Actions.Player.Interact.performed += Interact;

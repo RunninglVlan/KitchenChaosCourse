@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 
 namespace Services {
-    public class GameService : MonoBehaviour {
+    public class GameService : Singleton<GameService> {
         private const float MAX_COUNTDOWN_SECONDS = 3;
         public const float MAX_PLAYING_SECONDS = 60;
 
@@ -21,15 +21,6 @@ namespace Services {
 
         public int CountdownSeconds =>
             IsCountingDownToStart ? (int)MAX_COUNTDOWN_SECONDS - Mathf.FloorToInt(seconds) : 0;
-
-        public static GameService Instance { get; private set; } = null!;
-
-        void Awake() {
-            if (Instance) {
-                Debug.LogError("Multiple instances in the scene");
-            }
-            Instance = this;
-        }
 
         void Start() {
             GameInput.Instance.Actions.Player.Interact.performed += GoToCountdown;

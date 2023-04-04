@@ -4,7 +4,7 @@ using KitchenObjects;
 using UnityEngine;
 
 namespace Services {
-    public class DeliveryService : MonoBehaviour {
+    public class DeliveryService : Singleton<DeliveryService> {
         private const float MAX_RECIPE_SECONDS = 4;
         private const float MAX_ORDERS = 4;
 
@@ -16,15 +16,6 @@ namespace Services {
         private readonly List<DeliveryRecipe> orders = new();
         private float recipeSeconds;
         public int DeliveredOrders { get; private set; }
-
-        public static DeliveryService Instance { get; private set; } = null!;
-
-        void Awake() {
-            if (Instance) {
-                Debug.LogError("Multiple instances in the scene");
-            }
-            Instance = this;
-        }
 
         void Update() {
             if (!GameService.Instance.IsPlaying || orders.Count >= MAX_ORDERS) {

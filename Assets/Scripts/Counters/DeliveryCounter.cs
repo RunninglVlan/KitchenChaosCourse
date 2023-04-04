@@ -1,18 +1,8 @@
 using KitchenObjects;
 using Services;
-using UnityEngine;
 
 namespace Counters {
-    public class DeliveryCounter : Counter {
-        public static DeliveryCounter Instance { get; private set; } = null!;
-
-        void Awake() {
-            if (Instance) {
-                Debug.LogError("Multiple instances in the scene");
-            }
-            Instance = this;
-        }
-
+    public partial class DeliveryCounter : Counter {
         public override void Interact(Player player) {
             if (!player.TryGetKitchenObject(out var playerObject)) {
                 return;

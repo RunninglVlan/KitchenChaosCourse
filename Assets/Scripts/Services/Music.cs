@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 
 namespace Services {
-    public class Music : MonoBehaviour {
+    public class Music : Singleton<Music>  {
         private const string VOLUME = "MusicVolume";
 
         private AudioSource audioSource = null!;
@@ -14,13 +14,8 @@ namespace Services {
             }
         }
 
-        public static Music Instance { get; private set; } = null!;
-
-        void Awake() {
-            if (Instance) {
-                Debug.LogError("Multiple instances in the scene");
-            }
-            Instance = this;
+        protected override void Awake() {
+            base.Awake();
             audioSource = GetComponent<AudioSource>();
             audioSource.volume = Volume;
         }
