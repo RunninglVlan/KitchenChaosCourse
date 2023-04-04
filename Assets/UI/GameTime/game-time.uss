@@ -1,6 +1,0 @@
-﻿.time {
-    color: white;
-    font-size: 40px;
-    -unity-text-align: upper-right;
-    margin: 10px;
-}
