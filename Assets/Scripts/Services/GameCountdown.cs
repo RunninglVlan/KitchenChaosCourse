@@ -9,14 +9,18 @@ namespace Services {
         private int previousSeconds;
         private bool secondsChanged;
 
-        void Start() {
-            counter = document.rootVisualElement.Q<Label>("counter");
+        protected override void Awake() {
+            base.Awake();
             document.rootVisualElement.SetActive(false);
             GameService.Instance.StateChanged += SetActive;
+
+            void SetActive() {
+                document.rootVisualElement.SetActive(GameService.Instance.IsCountingDownToStart);
+            }
         }
 
-        private void SetActive() {
-            document.rootVisualElement.SetActive(GameService.Instance.IsCountingDownToStart);
+        void Start() {
+            counter = document.rootVisualElement.Q<Label>("counter");
         }
 
         void Update() {

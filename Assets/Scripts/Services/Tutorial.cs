@@ -11,17 +11,21 @@ namespace Services {
 
         private VisualElement controls = null!;
 
-        void Start() {
-            controls = document.rootVisualElement.Q<VisualElement>("controls");
+        protected override void Awake() {
+            base.Awake();
             GameService.Instance.StateChanged += HideOnCountdown;
-            Options.Instance.ControlsRebound += AddControls;
-            AddControls();
 
             void HideOnCountdown() {
                 if (GameService.Instance.IsCountingDownToStart) {
                     document.rootVisualElement.SetActive(false);
                 }
             }
+        }
+
+        void Start() {
+            controls = document.rootVisualElement.Q<VisualElement>("controls");
+            Options.Instance.ControlsRebound += AddControls;
+            AddControls();
         }
 
         private void AddControls() {
