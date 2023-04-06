@@ -1,7 +1,8 @@
+using Unity.Netcode;
 using UnityEngine;
 
 namespace KitchenChaos {
-    public class PlayerAnimator : MonoBehaviour {
+    public class PlayerAnimator : NetworkBehaviour {
         private static readonly int IS_WALKING = Animator.StringToHash("IsWalking");
 
         [SerializeField] private Player player = null!;
@@ -10,6 +11,11 @@ namespace KitchenChaos {
 
         void Awake() => animator = GetComponent<Animator>();
 
-        void Update() => animator.SetBool(IS_WALKING, player.IsWalking);
+        void Update() {
+            if (!IsOwner) {
+                return;
+            }
+            animator.SetBool(IS_WALKING, player.IsWalking);
+        }
     }
 }
