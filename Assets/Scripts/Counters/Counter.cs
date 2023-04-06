@@ -1,13 +1,8 @@
 using KitchenObjects;
-using Services;
 using UnityEngine;
 
 namespace Counters {
-    public abstract class Counter : KitchenObjectParent {
-        [SerializeField] private Transform top = null!;
-
-        public override Transform ObjectLocation => top;
-
+    public abstract partial class Counter : MonoBehaviour {
         public abstract void Interact(Player player);
         public virtual void InteractAlternate() { }
 
@@ -20,11 +15,6 @@ namespace Counters {
                 ingredient.DestroySelf();
             }
             return added;
-        }
-
-        public override void SetKitchenObject(KitchenObject value) {
-            base.SetKitchenObject(value);
-            SoundService.Instance.PlayDrop(this);
         }
     }
 }

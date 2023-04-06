@@ -1,11 +1,10 @@
 using System;
 using Counters;
-using KitchenObjects;
 using Services;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public partial class Player : KitchenObjectParent {
+public partial class Player : MonoBehaviour {
     private const float ROTATE_SPEED = 10;
 
     public event Action<Counter?> SelectedCounterChanged = delegate { };
@@ -14,9 +13,6 @@ public partial class Player : KitchenObjectParent {
     [SerializeField] private float speed = 1;
     [SerializeField] private float height = 2;
     [SerializeField] private float radius = .5f;
-    [SerializeField] private Transform hands = null!;
-
-    public override Transform ObjectLocation => hands;
 
     public bool IsWalking { get; private set; }
     private Vector3 interactDirection;
@@ -106,10 +102,5 @@ public partial class Player : KitchenObjectParent {
             return;
         }
         selectedCounter.InteractAlternate();
-    }
-
-    public override void SetKitchenObject(KitchenObject value) {
-        base.SetKitchenObject(value);
-        PickedUp();
     }
 }

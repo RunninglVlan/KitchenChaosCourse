@@ -5,13 +5,11 @@ namespace KitchenObjects {
         [SerializeField] private KitchenObjectScriptable scriptable = null!;
 
         public KitchenObjectScriptable Scriptable => scriptable;
-        private KitchenObjectParent? parent;
+        private IKitchenObjectParent? parent;
 
-        public KitchenObjectParent Parent {
+        public IKitchenObjectParent Parent {
             set {
-                if (parent) {
-                    parent!.ClearKitchenObject();
-                }
+                parent?.ClearKitchenObject();
                 parent = value;
                 if (parent.HasKitchenObject()) {
                     Debug.LogError($"Parent already has a {nameof(KitchenObject)}!");
@@ -23,7 +21,7 @@ namespace KitchenObjects {
             }
         }
 
-        public static void Spawn(KitchenObjectScriptable scriptable, KitchenObjectParent parent) {
+        public static void Spawn(KitchenObjectScriptable scriptable, IKitchenObjectParent parent) {
             var instance = Instantiate(scriptable.prefab);
             instance.Parent = parent;
         }

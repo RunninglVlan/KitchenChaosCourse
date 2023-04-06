@@ -1,9 +1,13 @@
-﻿using UnityEngine;
+using KitchenObjects;
+using Services;
+using UnityEngine;
 
-namespace KitchenObjects {
-    public abstract class KitchenObjectParent : MonoBehaviour {
+namespace Counters {
+    public abstract partial class Counter : IKitchenObjectParent {
+        [SerializeField] private Transform top = null!;
+
         private KitchenObject? kitchenObject;
-        public abstract Transform ObjectLocation { get; }
+        public Transform ObjectLocation => top;
 
         public bool TryGetKitchenObject(out KitchenObject foundObject) {
             foundObject = null!;
@@ -15,7 +19,12 @@ namespace KitchenObjects {
         }
 
         public void ClearKitchenObject() => kitchenObject = null;
-        public virtual void SetKitchenObject(KitchenObject value) => kitchenObject = value;
+
+        public void SetKitchenObject(KitchenObject value) {
+            kitchenObject = value;
+            SoundService.Instance.PlayDrop(this);
+        }
+
         public bool HasKitchenObject() => kitchenObject;
     }
 }
