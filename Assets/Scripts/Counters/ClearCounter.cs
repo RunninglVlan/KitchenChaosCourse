@@ -1,4 +1,4 @@
-namespace Counters {
+namespace KitchenChaos.Counters {
     public class ClearCounter : Counter {
         public override void Interact(Player player) {
             var counterHasObject = TryGetKitchenObject(out var counterObject);

@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Services {
+namespace KitchenChaos.Services {
     public class Music : Singleton<Music>  {
         private const string VOLUME = "MusicVolume";
 

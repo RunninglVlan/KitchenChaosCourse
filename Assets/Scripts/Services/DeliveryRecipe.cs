@@ -1,8 +1,8 @@
 ﻿using System;
 using JetBrains.Annotations;
-using KitchenObjects;
+using KitchenChaos.KitchenObjects;
 
-namespace Services {
+namespace KitchenChaos.Services {
     [Serializable]
     public class DeliveryRecipe {
         [UsedImplicitly] public string name = null!;

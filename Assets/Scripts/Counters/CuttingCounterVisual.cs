@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Counters {
+namespace KitchenChaos.Counters {
     public class CuttingCounterVisual : MonoBehaviour {
         private static readonly int CUT = Animator.StringToHash("Cut");
 

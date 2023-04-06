@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 
-namespace KitchenObjects {
+namespace KitchenChaos.KitchenObjects {
     public class PlateIcon : MonoBehaviour {
         [SerializeField] private Image image = null!;
 

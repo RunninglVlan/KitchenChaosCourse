@@ -1,8 +1,8 @@
-using KitchenObjects;
-using Services;
+using KitchenChaos.KitchenObjects;
+using KitchenChaos.Services;
 using UnityEngine;
 
-namespace Counters {
+namespace KitchenChaos.Counters {
     public class PlateCounter : Counter {
         private const float MAX_SPAWN_SECONDS = 4;
         private const float MAX_SPAWNED_PLATES = 4;

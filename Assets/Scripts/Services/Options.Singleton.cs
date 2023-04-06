@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Services {
+namespace KitchenChaos.Services {
     public partial class Options {
         public static Options Instance { get; private set; } = null!;
 

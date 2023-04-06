@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UIElements;
 
-namespace Services {
+namespace KitchenChaos.Services {
     public partial class Options : UIService {
         public const string CONTROL_VECTOR = "Vector2";
         private const string ESC = "<Keyboard>/escape";

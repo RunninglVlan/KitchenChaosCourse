@@ -1,8 +1,8 @@
 ﻿using System;
-using KitchenObjects;
+using KitchenChaos.KitchenObjects;
 using UnityEngine;
 
-namespace Counters {
+namespace KitchenChaos.Counters {
     public class StoveCounter : Counter, IHasProgress {
         public event Action<float> ProgressSet = delegate { };
         public event Action<State> StateChanged = delegate { };

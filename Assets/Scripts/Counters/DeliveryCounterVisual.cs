@@ -1,8 +1,8 @@
-using Services;
+using KitchenChaos.Services;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Counters {
+namespace KitchenChaos.Counters {
     public class DeliveryCounterVisual : MonoBehaviour {
         private const float MAX_SHOWING_SECONDS = 1;
 

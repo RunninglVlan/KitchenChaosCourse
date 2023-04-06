@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UIElements;
 
-namespace Services {
+namespace KitchenChaos.Services {
     public class GamePause : UIService {
         [SerializeField, Scene] private string mainMenu = null!;
 

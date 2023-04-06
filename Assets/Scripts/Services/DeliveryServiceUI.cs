@@ -2,7 +2,7 @@
 using UnityEngine;
 using UnityEngine.UIElements;
 
-namespace Services {
+namespace KitchenChaos.Services {
     public partial class DeliveryServiceUI : UIService {
         [SerializeField] private VisualTreeAsset orderAsset = null!;
 

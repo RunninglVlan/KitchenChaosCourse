@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-namespace KitchenObjects {
+namespace KitchenChaos.KitchenObjects {
     public class PlateObject : KitchenObject {
         public event Action<KitchenObjectScriptable> IngredientAdded = delegate { };
 

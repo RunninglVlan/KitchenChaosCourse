@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-namespace Services {
+namespace KitchenChaos.Services {
     [Serializable]
     public class Sounds {
         public AudioClip[] chop = Array.Empty<AudioClip>();

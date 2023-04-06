@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using KitchenObjects;
+using KitchenChaos.KitchenObjects;
 using UnityEngine;
 
-namespace Services {
+namespace KitchenChaos.Services {
     public class DeliveryService : Singleton<DeliveryService> {
         private const float MAX_RECIPE_SECONDS = 4;
         private const float MAX_ORDERS = 4;

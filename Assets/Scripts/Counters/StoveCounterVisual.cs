@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-namespace Counters {
+namespace KitchenChaos.Counters {
     public class StoveCounterVisual : MonoBehaviour {
         [SerializeField] private StoveCounter counter = null!;
         [SerializeField] private GameObject[] effects = Array.Empty<GameObject>();

@@ -1,7 +1,7 @@
-﻿using Counters;
+﻿using KitchenChaos.Counters;
 using UnityEngine;
 
-namespace Services {
+namespace KitchenChaos.Services {
     public class SoundService : Singleton<SoundService> {
         private const string VOLUME = "SoundVolume";
 

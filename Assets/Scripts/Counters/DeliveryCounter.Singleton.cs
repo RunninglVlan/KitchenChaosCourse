@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Counters {
+namespace KitchenChaos.Counters {
     public partial class DeliveryCounter {
         public static DeliveryCounter Instance { get; private set; } = null!;
 

@@ -2,7 +2,7 @@
 using JetBrains.Annotations;
 using UnityEngine;
 
-namespace KitchenObjects {
+namespace KitchenChaos.KitchenObjects {
     public class PlateCompleteVisual : MonoBehaviour {
         [SerializeField] private PlateObject plateObject = null!;
         [SerializeField] private IngredientObject[] ingredientObjects = Array.Empty<IngredientObject>();

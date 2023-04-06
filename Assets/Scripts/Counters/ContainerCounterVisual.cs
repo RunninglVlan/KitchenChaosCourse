@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Counters {
+namespace KitchenChaos.Counters {
     public class ContainerCounterVisual : MonoBehaviour {
         private static readonly int OPEN_CLOSE = Animator.StringToHash("OpenClose");
 

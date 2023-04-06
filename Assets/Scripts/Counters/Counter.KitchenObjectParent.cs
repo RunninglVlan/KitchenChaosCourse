@@ -1,8 +1,8 @@
-using KitchenObjects;
-using Services;
+using KitchenChaos.KitchenObjects;
+using KitchenChaos.Services;
 using UnityEngine;
 
-namespace Counters {
+namespace KitchenChaos.Counters {
     public abstract partial class Counter : IKitchenObjectParent {
         [SerializeField] private Transform top = null!;
 

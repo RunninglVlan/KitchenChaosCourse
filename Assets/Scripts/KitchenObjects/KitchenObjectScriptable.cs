@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace KitchenObjects {
+namespace KitchenChaos.KitchenObjects {
     [CreateAssetMenu(fileName = nameof(KitchenObjectScriptable),
         menuName = "Scriptable/" + nameof(KitchenObjectScriptable))]
     public class KitchenObjectScriptable : ScriptableObject {

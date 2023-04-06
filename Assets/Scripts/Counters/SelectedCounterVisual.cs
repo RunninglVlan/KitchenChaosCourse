@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Counters {
+namespace KitchenChaos.Counters {
     public class SelectedCounterVisual : MonoBehaviour {
         [SerializeField] private Counter counter = null!;
         [SerializeField] private GameObject[] visuals = null!;

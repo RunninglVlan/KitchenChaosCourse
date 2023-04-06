@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UIElements;
 
-namespace Services {
+namespace KitchenChaos.Services {
     public class MainMenu : UIService {
         [SerializeField, Scene] private string loadingScene = null!;
         [SerializeField, Scene] private string gameScene = null!;

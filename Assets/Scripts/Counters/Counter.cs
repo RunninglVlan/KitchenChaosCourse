@@ -1,7 +1,7 @@
-using KitchenObjects;
+using KitchenChaos.KitchenObjects;
 using UnityEngine;
 
-namespace Counters {
+namespace KitchenChaos.Counters {
     public abstract partial class Counter : MonoBehaviour {
         public abstract void Interact(Player player);
         public virtual void InteractAlternate() { }

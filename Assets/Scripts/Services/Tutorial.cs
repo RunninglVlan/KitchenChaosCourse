@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UIElements;
 
-namespace Services {
+namespace KitchenChaos.Services {
     public class Tutorial : UIService {
         private const string BUTTON_CLASS = "cs-button";
 

@@ -1,9 +1,9 @@
 using System;
-using KitchenObjects;
-using Services;
+using KitchenChaos.KitchenObjects;
+using KitchenChaos.Services;
 using UnityEngine;
 
-namespace Counters {
+namespace KitchenChaos.Counters {
     public class CuttingCounter : Counter, IHasProgress {
         public event Action<float> ProgressSet = delegate { };
 

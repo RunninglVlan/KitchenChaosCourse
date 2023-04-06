@@ -1,6 +1,6 @@
-using Services;
+using KitchenChaos.Services;
 
-namespace Counters {
+namespace KitchenChaos.Counters {
     public class TrashCounter : Counter {
         public override void Interact(Player player) {
             if (!player.TryGetKitchenObject(out var playerObject)) {

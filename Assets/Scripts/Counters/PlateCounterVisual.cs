@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Counters {
+namespace KitchenChaos.Counters {
     public class PlateCounterVisual : MonoBehaviour {
         private const float PLATE_OFFSET = .1f;
 

@@ -1,7 +1,7 @@
-using KitchenObjects;
+using KitchenChaos.KitchenObjects;
 using UnityEngine;
 
-namespace Counters {
+namespace KitchenChaos.Counters {
     public class ContainerCounter : Counter {
         [SerializeField] private KitchenObjectScriptable containerObject = null!;
         [SerializeField] private ContainerCounterVisual visual = null!;

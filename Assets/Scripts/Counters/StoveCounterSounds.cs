@@ -1,7 +1,7 @@
-using Services;
+using KitchenChaos.Services;
 using UnityEngine;
 
-namespace Counters {
+namespace KitchenChaos.Counters {
     public class StoveCounterSounds : MonoBehaviour {
         private const float MAX_WARNING_SECONDS = .2f;
 

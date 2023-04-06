@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.InputSystem;
 
-namespace Services {
+namespace KitchenChaos.Services {
     public class GameInput : Singleton<GameInput> {
         private const string BINDING_OVERRIDES = "BindingOverrides";
 

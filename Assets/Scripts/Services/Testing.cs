@@ -1,7 +1,7 @@
 ﻿using Unity.Netcode;
 using UnityEngine.UIElements;
 
-namespace Services {
+namespace KitchenChaos.Services {
     public class Testing : UIService {
         void Start() {
             var root = document.rootVisualElement;

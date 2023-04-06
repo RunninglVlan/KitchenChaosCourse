@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace KitchenObjects {
+namespace KitchenChaos.KitchenObjects {
     public class KitchenObject : MonoBehaviour {
         [SerializeField] private KitchenObjectScriptable scriptable = null!;
 

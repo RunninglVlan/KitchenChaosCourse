@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.UIElements;
 
-namespace Services {
+namespace KitchenChaos.Services {
     public class GameCountdown : UIService {
         private const string SMALL = "cs-small";
 

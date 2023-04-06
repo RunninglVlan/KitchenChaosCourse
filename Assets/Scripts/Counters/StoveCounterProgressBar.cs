@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Counters {
+namespace KitchenChaos.Counters {
     public class StoveCounterProgressBar : ProgressBar {
         private const float MAX_FLASHING_SECONDS = .1f;
 
