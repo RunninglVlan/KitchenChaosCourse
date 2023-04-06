@@ -85,12 +85,13 @@ namespace KitchenChaos {
                 SetSelectedCounter(null);
                 return;
             }
-            if (counter != selectedCounter) {
-                SetSelectedCounter(counter);
-            }
+            SetSelectedCounter(counter);
         }
 
         private void SetSelectedCounter(Counter? counter) {
+            if (selectedCounter == counter) {
+                return;
+            }
             selectedCounter = counter;
             SelectedCounterChanged(counter);
         }
