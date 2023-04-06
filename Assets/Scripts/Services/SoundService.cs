@@ -25,7 +25,8 @@ namespace Services {
         void Start() {
             DeliveryService.Instance.DeliverySucceeded += PlayDeliverySuccess;
             DeliveryService.Instance.DeliveryFailed += PlayDeliveryFail;
-            Player.Instance.PickedUp += PlayPickup;
+            // TODO: Fix
+            // Player.Instance.PickedUp += PlayPickup;
         }
 
         private void PlayDeliverySuccess() {
@@ -41,7 +42,8 @@ namespace Services {
         }
 
         private void PlayPickup() {
-            Play(sounds.objectPickup, Player.Instance.transform.position);
+            // TODO: Fix
+            // Play(sounds.objectPickup, Player.Instance.transform.position);
         }
 
         public void PlayDrop(Counter counter) {

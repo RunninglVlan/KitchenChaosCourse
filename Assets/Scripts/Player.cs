@@ -1,10 +1,11 @@
 using System;
 using Counters;
 using Services;
+using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public partial class Player : MonoBehaviour {
+public partial class Player : NetworkBehaviour {
     private const float ROTATE_SPEED = 10;
 
     public event Action<Counter?> SelectedCounterChanged = delegate { };

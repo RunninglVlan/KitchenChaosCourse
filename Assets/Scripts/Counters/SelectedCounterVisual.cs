@@ -6,7 +6,8 @@ namespace Counters {
         [SerializeField] private GameObject[] visuals = null!;
 
         void Start() {
-            Player.Instance.SelectedCounterChanged += SetVisualActive;
+            // TODO: Fix
+            // Player.Instance.SelectedCounterChanged += SetVisualActive;
         }
 
         private void SetVisualActive(Counter? selectedCounter) {
