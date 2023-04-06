@@ -26,6 +26,9 @@ namespace KitchenChaos {
         }
 
         void Update() {
+            if (!IsOwner) {
+                return;
+            }
             var input = GameInput.Instance.Actions.Player.Move.ReadValue<Vector2>();
             Move(input);
             SelectCounter(input);
