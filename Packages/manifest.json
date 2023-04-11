@@ -2,7 +2,6 @@
   "dependencies": {
     "com.bennykok.toolbar-buttons": "https://github.com/BennyKok/unity-toolbar-buttons.git#v2.2.0",
     "com.dbrizov.naughtyattributes": "https://github.com/dbrizov/NaughtyAttributes.git#v2.1.4",
-    "com.veriorpies.parrelsync": "https://github.com/VeriorPies/ParrelSync.git?path=/ParrelSync",
     "com.unity.2d.sprite": "1.0.0",
     "com.unity.cinemachine": "2.9.5",
     "com.unity.ide.rider": "3.0.18",
@@ -14,6 +13,7 @@
     "com.unity.timeline": "1.8.0",
     "com.unity.ugui": "1.0.0",
     "com.unity.visualscripting": "1.8.0",
+    "com.veriorpies.parrelsync": "https://github.com/VeriorPies/ParrelSync.git?path=/ParrelSync",
     "com.unity.modules.ai": "1.0.0",
     "com.unity.modules.androidjni": "1.0.0",
     "com.unity.modules.animation": "1.0.0",

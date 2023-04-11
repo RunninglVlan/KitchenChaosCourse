@@ -32,11 +32,11 @@ namespace KitchenChaos.Services {
 
         public void Deliver(PlateObject plate) {
             for (var index = 0; index < orders.Count; index++) {
-                var recipe = orders[index];
-                if (recipe.ingredients.Length != plate.Ingredients.Count) {
+                var order = orders[index];
+                if (order.ingredients.Length != plate.Ingredients.Count) {
                     continue;
                 }
-                if (!PlateContentMatchesRecipe(recipe)) {
+                if (!PlateContentMatchesOrder(order)) {
                     continue;
                 }
                 orders.RemoveAt(index);
@@ -47,9 +47,9 @@ namespace KitchenChaos.Services {
             }
             DeliveryFailed();
 
-            bool PlateContentMatchesRecipe(DeliveryRecipe recipe) {
+            bool PlateContentMatchesOrder(DeliveryRecipe order) {
                 var result = true;
-                foreach (var recipeIngredient in recipe.ingredients) {
+                foreach (var recipeIngredient in order.ingredients) {
                     var plateHasIngredient = false;
                     foreach (var plateIngredient in plate.Ingredients) {
                         if (recipeIngredient != plateIngredient) {
