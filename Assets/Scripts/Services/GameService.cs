@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 
 namespace KitchenChaos.Services {
-    public class GameService : Singleton<GameService> {
+    public class GameService : MonoSingleton<GameService> {
         private const float MAX_COUNTDOWN_SECONDS = 3;
         public const float MAX_PLAYING_SECONDS = 60;
 
