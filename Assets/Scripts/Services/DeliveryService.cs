@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using KitchenChaos.KitchenObjects;
+using Unity.Netcode;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace KitchenChaos.Services {
-    public class DeliveryService : MonoSingleton<DeliveryService> {
+    public class DeliveryService : NetworkSingleton<DeliveryService> {
         private const float MAX_RECIPE_SECONDS = 4;
         private const float MAX_ORDERS = 4;
 
@@ -18,6 +20,9 @@ namespace KitchenChaos.Services {
         public int DeliveredOrders { get; private set; }
 
         void Update() {
+            if (!IsServer) {
+                return;
+            }
             if (!GameService.Instance.IsPlaying || orders.Count >= MAX_ORDERS) {
                 return;
             }
@@ -26,7 +31,13 @@ namespace KitchenChaos.Services {
                 return;
             }
             recipeSeconds = 0;
-            orders.Add(recipes.GetRandom());
+            var randomRecipeIndex = Random.Range(0, recipes.Length);
+            SpawnOrderClientRpc(randomRecipeIndex);
+        }
+
+        [ClientRpc]
+        private void SpawnOrderClientRpc(int index) {
+            orders.Add(recipes[index]);
             DeliveryServiceUI.Instance.ShowOrders(orders.AsReadOnly());
         }
 
@@ -39,13 +50,10 @@ namespace KitchenChaos.Services {
                 if (!PlateContentMatchesOrder(order)) {
                     continue;
                 }
-                orders.RemoveAt(index);
-                DeliveryServiceUI.Instance.ShowOrders(orders.AsReadOnly());
-                DeliverySucceeded();
-                DeliveredOrders++;
+                SucceedDeliveryServerRpc(index);
                 return;
             }
-            DeliveryFailed();
+            FailDeliveryServerRpc();
 
             bool PlateContentMatchesOrder(DeliveryRecipe order) {
                 var result = true;
@@ -64,6 +72,29 @@ namespace KitchenChaos.Services {
                 }
                 return result;
             }
+        }
+
+        [ServerRpc(RequireOwnership = false)]
+        private void SucceedDeliveryServerRpc(int orderIndex) {
+            SucceedDeliveryClientRpc(orderIndex);
+        }
+
+        [ClientRpc]
+        private void SucceedDeliveryClientRpc(int orderIndex) {
+            orders.RemoveAt(orderIndex);
+            DeliveryServiceUI.Instance.ShowOrders(orders.AsReadOnly());
+            DeliverySucceeded();
+            DeliveredOrders++;
+        }
+
+        [ServerRpc(RequireOwnership = false)]
+        private void FailDeliveryServerRpc() {
+            FailDeliveryClientRpc();
+        }
+
+        [ClientRpc]
+        private void FailDeliveryClientRpc() {
+            DeliveryFailed();
         }
     }
 }
