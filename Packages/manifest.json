@@ -2,6 +2,7 @@
   "dependencies": {
     "com.bennykok.toolbar-buttons": "https://github.com/BennyKok/unity-toolbar-buttons.git#v2.2.0",
     "com.dbrizov.naughtyattributes": "https://github.com/dbrizov/NaughtyAttributes.git#v2.1.4",
+    "com.fastscriptreload": "https://github.com/handzlikchris/FastScriptReload.git?path=Assets",
     "com.unity.2d.sprite": "1.0.0",
     "com.unity.cinemachine": "2.9.5",
     "com.unity.ide.rider": "3.0.18",
