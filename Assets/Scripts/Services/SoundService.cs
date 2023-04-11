@@ -2,7 +2,7 @@
 using UnityEngine;
 
 namespace KitchenChaos.Services {
-    public class SoundService : Singleton<SoundService> {
+    public class SoundService : MonoSingleton<SoundService> {
         private const string VOLUME = "SoundVolume";
 
         [SerializeField] private Sounds sounds = null!;

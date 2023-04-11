@@ -4,7 +4,7 @@ using KitchenChaos.KitchenObjects;
 using UnityEngine;
 
 namespace KitchenChaos.Services {
-    public class DeliveryService : Singleton<DeliveryService> {
+    public class DeliveryService : MonoSingleton<DeliveryService> {
         private const float MAX_RECIPE_SECONDS = 4;
         private const float MAX_ORDERS = 4;
 
