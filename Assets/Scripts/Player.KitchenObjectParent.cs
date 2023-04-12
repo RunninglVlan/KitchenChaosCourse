@@ -1,8 +1,11 @@
+using System;
 using KitchenChaos.KitchenObjects;
 using UnityEngine;
 
 namespace KitchenChaos {
     public partial class Player : IKitchenObjectParent {
+        public event Action PickedUp = delegate { };
+
         [SerializeField] private Transform hands = null!;
 
         private KitchenObject? kitchenObject;

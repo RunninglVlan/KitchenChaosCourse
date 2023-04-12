@@ -10,7 +10,6 @@ namespace KitchenChaos {
         private const float ROTATE_SPEED = 10;
 
         public event Action<Counter?> SelectedCounterChanged = delegate { };
-        public event Action PickedUp = delegate { };
 
         [SerializeField] private float speed = 1;
         [SerializeField] private float height = 2;
