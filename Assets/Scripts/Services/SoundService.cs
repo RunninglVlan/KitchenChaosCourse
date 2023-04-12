@@ -25,8 +25,11 @@ namespace KitchenChaos.Services {
         void Start() {
             DeliveryService.Instance.DeliverySucceeded += PlayDeliverySuccess;
             DeliveryService.Instance.DeliveryFailed += PlayDeliveryFail;
-            // TODO: Fix
-            // Player.Instance.PickedUp += PlayPickup;
+            Player.PickedUp += PlayPickup;
+        }
+
+        void OnDestroy() {
+            Player.PickedUp -= PlayPickup;
         }
 
         private void PlayDeliverySuccess() {
@@ -41,9 +44,8 @@ namespace KitchenChaos.Services {
             Play(sounds.chop, counter.transform.position);
         }
 
-        private void PlayPickup() {
-            // TODO: Fix
-            // Play(sounds.objectPickup, Player.Instance.transform.position);
+        private void PlayPickup(Player player) {
+            Play(sounds.objectPickup, player.transform.position);
         }
 
         public void PlayDrop(Counter counter) {

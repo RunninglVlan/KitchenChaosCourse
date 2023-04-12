@@ -6,8 +6,19 @@ namespace KitchenChaos.Counters {
         [SerializeField] private GameObject[] visuals = null!;
 
         void Start() {
-            // TODO: Fix
-            // Player.Instance.SelectedCounterChanged += SetVisualActive;
+            if (Player.LocalInstance) {
+                SubscribeToSelectedCounterChanged();
+            } else {
+                Player.LocalInstanceSet += SubscribeToSelectedCounterChanged;
+            }
+        }
+
+        private void SubscribeToSelectedCounterChanged() {
+            Player.LocalInstance.SelectedCounterChanged += SetVisualActive;
+        }
+
+        void OnDestroy() {
+            Player.LocalInstanceSet -= SubscribeToSelectedCounterChanged;
         }
 
         private void SetVisualActive(Counter? selectedCounter) {

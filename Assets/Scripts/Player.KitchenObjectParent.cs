@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace KitchenChaos {
     public partial class Player : IKitchenObjectParent {
-        public event Action PickedUp = delegate { };
+        public static event Action<Player> PickedUp = delegate { };
 
         [SerializeField] private Transform hands = null!;
 
@@ -24,7 +24,7 @@ namespace KitchenChaos {
 
         public void SetKitchenObject(KitchenObject value) {
             kitchenObject = value;
-            PickedUp();
+            PickedUp(this);
         }
 
         public bool HasKitchenObject() => kitchenObject;

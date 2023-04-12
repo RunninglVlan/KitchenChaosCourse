@@ -1,15 +1,17 @@
-using UnityEngine;
+using System;
 
 namespace KitchenChaos {
     public partial class Player {
-        // TODO: Fix
-        // public static Player Instance { get; private set; } = null!;
+        public static event Action LocalInstanceSet = delegate { };
 
-        void Awake() {
-            // if (Instance) {
-            //     Debug.LogError("Multiple instances in the scene");
-            // }
-            // Instance = this;
+        public static Player LocalInstance { get; private set; } = null!;
+
+        public override void OnNetworkSpawn() {
+            if (!IsOwner) {
+                return;
+            }
+            LocalInstance = this;
+            LocalInstanceSet();
         }
     }
 }
