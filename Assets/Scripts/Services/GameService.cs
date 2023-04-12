@@ -25,6 +25,8 @@ namespace KitchenChaos.Services {
         void Start() {
             GameInput.Instance.Actions.Player.Interact.performed += GoToCountdown;
             GameInput.Instance.Actions.Player.Pause.performed += TogglePause;
+            // TODO: Fix
+            GoToCountdown(default);
 
             void GoToCountdown(InputAction.CallbackContext _) {
                 if (state != State.WaitingToStart) {
