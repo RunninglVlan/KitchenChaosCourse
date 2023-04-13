@@ -17,7 +17,7 @@ namespace KitchenChaos.Counters {
             if (spawnedPlates <= 0 || player.HasKitchenObject()) {
                 return;
             }
-            KitchenObject.Spawn(plate, player);
+            KitchenObjectService.Instance.Spawn(plate, player);
             visual.DestroyTop();
             spawnedPlates--;
         }

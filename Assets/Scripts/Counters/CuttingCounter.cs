@@ -48,7 +48,7 @@ namespace KitchenChaos.Counters {
                 return;
             }
             counterObject.DestroySelf();
-            KitchenObject.Spawn(recipe.output, this);
+            KitchenObjectService.Instance.Spawn(recipe.output, this);
         }
 
         private bool TryGetRecipe(KitchenObjectScriptable input, out CuttingRecipe result) {

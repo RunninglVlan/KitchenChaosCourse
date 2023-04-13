@@ -1,4 +1,5 @@
 using KitchenChaos.KitchenObjects;
+using KitchenChaos.Services;
 using UnityEngine;
 
 namespace KitchenChaos.Counters {
@@ -10,7 +11,7 @@ namespace KitchenChaos.Counters {
             if (player.HasKitchenObject()) {
                 return;
             }
-            KitchenObject.Spawn(containerObject, player);
+            KitchenObjectService.Instance.Spawn(containerObject, player);
             visual.Open();
         }
     }

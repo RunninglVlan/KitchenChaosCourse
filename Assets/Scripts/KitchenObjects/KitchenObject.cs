@@ -1,7 +1,8 @@
-﻿using UnityEngine;
+﻿using Unity.Netcode;
+using UnityEngine;
 
 namespace KitchenChaos.KitchenObjects {
-    public class KitchenObject : MonoBehaviour {
+    public class KitchenObject : NetworkBehaviour {
         [SerializeField] private KitchenObjectScriptable scriptable = null!;
 
         public KitchenObjectScriptable Scriptable => scriptable;
@@ -15,15 +16,11 @@ namespace KitchenChaos.KitchenObjects {
                     Debug.LogError($"Parent already has a {nameof(KitchenObject)}!");
                 }
                 parent.SetKitchenObject(this);
-                var objectTransform = transform;
-                objectTransform.parent = parent.ObjectLocation;
-                objectTransform.localPosition = Vector3.zero;
+                // TODO: Fix
+                // var objectTransform = transform;
+                // objectTransform.parent = parent.ObjectLocation;
+                // objectTransform.localPosition = Vector3.zero;
             }
-        }
-
-        public static void Spawn(KitchenObjectScriptable scriptable, IKitchenObjectParent parent) {
-            var instance = Instantiate(scriptable.prefab);
-            instance.Parent = parent;
         }
 
         public void DestroySelf() {

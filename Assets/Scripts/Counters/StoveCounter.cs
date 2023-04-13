@@ -1,5 +1,6 @@
 ﻿using System;
 using KitchenChaos.KitchenObjects;
+using KitchenChaos.Services;
 using UnityEngine;
 
 namespace KitchenChaos.Counters {
@@ -77,7 +78,7 @@ namespace KitchenChaos.Counters {
                     return;
                 }
                 counterObject.DestroySelf();
-                KitchenObject.Spawn(currentRecipe.output, this);
+                KitchenObjectService.Instance.Spawn(currentRecipe.output, this);
                 seconds = 0;
                 state = nextState;
                 StateChanged(state);
