@@ -1,11 +1,8 @@
 using KitchenChaos.KitchenObjects;
 using Unity.Netcode;
-using UnityEngine;
 
 namespace KitchenChaos.Counters {
-    public abstract partial class Counter : MonoBehaviour {
-        // TODO: Fix
-        public NetworkObject NetworkObject => null!;
+    public abstract partial class Counter : NetworkBehaviour {
         public abstract void Interact(Player player);
         public virtual void InteractAlternate() { }
 

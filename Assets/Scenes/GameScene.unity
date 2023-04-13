@@ -133,6 +133,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: ClearCounter (13)
       objectReference: {fileID: 0}
+    - target: {fileID: 5191662097892064914, guid: b66684dbea6f2b242b4f114773b278f6,
+        type: 3}
+      propertyPath: GlobalObjectIdHash
+      value: 1045087913
+      objectReference: {fileID: 0}
     - target: {fileID: 7131612931624200040, guid: b66684dbea6f2b242b4f114773b278f6,
         type: 3}
       propertyPath: m_RootOrder
@@ -226,6 +231,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: ContainerCounter_Tomato
+      objectReference: {fileID: 0}
+    - target: {fileID: 4633289375616120108, guid: af6aae23fdcefd247812502daca96265,
+        type: 3}
+      propertyPath: GlobalObjectIdHash
+      value: 3944834201
       objectReference: {fileID: 0}
     - target: {fileID: 7689941603775769814, guid: af6aae23fdcefd247812502daca96265,
         type: 3}
@@ -349,6 +359,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: CuttingCounter
       objectReference: {fileID: 0}
+    - target: {fileID: 4953178664348071815, guid: 71e691670cc6423458edf212bb8ee4cc,
+        type: 3}
+      propertyPath: GlobalObjectIdHash
+      value: 552778603
+      objectReference: {fileID: 0}
     - target: {fileID: 7947112567472615037, guid: 71e691670cc6423458edf212bb8ee4cc,
         type: 3}
       propertyPath: m_RootOrder
@@ -421,6 +436,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: ContainerCounter_Bread
+      objectReference: {fileID: 0}
+    - target: {fileID: 4633289375616120108, guid: cf3a1e6951dfe13478096e2f97ca7810,
+        type: 3}
+      propertyPath: GlobalObjectIdHash
+      value: 2503359783
       objectReference: {fileID: 0}
     - target: {fileID: 7689941603775769814, guid: cf3a1e6951dfe13478096e2f97ca7810,
         type: 3}
@@ -837,6 +857,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2349140956841493845, guid: 4372e2a8579bf4548b46cfcef2e2632f,
+        type: 3}
+      propertyPath: GlobalObjectIdHash
+      value: 4150969048
+      objectReference: {fileID: 0}
     - target: {fileID: 8749982032063125196, guid: 4372e2a8579bf4548b46cfcef2e2632f,
         type: 3}
       propertyPath: m_Name
@@ -983,6 +1008,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: ClearCounter (6)
       objectReference: {fileID: 0}
+    - target: {fileID: 5191662097892064914, guid: b66684dbea6f2b242b4f114773b278f6,
+        type: 3}
+      propertyPath: GlobalObjectIdHash
+      value: 3891698853
+      objectReference: {fileID: 0}
     - target: {fileID: 7131612931624200040, guid: b66684dbea6f2b242b4f114773b278f6,
         type: 3}
       propertyPath: m_RootOrder
@@ -1055,6 +1085,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: ClearCounter (3)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5191662097892064914, guid: b66684dbea6f2b242b4f114773b278f6,
+        type: 3}
+      propertyPath: GlobalObjectIdHash
+      value: 2408189595
       objectReference: {fileID: 0}
     - target: {fileID: 7131612931624200040, guid: b66684dbea6f2b242b4f114773b278f6,
         type: 3}
@@ -1241,6 +1276,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: ContainerCounter_MeatPattyUncooked
       objectReference: {fileID: 0}
+    - target: {fileID: 4633289375616120108, guid: 5fe2c7f16bc3d4541a7d07bf10dca4d3,
+        type: 3}
+      propertyPath: GlobalObjectIdHash
+      value: 4157156265
+      objectReference: {fileID: 0}
     - target: {fileID: 7689941603775769814, guid: 5fe2c7f16bc3d4541a7d07bf10dca4d3,
         type: 3}
       propertyPath: m_RootOrder
@@ -1313,6 +1353,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: TrashCounter
+      objectReference: {fileID: 0}
+    - target: {fileID: 6805930535453191376, guid: edb9781ca06f5354f9237db77398f655,
+        type: 3}
+      propertyPath: GlobalObjectIdHash
+      value: 4223996283
       objectReference: {fileID: 0}
     - target: {fileID: 8396799627647923498, guid: edb9781ca06f5354f9237db77398f655,
         type: 3}
@@ -1463,6 +1508,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7619036544417513899, guid: 20efe1c4595bf6d41b735b50698eb0ca,
+        type: 3}
+      propertyPath: GlobalObjectIdHash
+      value: 3435188124
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1547,6 +1597,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7563306535259183306, guid: c921bedc2a1625c429a73892a201e4a9,
+        type: 3}
+      propertyPath: GlobalObjectIdHash
+      value: 13849053
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1886,6 +1941,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7619036544417513899, guid: 20efe1c4595bf6d41b735b50698eb0ca,
+        type: 3}
+      propertyPath: GlobalObjectIdHash
+      value: 2272644242
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1909,6 +1969,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: ClearCounter (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5191662097892064914, guid: b66684dbea6f2b242b4f114773b278f6,
+        type: 3}
+      propertyPath: GlobalObjectIdHash
+      value: 4224506190
       objectReference: {fileID: 0}
     - target: {fileID: 7131612931624200040, guid: b66684dbea6f2b242b4f114773b278f6,
         type: 3}
@@ -2077,6 +2142,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: ClearCounter (8)
       objectReference: {fileID: 0}
+    - target: {fileID: 5191662097892064914, guid: b66684dbea6f2b242b4f114773b278f6,
+        type: 3}
+      propertyPath: GlobalObjectIdHash
+      value: 2934792739
+      objectReference: {fileID: 0}
     - target: {fileID: 7131612931624200040, guid: b66684dbea6f2b242b4f114773b278f6,
         type: 3}
       propertyPath: m_RootOrder
@@ -2156,6 +2226,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: ContainerCounter_Cabbage
       objectReference: {fileID: 0}
+    - target: {fileID: 4633289375616120108, guid: e0dfe4f341d8ff547820c4f677d071bc,
+        type: 3}
+      propertyPath: GlobalObjectIdHash
+      value: 2959689026
+      objectReference: {fileID: 0}
     - target: {fileID: 7689941603775769814, guid: e0dfe4f341d8ff547820c4f677d071bc,
         type: 3}
       propertyPath: m_RootOrder
@@ -2228,6 +2303,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: ContainerCounter_ChesseBlock
+      objectReference: {fileID: 0}
+    - target: {fileID: 4633289375616120108, guid: d35a870902be99c4b892054f8a1df2a1,
+        type: 3}
+      propertyPath: GlobalObjectIdHash
+      value: 1928287451
       objectReference: {fileID: 0}
     - target: {fileID: 7689941603775769814, guid: d35a870902be99c4b892054f8a1df2a1,
         type: 3}
@@ -2587,6 +2667,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: ClearCounter (14)
       objectReference: {fileID: 0}
+    - target: {fileID: 5191662097892064914, guid: b66684dbea6f2b242b4f114773b278f6,
+        type: 3}
+      propertyPath: GlobalObjectIdHash
+      value: 1938751553
+      objectReference: {fileID: 0}
     - target: {fileID: 7131612931624200040, guid: b66684dbea6f2b242b4f114773b278f6,
         type: 3}
       propertyPath: m_RootOrder
@@ -2665,6 +2750,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: ClearCounter (10)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5191662097892064914, guid: b66684dbea6f2b242b4f114773b278f6,
+        type: 3}
+      propertyPath: GlobalObjectIdHash
+      value: 2459953349
       objectReference: {fileID: 0}
     - target: {fileID: 7131612931624200040, guid: b66684dbea6f2b242b4f114773b278f6,
         type: 3}
@@ -3192,6 +3282,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: ClearCounter (11)
       objectReference: {fileID: 0}
+    - target: {fileID: 5191662097892064914, guid: b66684dbea6f2b242b4f114773b278f6,
+        type: 3}
+      propertyPath: GlobalObjectIdHash
+      value: 3190177394
+      objectReference: {fileID: 0}
     - target: {fileID: 7131612931624200040, guid: b66684dbea6f2b242b4f114773b278f6,
         type: 3}
       propertyPath: m_RootOrder
@@ -3534,6 +3629,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: ClearCounter (7)
       objectReference: {fileID: 0}
+    - target: {fileID: 5191662097892064914, guid: b66684dbea6f2b242b4f114773b278f6,
+        type: 3}
+      propertyPath: GlobalObjectIdHash
+      value: 487669985
+      objectReference: {fileID: 0}
     - target: {fileID: 7131612931624200040, guid: b66684dbea6f2b242b4f114773b278f6,
         type: 3}
       propertyPath: m_RootOrder
@@ -3670,6 +3770,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: ClearCounter (4)
       objectReference: {fileID: 0}
+    - target: {fileID: 5191662097892064914, guid: b66684dbea6f2b242b4f114773b278f6,
+        type: 3}
+      propertyPath: GlobalObjectIdHash
+      value: 642291949
+      objectReference: {fileID: 0}
     - target: {fileID: 7131612931624200040, guid: b66684dbea6f2b242b4f114773b278f6,
         type: 3}
       propertyPath: m_RootOrder
@@ -3742,6 +3847,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: ClearCounter (5)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5191662097892064914, guid: b66684dbea6f2b242b4f114773b278f6,
+        type: 3}
+      propertyPath: GlobalObjectIdHash
+      value: 518087770
       objectReference: {fileID: 0}
     - target: {fileID: 7131612931624200040, guid: b66684dbea6f2b242b4f114773b278f6,
         type: 3}
@@ -4025,6 +4135,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: ClearCounter (15)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5191662097892064914, guid: b66684dbea6f2b242b4f114773b278f6,
+        type: 3}
+      propertyPath: GlobalObjectIdHash
+      value: 327622757
       objectReference: {fileID: 0}
     - target: {fileID: 7131612931624200040, guid: b66684dbea6f2b242b4f114773b278f6,
         type: 3}
@@ -4315,6 +4430,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: CuttingCounter (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 4953178664348071815, guid: 71e691670cc6423458edf212bb8ee4cc,
+        type: 3}
+      propertyPath: GlobalObjectIdHash
+      value: 3891060026
+      objectReference: {fileID: 0}
     - target: {fileID: 7947112567472615037, guid: 71e691670cc6423458edf212bb8ee4cc,
         type: 3}
       propertyPath: m_RootOrder
@@ -4393,6 +4513,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: ClearCounter (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5191662097892064914, guid: b66684dbea6f2b242b4f114773b278f6,
+        type: 3}
+      propertyPath: GlobalObjectIdHash
+      value: 813956855
       objectReference: {fileID: 0}
     - target: {fileID: 7131612931624200040, guid: b66684dbea6f2b242b4f114773b278f6,
         type: 3}
@@ -4838,6 +4963,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: ClearCounter (12)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5191662097892064914, guid: b66684dbea6f2b242b4f114773b278f6,
+        type: 3}
+      propertyPath: GlobalObjectIdHash
+      value: 957469181
       objectReference: {fileID: 0}
     - target: {fileID: 7131612931624200040, guid: b66684dbea6f2b242b4f114773b278f6,
         type: 3}

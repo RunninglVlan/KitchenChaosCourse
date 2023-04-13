@@ -1,5 +1,6 @@
 using KitchenChaos.KitchenObjects;
 using KitchenChaos.Services;
+using Unity.Netcode;
 using UnityEngine;
 
 namespace KitchenChaos.Counters {
@@ -12,6 +13,16 @@ namespace KitchenChaos.Counters {
                 return;
             }
             KitchenObjectService.Instance.Spawn(containerObject, player);
+            OpenServerRpc();
+        }
+
+        [ServerRpc(RequireOwnership = false)]
+        private void OpenServerRpc() {
+            OpenClientRpc();
+        }
+
+        [ClientRpc]
+        private void OpenClientRpc() {
             visual.Open();
         }
     }

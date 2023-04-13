@@ -7,20 +7,31 @@ namespace KitchenChaos.KitchenObjects {
 
         public KitchenObjectScriptable Scriptable => scriptable;
         private IKitchenObjectParent? parent;
+        private Follower follower = null!;
+
+        void Awake() {
+            follower = GetComponent<Follower>();
+        }
 
         public IKitchenObjectParent Parent {
-            set {
-                parent?.ClearKitchenObject();
-                parent = value;
-                if (parent.HasKitchenObject()) {
-                    Debug.LogError($"Parent already has a {nameof(KitchenObject)}!");
-                }
-                parent.SetKitchenObject(this);
-                // TODO: Fix
-                // var objectTransform = transform;
-                // objectTransform.parent = parent.ObjectLocation;
-                // objectTransform.localPosition = Vector3.zero;
+            set => SetParentServerRpc(value.NetworkObject);
+        }
+
+        [ServerRpc(RequireOwnership = false)]
+        private void SetParentServerRpc(NetworkObjectReference parentNetworkObjectReference) {
+            SetParentClientRpc(parentNetworkObjectReference);
+        }
+
+        [ClientRpc]
+        private void SetParentClientRpc(NetworkObjectReference parentNetworkObjectReference) {
+            parent?.ClearKitchenObject();
+            parentNetworkObjectReference.TryGet(out var parentNetworkObject);
+            parent = parentNetworkObject.GetComponent<IKitchenObjectParent>();
+            if (parent.HasKitchenObject()) {
+                Debug.LogError($"Parent already has a {nameof(KitchenObject)}!");
             }
+            parent.SetKitchenObject(this);
+            follower.Target = parent.ObjectLocation;
         }
 
         public void DestroySelf() {
