@@ -29,7 +29,6 @@ namespace KitchenChaos.Counters {
                 ProgressSet(progress = 0);
             } else if (counterHasObject && canTake) {
                 counterObject.Parent = player;
-                ProgressSet(progress = 0);
             }
         }
 
