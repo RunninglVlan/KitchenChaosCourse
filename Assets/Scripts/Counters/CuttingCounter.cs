@@ -1,6 +1,7 @@
 using System;
 using KitchenChaos.KitchenObjects;
 using KitchenChaos.Services;
+using Unity.Netcode;
 using UnityEngine;
 
 namespace KitchenChaos.Counters {
@@ -25,29 +26,49 @@ namespace KitchenChaos.Counters {
                     return;
                 }
                 playerObject.Parent = this;
-                cuts = 0;
-                ProgressSet(progress = 0);
+                PlaceServerRpc();
             } else if (counterHasObject && canTake) {
                 counterObject.Parent = player;
             }
         }
 
+        [ServerRpc(RequireOwnership = false)]
+        private void PlaceServerRpc() {
+            PlaceClientRpc();
+        }
+
+        [ClientRpc]
+        private void PlaceClientRpc() {
+            cuts = 0;
+            ProgressSet(progress = 0);
+        }
+
         public override void InteractAlternate() {
+            CutServerRpc();
+        }
+
+        [ServerRpc(RequireOwnership = false)]
+        private void CutServerRpc() {
             if (!TryGetKitchenObject(out var counterObject)) {
                 return;
             }
             if (!TryGetRecipe(counterObject.Scriptable, out var recipe)) {
                 return;
             }
-            cuts++;
-            ProgressSet(progress = (float)cuts / recipe.maxCuts);
-            visual.Cut();
-            SoundService.Instance.PlayChop(this);
+            CutClientRpc(recipe.maxCuts);
             if (cuts < recipe.maxCuts) {
                 return;
             }
             KitchenObjectService.Instance.Destroy(counterObject);
             KitchenObjectService.Instance.Spawn(recipe.output, this);
+        }
+
+        [ClientRpc]
+        private void CutClientRpc(int maxCuts) {
+            cuts++;
+            ProgressSet(progress = (float)cuts / maxCuts);
+            visual.Cut();
+            SoundService.Instance.PlayChop(this);
         }
 
         private bool TryGetRecipe(KitchenObjectScriptable input, out CuttingRecipe result) {
