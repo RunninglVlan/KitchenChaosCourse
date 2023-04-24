@@ -77,7 +77,7 @@ namespace KitchenChaos.Counters {
                 if (progress < 1) {
                     return;
                 }
-                counterObject.DestroySelf();
+                KitchenObjectService.Instance.Destroy(counterObject);
                 KitchenObjectService.Instance.Spawn(currentRecipe.output, this);
                 seconds = 0;
                 state = nextState;

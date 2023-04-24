@@ -1,4 +1,5 @@
 using KitchenChaos.KitchenObjects;
+using KitchenChaos.Services;
 using Unity.Netcode;
 
 namespace KitchenChaos.Counters {
@@ -12,7 +13,7 @@ namespace KitchenChaos.Counters {
             }
             var added = plate.TryAddIngredient(ingredient.Scriptable);
             if (added) {
-                ingredient.DestroySelf();
+                KitchenObjectService.Instance.Destroy(ingredient);
             }
             return added;
         }

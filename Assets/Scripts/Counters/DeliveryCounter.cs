@@ -11,7 +11,7 @@ namespace KitchenChaos.Counters {
                 return;
             }
             DeliveryService.Instance.Deliver(plate);
-            playerObject.DestroySelf();
+            KitchenObjectService.Instance.Destroy(playerObject);
         }
     }
 }

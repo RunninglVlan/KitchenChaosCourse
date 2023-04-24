@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics.CodeAnalysis;
 using KitchenChaos.KitchenObjects;
 using Unity.Netcode;
 using UnityEngine;
@@ -21,6 +22,26 @@ namespace KitchenChaos.Services {
             instance.GetComponent<NetworkObject>().Spawn();
             parentNetworkObjectReference.TryGet(out var parentNetworkObject);
             instance.Parent = parentNetworkObject.GetComponent<IKitchenObjectParent>();
+        }
+
+        public void Destroy(KitchenObject kitchenObject) {
+            DestroyServerRpc(kitchenObject.NetworkObject);
+        }
+
+        [ServerRpc(RequireOwnership = false)]
+        private void DestroyServerRpc(NetworkObjectReference networkObjectReference) {
+            ClearKitchenObjectOnParentClientRpc(networkObjectReference);
+            networkObjectReference.TryGet(out var networkObject);
+            var kitchenObject = networkObject.GetComponent<KitchenObject>();
+            Destroy(kitchenObject.gameObject);
+        }
+
+        [ClientRpc]
+        [SuppressMessage("ReSharper", "MemberCanBeMadeStatic.Local", Justification = "Rpc can't be static")]
+        private void ClearKitchenObjectOnParentClientRpc(NetworkObjectReference networkObjectReference) {
+            networkObjectReference.TryGet(out var networkObject);
+            var kitchenObject = networkObject.GetComponent<KitchenObject>();
+            kitchenObject.ClearKitchenObjectOnParent();
         }
     }
 }

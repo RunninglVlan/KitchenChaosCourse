@@ -34,9 +34,8 @@ namespace KitchenChaos.KitchenObjects {
             follower.Target = parent.ObjectLocation;
         }
 
-        public void DestroySelf() {
+        public void ClearKitchenObjectOnParent() {
             parent!.ClearKitchenObject();
-            Destroy(gameObject);
         }
     }
 }

@@ -1,4 +1,5 @@
 using KitchenChaos.Services;
+using Unity.Netcode;
 
 namespace KitchenChaos.Counters {
     public class TrashCounter : Counter {
@@ -6,7 +7,17 @@ namespace KitchenChaos.Counters {
             if (!player.TryGetKitchenObject(out var playerObject)) {
                 return;
             }
-            playerObject.DestroySelf();
+            KitchenObjectService.Instance.Destroy(playerObject);
+            PlayInteractServerRpc();
+        }
+
+        [ServerRpc(RequireOwnership = false)]
+        private void PlayInteractServerRpc() {
+            PlayInteractClientRpc();
+        }
+
+        [ClientRpc]
+        private void PlayInteractClientRpc() {
             SoundService.Instance.PlayTrash(this);
         }
     }

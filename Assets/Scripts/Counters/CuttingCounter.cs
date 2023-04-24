@@ -47,7 +47,7 @@ namespace KitchenChaos.Counters {
             if (cuts < recipe.maxCuts) {
                 return;
             }
-            counterObject.DestroySelf();
+            KitchenObjectService.Instance.Destroy(counterObject);
             KitchenObjectService.Instance.Spawn(recipe.output, this);
         }
 
