@@ -1,5 +1,6 @@
 using KitchenChaos.KitchenObjects;
 using KitchenChaos.Services;
+using Unity.Netcode;
 using UnityEngine;
 
 namespace KitchenChaos.Counters {
@@ -18,11 +19,24 @@ namespace KitchenChaos.Counters {
                 return;
             }
             KitchenObjectService.Instance.Spawn(plate, player);
+            DestroyTopServerRpc();
+        }
+
+        [ServerRpc(RequireOwnership = false)]
+        private void DestroyTopServerRpc() {
+            DestroyTopClientRpc();
+        }
+
+        [ClientRpc]
+        private void DestroyTopClientRpc() {
             visual.DestroyTop();
             spawnedPlates--;
         }
 
         void Update() {
+            if (!IsServer) {
+                return;
+            }
             if (!GameService.Instance.IsPlaying || spawnedPlates >= MAX_SPAWNED_PLATES) {
                 return;
             }
@@ -31,6 +45,11 @@ namespace KitchenChaos.Counters {
                 return;
             }
             spawnSeconds = 0;
+            SpawnPlateClientRpc();
+        }
+
+        [ClientRpc]
+        private void SpawnPlateClientRpc() {
             spawnedPlates++;
             visual.Spawn();
         }
