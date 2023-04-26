@@ -1,44 +1,70 @@
 using System;
+using System.Collections.Generic;
+using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 namespace KitchenChaos.Services {
-    public class GameService : MonoSingleton<GameService> {
+    public class GameService : NetworkSingleton<GameService> {
         private const float MAX_COUNTDOWN_SECONDS = 3;
         public const float MAX_PLAYING_SECONDS = 60;
 
+        public event Action PlayerBecameReady = delegate { };
         public event Action StateChanged = delegate { };
         public event Action Paused = delegate { };
         public event Action Unpaused = delegate { };
 
-        private State state = State.WaitingToStart;
-        private float seconds;
-        public bool IsPlaying => state == State.GamePlaying;
-        public bool IsCountingDownToStart => state == State.CountdownToStart;
-        public bool IsGameOver => state == State.GameOver;
-        public int PlayingSeconds => IsPlaying ? (int)MAX_PLAYING_SECONDS - Mathf.CeilToInt(seconds) : 0;
+        private readonly NetworkVariable<State> state = new();
+        private bool localPlayerReady;
+        private readonly List<ulong> playerReadyStates = new();
+        private readonly NetworkVariable<float> seconds = new();
+        public bool IsPlaying => state.Value == State.GamePlaying;
+        public bool IsCountingDownToStart => state.Value == State.CountdownToStart;
+        public bool IsGameOver => state.Value == State.GameOver;
+        public int PlayingSeconds => IsPlaying ? (int)MAX_PLAYING_SECONDS - Mathf.CeilToInt(seconds.Value) : 0;
         private bool paused;
 
         public int CountdownSeconds =>
-            IsCountingDownToStart ? (int)MAX_COUNTDOWN_SECONDS - Mathf.FloorToInt(seconds) : 0;
+            IsCountingDownToStart ? (int)MAX_COUNTDOWN_SECONDS - Mathf.FloorToInt(seconds.Value) : 0;
 
-        void Start() {
-            GameInput.Instance.Actions.Player.Interact.performed += GoToCountdown;
-            GameInput.Instance.Actions.Player.Pause.performed += TogglePause;
-            // TODO: Fix
-            GoToCountdown(default);
+        public override void OnNetworkSpawn() {
+            state.OnValueChanged += TriggerStateChanged;
 
-            void GoToCountdown(InputAction.CallbackContext _) {
-                if (state != State.WaitingToStart) {
-                    return;
-                }
-                state = State.CountdownToStart;
+            void TriggerStateChanged(State _, State __) {
                 StateChanged();
             }
         }
 
+        void Start() {
+            GameInput.Instance.Actions.Player.Interact.performed += ReadyPlayer;
+            GameInput.Instance.Actions.Player.Pause.performed += TogglePause;
+
+            void ReadyPlayer(InputAction.CallbackContext _) {
+                if (state.Value != State.WaitingToStart || localPlayerReady) {
+                    return;
+                }
+                localPlayerReady = true;
+                PlayerBecameReady();
+                SetPlayerReadyServerRpc();
+            }
+        }
+
+        [ServerRpc(RequireOwnership = false)]
+        private void SetPlayerReadyServerRpc(ServerRpcParams parameters = default) {
+            playerReadyStates.Add(parameters.Receive.SenderClientId);
+            foreach (var client in NetworkManager.Singleton.ConnectedClientsIds) {
+                if (!playerReadyStates.Contains(client)) {
+                    return;
+                }
+            }
+            state.Value = State.CountdownToStart;
+        }
+
         void Update() {
-            switch (state) {
+            if (!IsServer) {
+                return;
+            }
+            switch (state.Value) {
                 case State.WaitingToStart:
                     break;
                 case State.CountdownToStart:
@@ -52,13 +78,12 @@ namespace KitchenChaos.Services {
             }
 
             void Count(State nextState, float maxSeconds) {
-                seconds += Time.deltaTime;
-                if (seconds < maxSeconds) {
+                seconds.Value += Time.deltaTime;
+                if (seconds.Value < maxSeconds) {
                     return;
                 }
-                seconds = 0;
-                state = nextState;
-                StateChanged();
+                seconds.Value = 0;
+                state.Value = nextState;
             }
         }
 

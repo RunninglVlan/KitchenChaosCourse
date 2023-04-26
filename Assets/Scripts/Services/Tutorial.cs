@@ -11,20 +11,10 @@ namespace KitchenChaos.Services {
 
         private VisualElement controls = null!;
 
-        protected override void Awake() {
-            base.Awake();
-            GameService.Instance.StateChanged += HideOnCountdown;
-
-            void HideOnCountdown() {
-                if (GameService.Instance.IsCountingDownToStart) {
-                    Hide();
-                }
-            }
-        }
-
         void Start() {
             controls = document.rootVisualElement.Q<VisualElement>("controls");
             Options.Instance.ControlsRebound += AddControls;
+            GameService.Instance.PlayerBecameReady += Hide;
             AddControls();
         }
 
