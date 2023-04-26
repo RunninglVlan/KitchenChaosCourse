@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using KitchenChaos.Services;
+using Unity.Netcode;
 using UnityEngine;
 
 namespace KitchenChaos.KitchenObjects {
@@ -15,9 +17,21 @@ namespace KitchenChaos.KitchenObjects {
             if (Ingredients.Contains(value) || !validIngredients.Contains(value)) {
                 return false;
             }
-            Ingredients.Add(value);
-            IngredientAdded(value);
+            var scriptableIndex = KitchenObjectService.Instance.GetIndex(value);
+            AddIngredientServerRpc(scriptableIndex);
             return true;
+        }
+
+        [ServerRpc(RequireOwnership = false)]
+        private void AddIngredientServerRpc(int scriptableIndex) {
+            AddIngredientClientRpc(scriptableIndex);
+        }
+
+        [ClientRpc]
+        private void AddIngredientClientRpc(int scriptableIndex) {
+            var scriptable = KitchenObjectService.Instance.Get(scriptableIndex);
+            Ingredients.Add(scriptable);
+            IngredientAdded(scriptable);
         }
     }
 }
