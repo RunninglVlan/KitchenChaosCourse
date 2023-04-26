@@ -10,12 +10,12 @@ namespace KitchenChaos.Services {
 
             void StartHost() {
                 NetworkManager.Singleton.StartHost();
-                root.SetActive(false);
+                Hide();
             }
 
             void StartClient() {
                 NetworkManager.Singleton.StartClient();
-                root.SetActive(false);
+                Hide();
             }
         }
     }

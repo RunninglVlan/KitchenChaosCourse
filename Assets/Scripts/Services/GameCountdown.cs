@@ -11,11 +11,11 @@ namespace KitchenChaos.Services {
 
         protected override void Awake() {
             base.Awake();
-            document.rootVisualElement.SetActive(false);
-            GameService.Instance.StateChanged += SetActive;
+            Hide();
+            GameService.Instance.StateChanged += SetVisibleOnCountdown;
 
-            void SetActive() {
-                document.rootVisualElement.SetActive(GameService.Instance.IsCountingDownToStart);
+            void SetVisibleOnCountdown() {
+                SetVisible(GameService.Instance.IsCountingDownToStart);
             }
         }
 

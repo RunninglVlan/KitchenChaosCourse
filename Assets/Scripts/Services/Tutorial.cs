@@ -17,7 +17,7 @@ namespace KitchenChaos.Services {
 
             void HideOnCountdown() {
                 if (GameService.Instance.IsCountingDownToStart) {
-                    document.rootVisualElement.SetActive(false);
+                    Hide();
                 }
             }
         }

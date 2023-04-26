@@ -26,9 +26,9 @@ namespace KitchenChaos.Services {
             AddControls();
             rebindingOverlay = root.Q<VisualElement>("overlay");
             rebindingOverlay.SetActive(false);
-            root.Q<Button>("hide").clicked += Hide;
-            GameService.Instance.Unpaused += Hide;
-            root.SetActive(false);
+            root.Q<Button>("hide").clicked += HideAndInvokeAction;
+            GameService.Instance.Unpaused += HideAndInvokeAction;
+            Hide();
 
             void SoundVolume(float value) {
                 SoundService.Instance.Volume = value;
@@ -38,9 +38,9 @@ namespace KitchenChaos.Services {
                 Music.Instance.Volume = value;
             }
 
-            void Hide() {
+            void HideAndInvokeAction() {
                 hideAction?.Invoke();
-                root.SetActive(false);
+                Hide();
             }
         }
 
@@ -136,7 +136,7 @@ namespace KitchenChaos.Services {
         [SuppressMessage("ReSharper", "ParameterHidesMember")]
         public void Show(Action hideAction) {
             this.hideAction = hideAction;
-            document.rootVisualElement.SetActive(true);
+            Show();
         }
     }
 }

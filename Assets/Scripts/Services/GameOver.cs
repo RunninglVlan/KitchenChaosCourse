@@ -11,13 +11,13 @@ namespace KitchenChaos.Services {
 
         void Start() {
             orderCount = document.rootVisualElement.Q<Label>("order-count");
-            document.rootVisualElement.SetActive(false);
-            GameService.Instance.StateChanged += SetActive;
+            Hide();
+            GameService.Instance.StateChanged += SetVisibleOnGameOver;
             document.rootVisualElement.Q<Button>("reload").clicked += Reload;
         }
 
-        private void SetActive() {
-            document.rootVisualElement.SetActive(GameService.Instance.IsGameOver);
+        private void SetVisibleOnGameOver() {
+            SetVisible(GameService.Instance.IsGameOver);
             if (GameService.Instance.IsGameOver) {
                 orderCount.text = DeliveryService.Instance.DeliveredOrders.ToString();
             }

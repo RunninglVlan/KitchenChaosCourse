@@ -14,12 +14,9 @@ namespace KitchenChaos.Services {
             resume.clicked += Resume;
             root.Q<Button>("options").clicked += ShowOptions;
             root.Q<Button>("menu").clicked += LoadMainMenu;
-            root.SetActive(false);
+            Hide();
             GameService.Instance.Paused += Show;
             GameService.Instance.Unpaused += Hide;
-
-            void Show() => root.SetActive(true);
-            void Hide() => root.SetActive(false);
         }
 
         private static void Resume() {
@@ -27,8 +24,8 @@ namespace KitchenChaos.Services {
         }
 
         private void ShowOptions() {
-            document.rootVisualElement.SetEnabled(false);
-            Options.Instance.Show(() => document.rootVisualElement.SetEnabled(true));
+            Hide();
+            Options.Instance.Show(Show);
         }
 
         private void LoadMainMenu() {
