@@ -42,7 +42,7 @@ GameObject:
   - component: {fileID: 1590965486082681986}
   - component: {fileID: 652631533273159128}
   - component: {fileID: 4386743157579101560}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: BaseCounter
   m_TagString: Untagged
   m_Icon: {fileID: 0}

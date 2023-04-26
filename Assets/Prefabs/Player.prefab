@@ -14,7 +14,8 @@ GameObject:
   - component: {fileID: 2663354407088422425}
   - component: {fileID: 2175619909338652242}
   - component: {fileID: 3919248896245030339}
-  m_Layer: 0
+  - component: {fileID: 3434847951315025604}
+  m_Layer: 6
   m_Name: Player
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -51,8 +52,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 7
-  height: 2
   radius: 0.5
+  counterLayer:
+    serializedVersion: 2
+    m_Bits: 8
+  collisionLayer:
+    serializedVersion: 2
+    m_Bits: 72
   hands: {fileID: 5258694245145755029}
 --- !u!114 &3758005854870886985
 MonoBehaviour:
@@ -130,6 +136,27 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!65 &3434847951315025604
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8309342416359308881}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0.5, z: 0}
 --- !u!1 &8512900171036939488
 GameObject:
   m_ObjectHideFlags: 0

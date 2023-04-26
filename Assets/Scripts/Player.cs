@@ -12,8 +12,9 @@ namespace KitchenChaos {
         public event Action<Counter?> SelectedCounterChanged = delegate { };
 
         [SerializeField] private float speed = 1;
-        [SerializeField] private float height = 2;
         [SerializeField] private float radius = .5f;
+        [SerializeField] private LayerMask counterLayer;
+        [SerializeField] private LayerMask collisionLayer;
 
         public bool IsWalking { get; private set; }
         private Vector3 interactDirection;
@@ -52,7 +53,6 @@ namespace KitchenChaos {
                 move = Vector3.zero;
                 return false;
             }
-            var playerTop = origin + Vector3.up * height;
             move = new Vector3(input.x, 0, input.y).normalized;
             if (IsAllowed(move)) {
                 return true;
@@ -66,7 +66,8 @@ namespace KitchenChaos {
 
             bool IsAllowed(Vector3 direction) {
                 const float capsuleMoveDistance = .1f;
-                return !Physics.CapsuleCast(origin, playerTop, radius, direction, capsuleMoveDistance);
+                return !Physics.BoxCast(origin, Vector3.one * radius, direction,
+                    Quaternion.identity, capsuleMoveDistance, collisionLayer);
             }
         }
 
@@ -76,7 +77,7 @@ namespace KitchenChaos {
                 interactDirection = direction;
             }
             var interactDistance = radius + .1f;
-            if (!Physics.Raycast(transform.position, interactDirection, out var hit, interactDistance)) {
+            if (!Physics.Raycast(transform.position, interactDirection, out var hit, interactDistance, counterLayer)) {
                 SetSelectedCounter(null);
                 return;
             }
