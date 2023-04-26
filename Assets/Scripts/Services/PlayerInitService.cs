@@ -10,12 +10,10 @@ namespace KitchenChaos.Services {
 
         private readonly Dictionary<ulong, (int color, int position)> clientData = new();
 
-        public void RequestData() {
-            RequestDataServerRpc(new ServerRpcParams());
-        }
+        public void RequestData() => RequestDataServerRpc();
 
         [ServerRpc(RequireOwnership = false)]
-        private void RequestDataServerRpc(ServerRpcParams parameters) {
+        private void RequestDataServerRpc(ServerRpcParams parameters = default) {
             var clientId = parameters.Receive.SenderClientId;
             if (!clientData.TryGetValue(clientId, out var data)) {
                 data = RandomData();
