@@ -25,7 +25,7 @@ namespace KitchenChaos.Counters {
             } else {
                 audioSource.Pause();
             }
-            if (state == StoveCounter.State.Burned) {
+            if (state is StoveCounter.State.Idle or StoveCounter.State.Burned) {
                 playingWarning = false;
             }
         }
