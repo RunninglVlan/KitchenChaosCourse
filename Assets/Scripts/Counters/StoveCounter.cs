@@ -1,6 +1,7 @@
 ﻿using System;
 using KitchenChaos.KitchenObjects;
 using KitchenChaos.Services;
+using Unity.Netcode;
 using UnityEngine;
 
 namespace KitchenChaos.Counters {
@@ -12,10 +13,26 @@ namespace KitchenChaos.Counters {
         [SerializeField] private StoveRecipe[] fryingRecipes = Array.Empty<StoveRecipe>();
         [SerializeField] private StoveRecipe[] burningRecipes = Array.Empty<StoveRecipe>();
 
-        private State state = State.Idle;
+        private readonly NetworkVariable<State> state = new();
         private StoveRecipe currentRecipe = null!;
-        private float seconds;
+        private readonly NetworkVariable<float> seconds = new();
         private bool setWarning;
+
+        public override void OnNetworkSpawn() {
+            seconds.OnValueChanged += TriggerProgressSet;
+            state.OnValueChanged += TriggerStateChanged;
+
+            void TriggerProgressSet(float _, float value) {
+                ProgressSet(value / currentRecipe.maxSeconds);
+            }
+
+            void TriggerStateChanged(State _, State value) {
+                StateChanged(value);
+                if (value == State.Idle) {
+                    ProgressSet(0);
+                }
+            }
+        }
 
         public override void Interact(Player player) {
             var counterHasObject = TryGetKitchenObject(out var counterObject);
@@ -24,82 +41,109 @@ namespace KitchenChaos.Counters {
                     ProcessBothHaveObjects();
                     return;
                 }
-                if (!TryGetRecipe(fryingRecipes, playerObject.Scriptable, out var recipe)) {
+                if (!RecipeExists(fryingRecipes, playerObject.Scriptable)) {
                     return;
                 }
                 playerObject.Parent = this;
-                setWarning = false;
-                seconds = 0;
-                currentRecipe = recipe;
-                state = State.Frying;
-                StateChanged(state);
-            } else if (counterHasObject && state is State.Fried or State.Burned) {
+                var scriptableIndex = KitchenObjectService.Instance.GetIndex(playerObject.Scriptable);
+                StartFryingServerRpc(scriptableIndex);
+            } else if (counterHasObject && state.Value is State.Fried or State.Burned) {
                 counterObject.Parent = player;
-                GoToIdle();
+                GoToIdleServerRpc();
             }
 
             void ProcessBothHaveObjects() {
                 if (!TryAddToPlate(playerObject, counterObject)) {
                     return;
                 }
-                GoToIdle();
-            }
-
-            void GoToIdle() {
-                state = State.Idle;
-                StateChanged(state);
-                ProgressSet(0);
+                GoToIdleServerRpc();
             }
         }
 
+        [ServerRpc(RequireOwnership = false)]
+        private void StartFryingServerRpc(int scriptableIndex) {
+            seconds.Value = 0;
+            state.Value = State.Frying;
+            setWarning = false;
+            SetFryingRecipeClientRpc(scriptableIndex);
+        }
+
+        [ClientRpc]
+        private void SetFryingRecipeClientRpc(int scriptableIndex) {
+            var scriptable = KitchenObjectService.Instance.Get(scriptableIndex);
+            currentRecipe = GetRecipe(fryingRecipes, scriptable);
+        }
+
+        [ServerRpc(RequireOwnership = false)]
+        private void GoToIdleServerRpc() {
+            state.Value = State.Idle;
+        }
+
         void Update() {
+            if (!IsServer) {
+                return;
+            }
             if (!TryGetKitchenObject(out var counterObject)) {
                 return;
             }
-            switch (state) {
+            switch (state.Value) {
                 case State.Frying:
                     Fry(State.Fried, burningRecipes);
                     break;
                 case State.Fried:
                     Fry(State.Burned);
-                    var progress = seconds / currentRecipe.maxSeconds;
+                    var progress = seconds.Value / currentRecipe.maxSeconds;
                     if (!setWarning && progress > .5f) {
                         setWarning = true;
-                        WarningSet();
+                        TriggerWarningSetClientRpc();
                     }
                     break;
             }
 
             void Fry(State nextState, StoveRecipe[]? recipes = null) {
-                seconds += Time.deltaTime;
-                var progress = seconds / currentRecipe.maxSeconds;
-                ProgressSet(progress);
+                seconds.Value += Time.deltaTime;
+                var progress = seconds.Value / currentRecipe.maxSeconds;
                 if (progress < 1) {
                     return;
                 }
                 KitchenObjectService.Instance.Destroy(counterObject);
                 KitchenObjectService.Instance.Spawn(currentRecipe.output, this);
-                seconds = 0;
-                state = nextState;
-                StateChanged(state);
+                seconds.Value = 0;
+                state.Value = nextState;
                 if (!TryGetKitchenObject(out counterObject) || recipes == null ||
-                    !TryGetRecipe(recipes, counterObject.Scriptable, out var recipe)) {
+                    !RecipeExists(recipes, counterObject.Scriptable)) {
                     return;
                 }
-                currentRecipe = recipe;
+                var scriptableIndex = KitchenObjectService.Instance.GetIndex(counterObject.Scriptable);
+                SetBurningRecipeClientRpc(scriptableIndex);
             }
         }
 
-        private static bool TryGetRecipe(StoveRecipe[] recipes, KitchenObjectScriptable input, out StoveRecipe result) {
-            result = null!;
+        [ClientRpc]
+        private void TriggerWarningSetClientRpc() => WarningSet();
+
+        [ClientRpc]
+        private void SetBurningRecipeClientRpc(int scriptableIndex) {
+            var scriptable = KitchenObjectService.Instance.Get(scriptableIndex);
+            currentRecipe = GetRecipe(burningRecipes, scriptable);
+        }
+
+        private static bool RecipeExists(StoveRecipe[] recipes, KitchenObjectScriptable input) {
             foreach (var recipe in recipes) {
-                if (recipe.input != input) {
-                    continue;
+                if (recipe.input == input) {
+                    return true;
                 }
-                result = recipe;
-                return true;
             }
             return false;
+        }
+
+        private static StoveRecipe GetRecipe(StoveRecipe[] recipes, KitchenObjectScriptable input) {
+            foreach (var recipe in recipes) {
+                if (recipe.input == input) {
+                    return recipe;
+                }
+            }
+            throw new ArgumentException($"No recipe for {input.name}");
         }
 
         public enum State {
