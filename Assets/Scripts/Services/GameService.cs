@@ -35,6 +35,9 @@ namespace KitchenChaos.Services {
         public override void OnNetworkSpawn() {
             state.OnValueChanged += TriggerStateChanged;
             pausedGlobally.OnValueChanged += OnPausedChanged;
+            if (IsServer) {
+                NetworkManager.Singleton.OnClientDisconnectCallback += Unpause;
+            }
 
             void TriggerStateChanged(State _, State __) {
                 StateChanged();
@@ -127,6 +130,11 @@ namespace KitchenChaos.Services {
         [ServerRpc(RequireOwnership = false)]
         private void UnpauseServerRpc(ServerRpcParams parameters = default) {
             pausedPlayers[parameters.Receive.SenderClientId] = false;
+            SetPaused();
+        }
+
+        private void Unpause(ulong client) {
+            pausedPlayers[client] = false;
             SetPaused();
         }
 

@@ -7,11 +7,13 @@ namespace KitchenChaos {
         public static Player LocalInstance { get; private set; } = null!;
 
         public override void OnNetworkSpawn() {
-            if (!IsOwner) {
-                return;
+            if (IsOwner) {
+                LocalInstance = this;
+                LocalInstanceSet();
             }
-            LocalInstance = this;
-            LocalInstanceSet();
+            if (IsServer) {
+                NetworkManager.OnClientDisconnectCallback += DestroyHoldingObject;
+            }
         }
     }
 }

@@ -109,5 +109,11 @@ namespace KitchenChaos {
             }
             selectedCounter.InteractAlternate();
         }
+
+        private void DestroyHoldingObject(ulong client) {
+            if (client == OwnerClientId && TryGetKitchenObject(out var holdingObject)) {
+                KitchenObjectService.Instance.Destroy(holdingObject);
+            }
+        }
     }
 }
