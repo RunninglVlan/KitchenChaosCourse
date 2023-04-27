@@ -1,13 +1,8 @@
 ﻿using KitchenChaos.Services;
-using NaughtyAttributes;
-using UnityEngine;
-using UnityEngine.SceneManagement;
 using UnityEngine.UIElements;
 
 namespace KitchenChaos.UIServices {
     public class GamePause : UIService {
-        [SerializeField, Scene] private string mainMenu = null!;
-
         void Start() {
             var root = document.rootVisualElement;
             var resume = root.Q<Button>("resume");
@@ -29,9 +24,9 @@ namespace KitchenChaos.UIServices {
             Options.Instance.Show(Show);
         }
 
-        private void LoadMainMenu() {
+        private static void LoadMainMenu() {
             Resume();
-            SceneManager.LoadScene(mainMenu);
+            SceneService.Instance.LoadMainMenu();
         }
     }
 }
