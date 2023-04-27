@@ -1,4 +1,5 @@
 ﻿using KitchenChaos.Services;
+using Unity.Netcode;
 using UnityEngine.UIElements;
 
 namespace KitchenChaos.UIServices {
@@ -9,7 +10,7 @@ namespace KitchenChaos.UIServices {
             orderCount = document.rootVisualElement.Q<Label>("order-count");
             Hide();
             GameService.Instance.StateChanged += SetVisibleOnGameOver;
-            document.rootVisualElement.Q<Button>("reload").clicked += SceneService.Instance.LoadGame;
+            document.rootVisualElement.Q<Button>("reload").clicked += Reload;
         }
 
         private void SetVisibleOnGameOver() {
@@ -17,6 +18,12 @@ namespace KitchenChaos.UIServices {
             if (GameService.Instance.IsGameOver) {
                 orderCount.text = DeliveryService.Instance.DeliveredOrders.ToString();
             }
+        }
+
+        private static void Reload() {
+            NetworkManager.Singleton.Shutdown();
+            Destroy(NetworkManager.Singleton.gameObject);
+            SceneService.Instance.LoadGame();
         }
     }
 }
