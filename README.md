@@ -1,7 +1,7 @@
 # KitchenChaosCourse
 For [CodeMonkey's FREE Kitchen Chaos course](https://unitycodemonkey.com/kitchenchaoscourse.php) and [CodeMonkey's FREE Multiplayer Kitchen Chaos course](https://unitycodemonkey.com/kitchenchaosmultiplayercourse.php)
 
-# Build
+## Build
 <a href="https://runninglvlan.github.io/KitchenChaosCourse/Build/"><img src="https://runninglvlan.github.io/KitchenChaosCourse/Build/thumb.png" /></a>
 
 ## Using
