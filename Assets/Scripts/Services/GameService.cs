@@ -11,27 +11,42 @@ namespace KitchenChaos.Services {
 
         public event Action PlayerBecameReady = delegate { };
         public event Action StateChanged = delegate { };
-        public event Action Paused = delegate { };
-        public event Action Unpaused = delegate { };
+        public event Action LocalPaused = delegate { };
+        public event Action LocalUnpaused = delegate { };
+        public event Action GlobalPaused = delegate { };
+        public event Action GlobalUnpaused = delegate { };
 
         private readonly NetworkVariable<State> state = new();
         private bool localPlayerReady;
         private readonly List<ulong> playerReadyStates = new();
+        private readonly Dictionary<ulong, bool> pausedPlayers = new();
         private readonly NetworkVariable<float> seconds = new();
         public bool IsPlaying => state.Value == State.GamePlaying;
         public bool IsCountingDownToStart => state.Value == State.CountdownToStart;
         public bool IsGameOver => state.Value == State.GameOver;
         public int PlayingSeconds => IsPlaying ? (int)MAX_PLAYING_SECONDS - Mathf.CeilToInt(seconds.Value) : 0;
-        private bool paused;
+        public bool PausedLocally { get; private set; }
+        private readonly NetworkVariable<bool> pausedGlobally = new();
+        public bool PausedGlobally => pausedGlobally.Value;
 
         public int CountdownSeconds =>
             IsCountingDownToStart ? (int)MAX_COUNTDOWN_SECONDS - Mathf.FloorToInt(seconds.Value) : 0;
 
         public override void OnNetworkSpawn() {
             state.OnValueChanged += TriggerStateChanged;
+            pausedGlobally.OnValueChanged += OnPausedChanged;
 
             void TriggerStateChanged(State _, State __) {
                 StateChanged();
+            }
+
+            void OnPausedChanged(bool _, bool value) {
+                Time.timeScale = value ? 0 : 1;
+                if (value) {
+                    GlobalPaused();
+                } else {
+                    GlobalUnpaused();
+                }
             }
         }
 
@@ -93,13 +108,37 @@ namespace KitchenChaos.Services {
             if (IsGameOver) {
                 return;
             }
-            paused = !paused;
-            Time.timeScale = paused ? 0 : 1;
-            if (paused) {
-                Paused();
+            PausedLocally = !PausedLocally;
+            if (PausedLocally) {
+                PauseServerRpc();
+                LocalPaused();
             } else {
-                Unpaused();
+                UnpauseServerRpc();
+                LocalUnpaused();
             }
+        }
+
+        [ServerRpc(RequireOwnership = false)]
+        private void PauseServerRpc(ServerRpcParams parameters = default) {
+            pausedPlayers[parameters.Receive.SenderClientId] = true;
+            SetPaused();
+        }
+
+        [ServerRpc(RequireOwnership = false)]
+        private void UnpauseServerRpc(ServerRpcParams parameters = default) {
+            pausedPlayers[parameters.Receive.SenderClientId] = false;
+            SetPaused();
+        }
+
+        private void SetPaused() {
+            foreach (var client in NetworkManager.Singleton.ConnectedClientsIds) {
+                if (!pausedPlayers.TryGetValue(client, out var value) || !value) {
+                    continue;
+                }
+                pausedGlobally.Value = true;
+                return;
+            }
+            pausedGlobally.Value = false;
         }
 
         private enum State {

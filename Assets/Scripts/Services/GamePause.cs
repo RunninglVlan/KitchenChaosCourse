@@ -15,8 +15,8 @@ namespace KitchenChaos.Services {
             root.Q<Button>("options").clicked += ShowOptions;
             root.Q<Button>("menu").clicked += LoadMainMenu;
             Hide();
-            GameService.Instance.Paused += Show;
-            GameService.Instance.Unpaused += Hide;
+            GameService.Instance.LocalPaused += Show;
+            GameService.Instance.LocalUnpaused += Hide;
         }
 
         private static void Resume() {

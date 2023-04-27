@@ -27,7 +27,7 @@ namespace KitchenChaos.Services {
             rebindingOverlay = root.Q<VisualElement>("overlay");
             rebindingOverlay.SetActive(false);
             root.Q<Button>("hide").clicked += HideAndInvokeAction;
-            GameService.Instance.Unpaused += HideAndInvokeAction;
+            GameService.Instance.LocalUnpaused += HideAndInvokeAction;
             Hide();
 
             void SoundVolume(float value) {
