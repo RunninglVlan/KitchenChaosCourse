@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
+using KitchenChaos.Services;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UIElements;
 
-namespace KitchenChaos.Services {
+namespace KitchenChaos.UIServices {
     public partial class Options : UIService {
         public const string CONTROL_VECTOR = "Vector2";
         private const string ESC = "<Keyboard>/escape";

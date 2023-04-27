@@ -1,8 +1,9 @@
 ﻿using System.Collections.Generic;
+using KitchenChaos.Services;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-namespace KitchenChaos.Services {
+namespace KitchenChaos.UIServices {
     public partial class DeliveryServiceUI : UIService {
         [SerializeField] private VisualTreeAsset orderAsset = null!;
 

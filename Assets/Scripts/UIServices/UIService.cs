@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.UIElements;
 
-namespace KitchenChaos.Services {
+namespace KitchenChaos.UIServices {
     public abstract class UIService : MonoBehaviour {
         [SerializeField] protected UIDocument document = null!;
 

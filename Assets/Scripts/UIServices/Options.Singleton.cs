@@ -1,8 +1,8 @@
 ﻿using UnityEngine;
 
-namespace KitchenChaos.Services {
-    public partial class DeliveryServiceUI {
-        public static DeliveryServiceUI Instance { get; private set; } = null!;
+namespace KitchenChaos.UIServices {
+    public partial class Options {
+        public static Options Instance { get; private set; } = null!;
 
         protected override void Awake() {
             base.Awake();

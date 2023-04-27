@@ -1,6 +1,7 @@
-﻿using UnityEngine.UIElements;
+﻿using KitchenChaos.Services;
+using UnityEngine.UIElements;
 
-namespace KitchenChaos.Services {
+namespace KitchenChaos.UIServices {
     public class GameTime : UIService {
         private Label time = null!;
 

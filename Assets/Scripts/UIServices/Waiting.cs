@@ -1,4 +1,6 @@
-﻿namespace KitchenChaos.Services {
+﻿using KitchenChaos.Services;
+
+namespace KitchenChaos.UIServices {
     public class Waiting : UIService {
         void Start() {
             Hide();

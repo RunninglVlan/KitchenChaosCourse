@@ -1,9 +1,10 @@
 ﻿using System.Linq;
+using KitchenChaos.Services;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UIElements;
 
-namespace KitchenChaos.Services {
+namespace KitchenChaos.UIServices {
     public class Tutorial : UIService {
         private const string BUTTON_CLASS = "cs-button";
 

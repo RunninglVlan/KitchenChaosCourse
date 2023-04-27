@@ -1,9 +1,10 @@
-﻿using NaughtyAttributes;
+﻿using KitchenChaos.Services;
+using NaughtyAttributes;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UIElements;
 
-namespace KitchenChaos.Services {
+namespace KitchenChaos.UIServices {
     public class GameOver : UIService {
         [SerializeField, Scene] private string loadingScene = null!;
 
