@@ -21,6 +21,7 @@ namespace KitchenChaos.Services {
         private readonly List<ulong> playerReadyStates = new();
         private readonly Dictionary<ulong, bool> pausedPlayers = new();
         private readonly NetworkVariable<float> seconds = new();
+        public bool IsWaitingToStart => state.Value == State.WaitingToStart;
         public bool IsPlaying => state.Value == State.GamePlaying;
         public bool IsCountingDownToStart => state.Value == State.CountdownToStart;
         public bool IsGameOver => state.Value == State.GameOver;

@@ -1,4 +1,4 @@
-﻿using Unity.Netcode;
+﻿using KitchenChaos.Services;
 using UnityEngine.UIElements;
 
 namespace KitchenChaos.UIServices {
@@ -9,12 +9,12 @@ namespace KitchenChaos.UIServices {
             root.Q<Button>("client").clicked += StartClient;
 
             void StartHost() {
-                NetworkManager.Singleton.StartHost();
+                NetworkService.StartHost();
                 Hide();
             }
 
             void StartClient() {
-                NetworkManager.Singleton.StartClient();
+                NetworkService.StartClient();
                 Hide();
             }
         }
