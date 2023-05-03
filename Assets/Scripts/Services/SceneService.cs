@@ -12,10 +12,14 @@ namespace KitchenChaos.Services {
         [SerializeField, Scene] private string lobby = null!;
         [SerializeField, Scene] private string characterSelection = null!;
 
-        public void LoadGame() {
-            SceneManager.LoadSceneAsync(loading).completed += _ => {
-                SceneManager.LoadScene(game);
-            };
+        public void LoadGame(bool network = false) {
+            if (!network) {
+                SceneManager.LoadSceneAsync(loading).completed += _ => {
+                    SceneManager.LoadScene(game);
+                };
+                return;
+            }
+            NetworkManager.Singleton.SceneManager.LoadScene(game, LoadSceneMode.Single);
         }
 
         public void LoadMainMenu() => SceneManager.LoadScene(mainMenu);
