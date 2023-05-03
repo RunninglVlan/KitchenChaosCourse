@@ -255,9 +255,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ab84cdac9bb04fdc9d9ce62bbcb47e95, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mainMenuScene: MainMenuScene
-  loadingScene: LoadingScene
-  gameScene: GameScene
+  mainMenu: MainMenu
+  loading: Loading
+  game: Game
 --- !u!4 &405445863
 Transform:
   m_ObjectHideFlags: 0

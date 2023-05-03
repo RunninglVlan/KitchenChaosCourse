@@ -1,8 +1,7 @@
 ﻿using Unity.Netcode;
-using UnityEngine;
 
 namespace KitchenChaos.Services {
-    public class NetworkService : MonoBehaviour {
+    public static class NetworkService {
         public static void StartHost() {
             NetworkManager.Singleton.ConnectionApprovalCallback += ProcessConnectionApproval;
             NetworkManager.Singleton.StartHost();
