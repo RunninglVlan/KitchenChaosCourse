@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 
 namespace KitchenChaos.Services {
-    public class GameService : NetworkSingleton<GameService> {
+    public class GameService : BaseReadyService<GameService> {
         private const float MAX_COUNTDOWN_SECONDS = 3;
         public const float MAX_PLAYING_SECONDS = 60;
 
@@ -16,9 +16,10 @@ namespace KitchenChaos.Services {
         public event Action GlobalPaused = delegate { };
         public event Action GlobalUnpaused = delegate { };
 
+        protected override Action ReadyAction => () => state.Value = State.CountdownToStart;
+
         private readonly NetworkVariable<State> state = new();
         private bool localPlayerReady;
-        private readonly List<ulong> playerReadyStates = new();
         private readonly Dictionary<ulong, bool> pausedPlayers = new();
         private readonly NetworkVariable<float> seconds = new();
         public bool IsWaitingToStart => state.Value == State.WaitingToStart;
@@ -70,13 +71,7 @@ namespace KitchenChaos.Services {
 
         [ServerRpc(RequireOwnership = false)]
         private void SetPlayerReadyServerRpc(ServerRpcParams parameters = default) {
-            playerReadyStates.Add(parameters.Receive.SenderClientId);
-            foreach (var client in NetworkManager.Singleton.ConnectedClientsIds) {
-                if (!playerReadyStates.Contains(client)) {
-                    return;
-                }
-            }
-            state.Value = State.CountdownToStart;
+            BaseSetPlayerReady(parameters.Receive.SenderClientId);
         }
 
         void Update() {

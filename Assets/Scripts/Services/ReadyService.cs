@@ -1,9 +1,25 @@
+using System;
 using System.Collections.Generic;
 using Unity.Netcode;
 
 namespace KitchenChaos.Services {
-    public class ReadyService : NetworkSingleton<ReadyService> {
+    public abstract class BaseReadyService<T> : NetworkSingleton<T> where T : NetworkSingleton<T> {
         private readonly List<ulong> playerReadyStates = new();
+        protected abstract Action ReadyAction { get; }
+
+        protected void BaseSetPlayerReady(ulong senderClient) {
+            playerReadyStates.Add(senderClient);
+            foreach (var client in NetworkManager.Singleton.ConnectedClientsIds) {
+                if (!playerReadyStates.Contains(client)) {
+                    return;
+                }
+            }
+            ReadyAction();
+        }
+    }
+
+    public class ReadyService : BaseReadyService<ReadyService> {
+        protected override Action ReadyAction => () => SceneService.Instance.LoadGame(network: true);
 
         public void SetPlayerReady() {
             SetPlayerReadyServerRpc();
@@ -11,13 +27,7 @@ namespace KitchenChaos.Services {
 
         [ServerRpc(RequireOwnership = false)]
         private void SetPlayerReadyServerRpc(ServerRpcParams parameters = default) {
-            playerReadyStates.Add(parameters.Receive.SenderClientId);
-            foreach (var client in NetworkManager.Singleton.ConnectedClientsIds) {
-                if (!playerReadyStates.Contains(client)) {
-                    return;
-                }
-            }
-            SceneService.Instance.LoadGame(network: true);
+            BaseSetPlayerReady(parameters.Receive.SenderClientId);
         }
     }
 }
