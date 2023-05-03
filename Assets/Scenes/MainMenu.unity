@@ -258,6 +258,8 @@ MonoBehaviour:
   mainMenu: MainMenu
   loading: Loading
   game: Game
+  lobby: Lobby
+  characterSelection: CharacterSelection
 --- !u!4 &405445863
 Transform:
   m_ObjectHideFlags: 0

@@ -13,7 +13,7 @@
 }
 
 .button--big {
-    width: 450px;
+    width: 520px;
     height: 150px;
     font-size: 70px;
     border-radius: 20px;

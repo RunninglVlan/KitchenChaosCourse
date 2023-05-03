@@ -1,0 +1,8 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/UI/generic.uss?fileID=7433441132597879392&amp;guid=922dfd8c0a454fd791ffc976da3269d8&amp;type=3#generic" />
+    <Style src="project://database/Assets/UI/Lobby/lobby.uss?fileID=7433441132597879392&amp;guid=28d8805daddf464a9ecb2f414ab3da7f&amp;type=3#lobby" />
+    <ui:VisualElement class="background">
+        <ui:Button text="Create game" name="create" class="button button--big" />
+        <ui:Button text="Join game" name="join" class="button button--big" />
+    </ui:VisualElement>
+</ui:UXML>

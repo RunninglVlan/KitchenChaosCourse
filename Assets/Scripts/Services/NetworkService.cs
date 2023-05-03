@@ -9,8 +9,7 @@ namespace KitchenChaos.Services {
             void ProcessConnectionApproval(NetworkManager.ConnectionApprovalRequest _,
                 NetworkManager.ConnectionApprovalResponse response
             ) {
-                response.Approved = GameService.Instance.IsWaitingToStart;
-                response.CreatePlayerObject = true;
+                response.Approved = true;
             }
         }
 
