@@ -1,4 +1,3 @@
-using System;
 using NaughtyAttributes;
 using Unity.Netcode;
 using UnityEngine;
@@ -12,23 +11,27 @@ namespace KitchenChaos.Services {
         [SerializeField, Scene] private string lobby = null!;
         [SerializeField, Scene] private string characterSelection = null!;
 
-        public void LoadGame(bool network = false) {
+        public void LoadGame(bool network = false) => Load(game, network);
+        public void LoadMainMenu() => Load(mainMenu, false);
+        public void LoadCharacterSelection(bool network = false) => Load(characterSelection, network);
+
+        private void Load(string scene, bool network) {
             if (!network) {
                 SceneManager.LoadSceneAsync(loading).completed += _ => {
-                    SceneManager.LoadScene(game);
+                    SceneManager.LoadScene(scene);
                 };
                 return;
             }
-            NetworkManager.Singleton.SceneManager.LoadScene(game, LoadSceneMode.Single);
-        }
+            NetworkManager.Singleton.SceneManager.OnSceneEvent += OnScene;
+            NetworkManager.Singleton.SceneManager.LoadScene(loading, LoadSceneMode.Single);
 
-        public void LoadMainMenu() => SceneManager.LoadScene(mainMenu);
-
-        public void LoadCharacterSelection(bool network = false) {
-            if (!network) {
-                throw new NotImplementedException();
+            void OnScene(SceneEvent sceneEvent) {
+                if (sceneEvent.SceneEventType != SceneEventType.LoadEventCompleted) {
+                    return;
+                }
+                NetworkManager.Singleton.SceneManager.OnSceneEvent -= OnScene;
+                NetworkManager.Singleton.SceneManager.LoadScene(scene, LoadSceneMode.Single);
             }
-            NetworkManager.Singleton.SceneManager.LoadScene(characterSelection, LoadSceneMode.Single);
         }
     }
 }
