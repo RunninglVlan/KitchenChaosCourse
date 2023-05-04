@@ -1,7 +1,7 @@
 ﻿using KitchenChaos.Services;
 
 namespace KitchenChaos.UIServices {
-    public class Waiting : UIService {
+    public class WaitingGameReady : UIService {
         void Start() {
             Hide();
             GameService.Instance.PlayerBecameReady += Show;

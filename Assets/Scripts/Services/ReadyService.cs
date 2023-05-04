@@ -4,6 +4,8 @@ using Unity.Netcode;
 
 namespace KitchenChaos.Services {
     public abstract class BaseReadyService<T> : NetworkSingleton<T> where T : NetworkSingleton<T> {
+        public abstract event Action PlayerBecameReady;
+
         private readonly List<ulong> playerReadyStates = new();
         protected abstract Action ReadyAction { get; }
 
@@ -19,9 +21,12 @@ namespace KitchenChaos.Services {
     }
 
     public class ReadyService : BaseReadyService<ReadyService> {
+        public sealed override event Action PlayerBecameReady = delegate { };
+
         protected override Action ReadyAction => () => SceneService.Instance.LoadGame();
 
         public void SetPlayerReady() {
+            PlayerBecameReady();
             SetPlayerReadyServerRpc();
         }
 

@@ -13,7 +13,7 @@ namespace KitchenChaos.Services {
 
         [SerializeField] private GameObject playerPrefab = null!;
 
-        public event Action PlayerBecameReady = delegate { };
+        public sealed override event Action PlayerBecameReady = delegate { };
         public event Action StateChanged = delegate { };
         public event Action LocalPaused = delegate { };
         public event Action LocalUnpaused = delegate { };
