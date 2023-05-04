@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using NaughtyAttributes;
 using Unity.Netcode;
 using UnityEngine;
@@ -22,14 +23,11 @@ namespace KitchenChaos.Services {
                 };
                 return;
             }
-            NetworkManager.Singleton.SceneManager.OnSceneEvent += OnScene;
+            NetworkManager.Singleton.SceneManager.OnLoadEventCompleted += OnCompleted;
             NetworkManager.Singleton.SceneManager.LoadScene(loading, LoadSceneMode.Single);
 
-            void OnScene(SceneEvent sceneEvent) {
-                if (sceneEvent.SceneEventType != SceneEventType.LoadEventCompleted) {
-                    return;
-                }
-                NetworkManager.Singleton.SceneManager.OnSceneEvent -= OnScene;
+            void OnCompleted(string _, LoadSceneMode __, List<ulong> ___, List<ulong> ____) {
+                NetworkManager.Singleton.SceneManager.OnLoadEventCompleted -= OnCompleted;
                 NetworkManager.Singleton.SceneManager.LoadScene(scene, LoadSceneMode.Single);
             }
         }
