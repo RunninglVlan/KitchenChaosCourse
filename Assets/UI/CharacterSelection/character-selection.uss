@@ -1,6 +1,21 @@
-.background {
+.content {
     background-color: rgba(0, 0, 0, 0.95);
     align-items: center;
     justify-content: center;
     height: 100%;
+}
+
+.cs-waiting .ready {
+    display: none;
+}
+
+.title {
+    font-size: 80px;
+    -unity-font-style: bold;
+    color: white;
+    display: none;
+}
+
+.cs-waiting .title {
+    display: flex;
 }

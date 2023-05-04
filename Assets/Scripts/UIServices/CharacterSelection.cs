@@ -4,9 +4,15 @@ using UnityEngine.UIElements;
 namespace KitchenChaos.UIServices {
     public class CharacterSelection : UIService {
         void Start() {
-            var ready = document.rootVisualElement.Q<Button>("ready");
+            var content = document.rootVisualElement.Q<VisualElement>("content");
+            var ready = content.Q<Button>("ready");
             ready.Focus();
-            ready.clicked += ReadyService.Instance.SetPlayerReady;
+            ready.clicked += SetReady;
+
+            void SetReady() {
+                content.AddToClassList("cs-waiting");
+                ReadyService.Instance.SetPlayerReady();
+            }
         }
     }
 }
