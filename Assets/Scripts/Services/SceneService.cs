@@ -14,6 +14,15 @@ namespace KitchenChaos.Services {
 
         public bool IsCharacterSelection => SceneManager.GetActiveScene().name == characterSelection;
 
+        protected override void Awake() {
+            if (Instance) {
+                Destroy(gameObject);
+                return;
+            }
+            DontDestroyOnLoad(gameObject);
+            base.Awake();
+        }
+
         public void LoadGame() => Load(game, true);
         public void LoadMainMenu() => Load(mainMenu, false);
         public void LoadLobby() => Load(lobby, false);
