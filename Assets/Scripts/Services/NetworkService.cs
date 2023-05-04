@@ -15,6 +15,10 @@ namespace KitchenChaos.Services {
             void ProcessConnectionApproval(NetworkManager.ConnectionApprovalRequest _,
                 NetworkManager.ConnectionApprovalResponse response
             ) {
+                if (NetworkManager.Singleton.IsServer) {
+                    response.Approved = true;
+                    return;
+                }
                 if (!SceneService.Instance.IsCharacterSelection) {
                     response.Approved = false;
                     response.Reason = "Game has already started";
