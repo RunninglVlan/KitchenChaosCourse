@@ -19,7 +19,7 @@ namespace KitchenChaos.Services {
         private void SpawnServerRpc(int scriptableIndex, NetworkObjectReference parentNetworkObjectReference) {
             var scriptable = Get(scriptableIndex);
             var instance = Instantiate(scriptable.prefab);
-            instance.GetComponent<NetworkObject>().Spawn();
+            instance.GetComponent<NetworkObject>().Spawn(true);
             parentNetworkObjectReference.TryGet(out var parentNetworkObject);
             instance.Parent = parentNetworkObject.GetComponent<IKitchenObjectParent>();
         }
