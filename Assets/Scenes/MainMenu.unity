@@ -260,6 +260,7 @@ MonoBehaviour:
   game: Game
   lobby: Lobby
   characterSelection: CharacterSelection
+  singlePlayer: LoadNetworkAndGame
 --- !u!4 &405445863
 Transform:
   m_ObjectHideFlags: 0

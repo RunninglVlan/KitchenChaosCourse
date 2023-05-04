@@ -11,6 +11,7 @@ namespace KitchenChaos.Services {
         [SerializeField, Scene] private string game = null!;
         [SerializeField, Scene] private string lobby = null!;
         [SerializeField, Scene] private string characterSelection = null!;
+        [SerializeField, Scene] private string singlePlayer = null!;
 
         public bool IsCharacterSelection => SceneManager.GetActiveScene().name == characterSelection;
 
@@ -27,6 +28,7 @@ namespace KitchenChaos.Services {
         public void LoadMainMenu() => Load(mainMenu, false);
         public void LoadLobby() => Load(lobby, false);
         public void LoadCharacterSelection() => Load(characterSelection, true);
+        public void LoadSinglePlayer() => Load(singlePlayer, false);
 
         private void Load(string scene, bool network) {
             if (!network) {
