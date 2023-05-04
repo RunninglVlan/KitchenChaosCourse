@@ -12,9 +12,10 @@ namespace KitchenChaos.Services {
         [SerializeField, Scene] private string lobby = null!;
         [SerializeField, Scene] private string characterSelection = null!;
 
-        public void LoadGame(bool network = false) => Load(game, network);
+        public void LoadGame() => Load(game, true);
         public void LoadMainMenu() => Load(mainMenu, false);
-        public void LoadCharacterSelection(bool network = false) => Load(characterSelection, network);
+        public void LoadLobby() => Load(lobby, false);
+        public void LoadCharacterSelection() => Load(characterSelection, true);
 
         private void Load(string scene, bool network) {
             if (!network) {

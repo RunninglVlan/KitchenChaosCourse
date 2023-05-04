@@ -1,5 +1,4 @@
 ﻿using KitchenChaos.Services;
-using Unity.Netcode;
 using UnityEngine.UIElements;
 
 namespace KitchenChaos.UIServices {
@@ -21,9 +20,7 @@ namespace KitchenChaos.UIServices {
         }
 
         private static void Reload() {
-            NetworkManager.Singleton.Shutdown();
-            Destroy(NetworkManager.Singleton.gameObject);
-            SceneService.Instance.LoadGame();
+            GameService.Instance.ReloadGame();
         }
     }
 }

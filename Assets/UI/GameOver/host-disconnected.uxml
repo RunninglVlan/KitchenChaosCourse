@@ -3,6 +3,6 @@
     <Style src="project://database/Assets/UI/GameOver/game-over.uss?fileID=7433441132597879392&amp;guid=1253ff6300a447d7bf30973c424c7dd4&amp;type=3#game-over" />
     <ui:VisualElement class="background">
         <ui:Label text="Host disconnected" class="title" />
-        <ui:Button text="Play again" name="reload" class="button button--big" />
+        <ui:Button text="Main Menu" name="menu" class="button button--big" />
     </ui:VisualElement>
 </ui:UXML>

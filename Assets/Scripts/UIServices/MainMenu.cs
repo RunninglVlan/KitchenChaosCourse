@@ -7,10 +7,8 @@ namespace KitchenChaos.UIServices {
         void Start() {
             var play = document.rootVisualElement.Q<Button>("play");
             play.Focus();
-            play.clicked += LoadGame;
+            play.clicked += SceneService.Instance.LoadLobby;
             document.rootVisualElement.Q<Button>("quit").clicked += Application.Quit;
-
-            void LoadGame() => SceneService.Instance.LoadGame();
         }
     }
 }

@@ -11,7 +11,7 @@ namespace KitchenChaos.UIServices {
 
             void Create() {
                 NetworkService.StartHost();
-                SceneService.Instance.LoadCharacterSelection(network: true);
+                SceneService.Instance.LoadCharacterSelection();
             }
         }
     }

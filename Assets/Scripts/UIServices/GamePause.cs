@@ -27,8 +27,6 @@ namespace KitchenChaos.UIServices {
 
         private static void LoadMainMenu() {
             Resume();
-            NetworkManager.Singleton.Shutdown();
-            Destroy(NetworkManager.Singleton.gameObject);
             SceneService.Instance.LoadMainMenu();
         }
     }

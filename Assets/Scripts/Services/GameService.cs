@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -154,6 +155,14 @@ namespace KitchenChaos.Services {
                 return;
             }
             pausedGlobally.Value = false;
+        }
+
+        public void ReloadGame() => ReloadGameServerRpc();
+
+        [ServerRpc(RequireOwnership = false)]
+        [SuppressMessage("ReSharper", "MemberCanBeMadeStatic.Local", Justification = "Rpc can't be static")]
+        private void ReloadGameServerRpc() {
+            SceneService.Instance.LoadGame();
         }
 
         private enum State {

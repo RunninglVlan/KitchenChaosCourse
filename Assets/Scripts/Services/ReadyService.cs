@@ -19,7 +19,7 @@ namespace KitchenChaos.Services {
     }
 
     public class ReadyService : BaseReadyService<ReadyService> {
-        protected override Action ReadyAction => () => SceneService.Instance.LoadGame(network: true);
+        protected override Action ReadyAction => () => SceneService.Instance.LoadGame();
 
         public void SetPlayerReady() {
             SetPlayerReadyServerRpc();

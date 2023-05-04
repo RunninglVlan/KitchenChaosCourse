@@ -7,17 +7,19 @@ namespace KitchenChaos.UIServices {
         void Start() {
             Hide();
             NetworkManager.Singleton.OnClientDisconnectCallback += OnClientDisconnected;
-            document.rootVisualElement.Q<Button>("reload").clicked += Reload;
+            document.rootVisualElement.Q<Button>("menu").clicked += SceneService.Instance.LoadMainMenu;
+        }
 
-            void OnClientDisconnected(ulong client) {
-                SetVisible(client == NetworkManager.ServerClientId);
-            }
+        private void OnClientDisconnected(ulong client) {
+            SetVisible(client == NetworkManager.ServerClientId);
+        }
 
-            void Reload() {
-                NetworkManager.Singleton.Shutdown();
-                Destroy(NetworkManager.Singleton.gameObject);
-                SceneService.Instance.LoadGame();
+        void OnDestroy() {
+            var network = NetworkManager.Singleton;
+            if (!network) {
+                return;
             }
+            network.OnClientDisconnectCallback -= OnClientDisconnected;
         }
     }
 }
