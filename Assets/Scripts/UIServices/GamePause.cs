@@ -1,5 +1,4 @@
 ﻿using KitchenChaos.Services;
-using Unity.Netcode;
 using UnityEngine.UIElements;
 
 namespace KitchenChaos.UIServices {
