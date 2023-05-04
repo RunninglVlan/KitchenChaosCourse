@@ -3,11 +3,14 @@ using System.Collections.Generic;
 using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 namespace KitchenChaos.Services {
     public class GameService : BaseReadyService<GameService> {
         private const float MAX_COUNTDOWN_SECONDS = 3;
         public const float MAX_PLAYING_SECONDS = 60;
+
+        [SerializeField] private GameObject playerPrefab = null!;
 
         public event Action PlayerBecameReady = delegate { };
         public event Action StateChanged = delegate { };
@@ -39,6 +42,7 @@ namespace KitchenChaos.Services {
             pausedGlobally.OnValueChanged += OnPausedChanged;
             if (IsServer) {
                 NetworkManager.Singleton.OnClientDisconnectCallback += Unpause;
+                NetworkManager.Singleton.SceneManager.OnLoadEventCompleted += SpawnPlayers;
             }
 
             void TriggerStateChanged(State _, State __) {
@@ -52,6 +56,13 @@ namespace KitchenChaos.Services {
                 } else {
                     GlobalUnpaused();
                 }
+            }
+        }
+
+        private void SpawnPlayers(string _, LoadSceneMode __, List<ulong> ___, List<ulong> ____) {
+            foreach (var client in NetworkManager.Singleton.ConnectedClientsIds) {
+                var player = Instantiate(playerPrefab);
+                player.GetComponent<NetworkObject>().SpawnAsPlayerObject(client, true);
             }
         }
 
