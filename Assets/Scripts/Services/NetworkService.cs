@@ -2,14 +2,34 @@
 using Unity.Netcode;
 
 namespace KitchenChaos.Services {
-    public static class NetworkService {
+    public class NetworkService : NetworkSingleton<NetworkService> {
         private const int MAX_PLAYERS = 4;
 
         public static event Action TryingToJoin = delegate { };
         public static event Action FailedToJoin = delegate { };
+        public static event Action OnPlayerDataChanged = delegate { };
 
-        public static void StartHost() {
+        private NetworkList<PlayerData> playerData = null!;
+
+        protected override void Awake() {
+            if (Instance) {
+                Destroy(gameObject);
+                return;
+            }
+            DontDestroyOnLoad(gameObject);
+            base.Awake();
+            playerData = new();
+            playerData.OnListChanged += TriggerChanged;
+
+            void TriggerChanged(NetworkListEvent<PlayerData> _) {
+                OnPlayerDataChanged();
+            }
+        }
+
+        public void StartHost() {
             NetworkManager.Singleton.ConnectionApprovalCallback += ProcessConnectionApproval;
+            NetworkManager.Singleton.OnClientConnectedCallback += ProcessConnect;
+            NetworkManager.Singleton.OnClientDisconnectCallback += ProcessDisconnect;
             NetworkManager.Singleton.StartHost();
 
             void ProcessConnectionApproval(NetworkManager.ConnectionApprovalRequest _,
@@ -31,6 +51,18 @@ namespace KitchenChaos.Services {
                 }
                 response.Approved = true;
             }
+
+            void ProcessConnect(ulong clientId) {
+                playerData.Add(new PlayerData { clientId = clientId });
+            }
+
+            void ProcessDisconnect(ulong clientId) {
+                for (var i = playerData.Count - 1; i >= 0; i--) {
+                    if (playerData[i].clientId == clientId) {
+                        playerData.RemoveAt(i);
+                    }
+                }
+            }
         }
 
         public static void StartClient() {
@@ -41,6 +73,10 @@ namespace KitchenChaos.Services {
             static void OnDisconnected(ulong _) {
                 FailedToJoin();
             }
+        }
+
+        public bool IsPlayerConnected(int index) {
+            return index < playerData.Count;
         }
     }
 }

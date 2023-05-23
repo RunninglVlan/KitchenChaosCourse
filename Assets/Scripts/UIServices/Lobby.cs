@@ -10,7 +10,7 @@ namespace KitchenChaos.UIServices {
             document.rootVisualElement.Q<Button>("join").clicked += NetworkService.StartClient;
 
             void Create() {
-                NetworkService.StartHost();
+                NetworkService.Instance.StartHost();
                 SceneService.Instance.LoadCharacterSelection();
             }
         }
