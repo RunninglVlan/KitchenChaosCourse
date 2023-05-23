@@ -16,6 +16,6 @@
     width: 750px;
     height: 1000px;
     -unity-background-scale-mode: scale-to-fit;
-    margin-left: 80px;
+    margin-left: 60px;
     margin-top: 50px;
 }
