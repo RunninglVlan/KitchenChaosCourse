@@ -7,3 +7,25 @@
 .button {
     font-size: 30px;
 }
+
+.colors {
+    flex-direction: row;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    justify-content: center;
+    margin: 10px;
+}
+
+.color {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    margin: 5px;
+    padding: 0;
+    border-width: 0;
+}
+
+.color.cs-selected {
+    background-image: url('project://database/Assets/_Assets/Textures/CircleDashed.png?fileID=21300000&guid=256b17f65ca4560449866be321c6b6b2&type=3#CircleDashed');
+}

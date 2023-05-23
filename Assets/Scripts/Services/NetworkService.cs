@@ -57,7 +57,9 @@ namespace KitchenChaos.Services {
             }
 
             void ProcessConnect(ulong clientId) {
-                playerData.Add(new PlayerData { clientId = clientId });
+                playerData.Add(new PlayerData {
+                    clientId = clientId, colorIndex = FirstUnusedColor()
+                });
             }
 
             void ProcessDisconnect(ulong clientId) {
@@ -83,7 +85,65 @@ namespace KitchenChaos.Services {
             return index < playerData.Count;
         }
 
+        private PlayerData PlayerDataFromClientId(ulong id) {
+            foreach (var data in playerData) {
+                if (data.clientId != id) {
+                    continue;
+                }
+                return data;
+            }
+            return default;
+        }
+
+        private int PlayerDataIndex(ulong clientId) {
+            for (var index = 0; index < playerData.Count; index++) {
+                var data = playerData[index];
+                if (data.clientId != clientId) {
+                    continue;
+                }
+                return index;
+            }
+            return -1;
+        }
+
+        public PlayerData PlayerData() {
+            return PlayerDataFromClientId(NetworkManager.Singleton.LocalClientId);
+        }
+
         public PlayerData PlayerData(int index) => playerData[index];
         public Color PlayerColor(int index) => playerColors.Get[index];
+
+        public void ChangePlayerColor(int index) {
+            ChangePlayerColorServerRpc(index);
+        }
+
+        [ServerRpc(RequireOwnership = false)]
+        private void ChangePlayerColorServerRpc(int index, ServerRpcParams serverRpcParams = default) {
+            if (!IsColorAvailable(index)) {
+                return;
+            }
+            var playerIndex = PlayerDataIndex(serverRpcParams.Receive.SenderClientId);
+            var data = playerData[playerIndex];
+            data.colorIndex = index;
+            playerData[playerIndex] = data;
+        }
+
+        private bool IsColorAvailable(int colorIndex) {
+            foreach (var data in playerData) {
+                if (data.colorIndex == colorIndex) {
+                    return false;
+                }
+            }
+            return true;
+        }
+
+        private int FirstUnusedColor() {
+            for (var i = 0; i < playerColors.Get.Count; i++) {
+                if (IsColorAvailable(i)) {
+                    return i;
+                }
+            }
+            return -1;
+        }
     }
 }

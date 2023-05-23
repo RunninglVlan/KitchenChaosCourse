@@ -22,7 +22,7 @@ namespace KitchenChaos.Players {
             }
             var data = NetworkService.Instance.PlayerData(index);
             ready.gameObject.SetActive(ReadyService.Instance.IsPlayerReady(data.clientId));
-            visual.SetColor(NetworkService.Instance.PlayerColor(index));
+            visual.SetColor(NetworkService.Instance.PlayerColor(data.colorIndex));
         }
 
         void OnDestroy() {

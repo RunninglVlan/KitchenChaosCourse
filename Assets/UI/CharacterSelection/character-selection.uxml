@@ -5,4 +5,16 @@
         <ui:Button text="Main Menu" name="main-menu" class="ready button" />
         <ui:Button text="Ready" name="ready" class="ready button" />
     </ui:VisualElement>
+    <ui:VisualElement class="colors">
+        <ui:Button class="color" />
+        <ui:Button class="color" />
+        <ui:Button class="color" />
+        <ui:Button class="color" />
+        <ui:Button class="color" />
+        <ui:Button class="color" />
+        <ui:Button class="color" />
+        <ui:Button class="color" />
+        <ui:Button class="color" />
+        <ui:Button class="color" />
+    </ui:VisualElement>
 </ui:UXML>
