@@ -5,9 +5,9 @@ namespace KitchenChaos.Services {
     public class NetworkService : NetworkSingleton<NetworkService> {
         private const int MAX_PLAYERS = 4;
 
-        public static event Action TryingToJoin = delegate { };
-        public static event Action FailedToJoin = delegate { };
-        public static event Action OnPlayerDataChanged = delegate { };
+        public event Action TryingToJoin = delegate { };
+        public event Action FailedToJoin = delegate { };
+        public event Action OnPlayerDataChanged = delegate { };
 
         private NetworkList<PlayerData> playerData = null!;
 
@@ -65,12 +65,12 @@ namespace KitchenChaos.Services {
             }
         }
 
-        public static void StartClient() {
+        public void StartClient() {
             TryingToJoin();
             NetworkManager.Singleton.OnClientDisconnectCallback += OnDisconnected;
             NetworkManager.Singleton.StartClient();
 
-            static void OnDisconnected(ulong _) {
+            void OnDisconnected(ulong _) {
                 FailedToJoin();
             }
         }
@@ -78,5 +78,7 @@ namespace KitchenChaos.Services {
         public bool IsPlayerConnected(int index) {
             return index < playerData.Count;
         }
+
+        public PlayerData PlayerData(int index) => playerData[index];
     }
 }

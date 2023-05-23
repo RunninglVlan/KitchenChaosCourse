@@ -4,9 +4,9 @@ using Unity.Netcode;
 
 namespace KitchenChaos.Services {
     public abstract class BaseReadyService<T> : NetworkSingleton<T> where T : NetworkSingleton<T> {
-        public abstract event Action PlayerBecameReady;
+        public abstract event Action PlayerBecameReadyOnServer;
 
-        private readonly List<ulong> playerReadyStates = new();
+        protected readonly List<ulong> playerReadyStates = new();
         protected abstract Action ReadyAction { get; }
 
         protected void BaseSetPlayerReady(ulong senderClient) {
@@ -21,18 +21,30 @@ namespace KitchenChaos.Services {
     }
 
     public class ReadyService : BaseReadyService<ReadyService> {
-        public sealed override event Action PlayerBecameReady = delegate { };
+        public sealed override event Action PlayerBecameReadyOnServer = delegate { };
+        public event Action PlayerBecameReadyOnClient = delegate { };
 
         protected override Action ReadyAction => () => SceneService.Instance.LoadGame();
 
         public void SetPlayerReady() {
-            PlayerBecameReady();
+            PlayerBecameReadyOnServer();
             SetPlayerReadyServerRpc();
         }
 
         [ServerRpc(RequireOwnership = false)]
         private void SetPlayerReadyServerRpc(ServerRpcParams parameters = default) {
+            SetPlayerReadyClientRpc(parameters.Receive.SenderClientId);
             BaseSetPlayerReady(parameters.Receive.SenderClientId);
+        }
+
+        [ClientRpc]
+        private void SetPlayerReadyClientRpc(ulong clientId) {
+            playerReadyStates.Add(clientId);
+            PlayerBecameReadyOnClient();
+        }
+
+        public bool IsPlayerReady(ulong clientId) {
+            return playerReadyStates.Contains(clientId);
         }
     }
 }

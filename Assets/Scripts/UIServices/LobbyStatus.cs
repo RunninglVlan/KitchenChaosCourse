@@ -8,8 +8,8 @@ namespace KitchenChaos.UIServices {
 
         void Start() {
             Hide();
-            NetworkService.TryingToJoin += ShowConnecting;
-            NetworkService.FailedToJoin += ShowDisconnected;
+            NetworkService.Instance.TryingToJoin += ShowConnecting;
+            NetworkService.Instance.FailedToJoin += ShowDisconnected;
             message = document.rootVisualElement.Q<Label>("message");
             document.rootVisualElement.Q<Button>("close").clicked += Hide;
         }
@@ -30,8 +30,8 @@ namespace KitchenChaos.UIServices {
         }
 
         void OnDestroy() {
-            NetworkService.TryingToJoin -= ShowConnecting;
-            NetworkService.FailedToJoin -= ShowDisconnected;
+            NetworkService.Instance.TryingToJoin -= ShowConnecting;
+            NetworkService.Instance.FailedToJoin -= ShowDisconnected;
         }
     }
 }

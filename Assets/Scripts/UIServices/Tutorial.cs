@@ -15,7 +15,7 @@ namespace KitchenChaos.UIServices {
         void Start() {
             controls = document.rootVisualElement.Q<VisualElement>("controls");
             Options.Instance.ControlsRebound += AddControls;
-            GameService.Instance.PlayerBecameReady += Hide;
+            GameService.Instance.PlayerBecameReadyOnServer += Hide;
             AddControls();
         }
 

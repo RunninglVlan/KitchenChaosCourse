@@ -7,7 +7,7 @@ namespace KitchenChaos.UIServices {
             var create = document.rootVisualElement.Q<Button>("create");
             create.Focus();
             create.clicked += Create;
-            document.rootVisualElement.Q<Button>("join").clicked += NetworkService.StartClient;
+            document.rootVisualElement.Q<Button>("join").clicked += NetworkService.Instance.StartClient;
 
             void Create() {
                 NetworkService.Instance.StartHost();
