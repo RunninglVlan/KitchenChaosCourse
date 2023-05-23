@@ -2,7 +2,7 @@ using KitchenChaos.Services;
 using TMPro;
 using UnityEngine;
 
-namespace KitchenChaos {
+namespace KitchenChaos.Players {
     public class SelectPlayer : MonoBehaviour {
         [SerializeField] private int index;
         [SerializeField] private TextMeshPro ready = null!;

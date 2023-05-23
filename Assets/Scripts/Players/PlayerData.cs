@@ -1,7 +1,7 @@
 using System;
 using Unity.Netcode;
 
-namespace KitchenChaos {
+namespace KitchenChaos.Players {
     public struct PlayerData : IEquatable<PlayerData>, INetworkSerializable {
         public ulong clientId;
 

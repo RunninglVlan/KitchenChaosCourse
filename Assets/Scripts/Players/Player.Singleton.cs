@@ -1,6 +1,6 @@
 using System;
 
-namespace KitchenChaos {
+namespace KitchenChaos.Players {
     public partial class Player {
         public static event Action LocalInstanceSet = delegate { };
 

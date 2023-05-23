@@ -1,3 +1,5 @@
+using KitchenChaos.Players;
+
 namespace KitchenChaos.Counters {
     public class ClearCounter : Counter {
         public override void Interact(Player player) {

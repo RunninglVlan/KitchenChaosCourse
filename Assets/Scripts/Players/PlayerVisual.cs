@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace KitchenChaos {
+namespace KitchenChaos.Players {
     public class PlayerVisual : MonoBehaviour {
         [SerializeField] private MeshRenderer head = null!;
         [SerializeField] private MeshRenderer body = null!;

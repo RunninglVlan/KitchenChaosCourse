@@ -1,7 +1,7 @@
 using Unity.Netcode;
 using UnityEngine;
 
-namespace KitchenChaos {
+namespace KitchenChaos.Players {
     public class PlayerAnimator : NetworkBehaviour {
         private static readonly int IS_WALKING = Animator.StringToHash("IsWalking");
 

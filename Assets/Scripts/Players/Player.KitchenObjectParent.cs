@@ -2,7 +2,7 @@ using System;
 using KitchenChaos.KitchenObjects;
 using UnityEngine;
 
-namespace KitchenChaos {
+namespace KitchenChaos.Players {
     public partial class Player : IKitchenObjectParent {
         public static event Action<Player> PickedUp = delegate { };
 

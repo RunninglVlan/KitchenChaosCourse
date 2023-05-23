@@ -5,7 +5,7 @@ using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-namespace KitchenChaos {
+namespace KitchenChaos.Players {
     public partial class Player : NetworkBehaviour {
         private const float ROTATE_SPEED = 10;
 

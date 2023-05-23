@@ -1,7 +1,7 @@
 using KitchenChaos.Services;
 using UnityEngine;
 
-namespace KitchenChaos {
+namespace KitchenChaos.Players {
     public class PlayerSounds : MonoBehaviour {
         private const float MAX_FOOTSTEP_SECONDS = .1f;
 

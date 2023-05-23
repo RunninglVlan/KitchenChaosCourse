@@ -2,7 +2,7 @@ using KitchenChaos.Services;
 using Unity.Netcode;
 using UnityEngine;
 
-namespace KitchenChaos {
+namespace KitchenChaos.Players {
     public class PlayerInit : NetworkBehaviour {
         [SerializeField] private PlayerVisual visual = null!;
 

@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using KitchenChaos.Players;
+using UnityEngine;
 
 namespace KitchenChaos.Counters {
     public class SelectedCounterVisual : MonoBehaviour {

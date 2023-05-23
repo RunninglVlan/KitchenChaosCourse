@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-namespace KitchenChaos {
+namespace KitchenChaos.Players {
     public class MenuPlayers : MonoBehaviour {
         [SerializeField] private PlayerVisual[] visuals = Array.Empty<PlayerVisual>();
         [SerializeField] private PlayerColors playerColors = null!;
