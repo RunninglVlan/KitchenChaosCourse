@@ -1,9 +1,12 @@
 ﻿using System;
 using Unity.Netcode;
+using UnityEngine;
 
 namespace KitchenChaos.Services {
     public class NetworkService : NetworkSingleton<NetworkService> {
         private const int MAX_PLAYERS = 4;
+
+        [SerializeField] private PlayerColors playerColors = null!;
 
         public event Action TryingToJoin = delegate { };
         public event Action FailedToJoin = delegate { };
@@ -80,5 +83,6 @@ namespace KitchenChaos.Services {
         }
 
         public PlayerData PlayerData(int index) => playerData[index];
+        public Color PlayerColor(int index) => playerColors.Get[index];
     }
 }

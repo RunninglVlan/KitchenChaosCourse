@@ -6,8 +6,10 @@ namespace KitchenChaos {
         [SerializeField] private MeshRenderer body = null!;
 
         public void SetColor(Color color) {
-            head.material.color = color;
-            body.material.color = color;
+            var material = head.material;
+            material.color = color;
+            head.material = material;
+            body.material = material;
         }
     }
 }

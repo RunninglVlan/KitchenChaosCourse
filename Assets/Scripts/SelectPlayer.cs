@@ -6,6 +6,7 @@ namespace KitchenChaos {
     public class SelectPlayer : MonoBehaviour {
         [SerializeField] private int index;
         [SerializeField] private TextMeshPro ready = null!;
+        [SerializeField] private PlayerVisual visual = null!;
 
         void Start() {
             NetworkService.Instance.OnPlayerDataChanged += UpdatePlayer;
@@ -21,6 +22,7 @@ namespace KitchenChaos {
             }
             var data = NetworkService.Instance.PlayerData(index);
             ready.gameObject.SetActive(ReadyService.Instance.IsPlayerReady(data.clientId));
+            visual.SetColor(NetworkService.Instance.PlayerColor(index));
         }
 
         void OnDestroy() {
