@@ -9,15 +9,16 @@ namespace KitchenChaos.Players {
         private bool set;
 
         void Start() {
-            PlayerInitService.Instance.RequestData();
+            PlayerInitService.Instance.RequestPosition();
         }
 
-        public void Init(ulong objectId, Color color, Vector2 position) {
+        public void Init(ulong objectId, Vector2 position) {
             if (OwnerClientId != objectId || set) {
                 return;
             }
             set = true;
-            visual.SetColor(color);
+            var data = NetworkService.Instance.PlayerDataFromClientId(OwnerClientId);
+            visual.SetColor(NetworkService.Instance.PlayerColor(data.colorIndex));
             transform.position = new Vector3(position.x, 0, position.y);
         }
     }

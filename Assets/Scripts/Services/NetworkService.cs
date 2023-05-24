@@ -85,7 +85,7 @@ namespace KitchenChaos.Services {
             return index < playerData.Count;
         }
 
-        private PlayerData PlayerDataFromClientId(ulong id) {
+        public PlayerData PlayerDataFromClientId(ulong id) {
             foreach (var data in playerData) {
                 if (data.clientId != id) {
                     continue;

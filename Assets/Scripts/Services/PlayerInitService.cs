@@ -6,31 +6,30 @@ using UnityEngine;
 
 namespace KitchenChaos.Services {
     public class PlayerInitService : NetworkSingleton<PlayerInitService> {
-        [SerializeField] Color[] colors = { Color.red, Color.green, Color.blue, Color.yellow };
         [SerializeField] Vector2[] positions = { new(-2, 1), new(2, 1), new(-2, -2), new(2, -2) };
 
-        private readonly Dictionary<ulong, (int color, int position)> clientData = new();
+        private readonly Dictionary<ulong, int> clientPositions = new();
 
-        public void RequestData() => RequestDataServerRpc();
+        public void RequestPosition() => RequestPositionServerRpc();
 
         [ServerRpc(RequireOwnership = false)]
-        private void RequestDataServerRpc(ServerRpcParams parameters = default) {
+        private void RequestPositionServerRpc(ServerRpcParams parameters = default) {
             var clientId = parameters.Receive.SenderClientId;
-            if (!clientData.TryGetValue(clientId, out var data)) {
-                data = RandomData();
-                while (ClientDataContains(data)) {
-                    data = RandomData();
+            if (!clientPositions.TryGetValue(clientId, out var randomPosition)) {
+                randomPosition = RandomPosition();
+                while (ClientPositionContains(randomPosition)) {
+                    randomPosition = RandomPosition();
                 }
-                clientData[clientId] = data;
+                clientPositions[clientId] = randomPosition;
             }
-            var networkData = clientData.Select(it => new NetworkData(it.Key, it.Value)).ToArray();
-            SetDataClientRpc(networkData);
+            var networkData = clientPositions.Select(it => new NetworkPosition(it.Key, it.Value)).ToArray();
+            SetPositionClientRpc(networkData);
 
-            (int, int) RandomData() => (Random.Range(0, colors.Length), Random.Range(0, positions.Length));
+            int RandomPosition() => Random.Range(0, positions.Length);
 
-            bool ClientDataContains((int color, int position) foundData) {
-                foreach (var (color, position) in clientData.Values) {
-                    if (foundData.color == color || foundData.position == position) {
+            bool ClientPositionContains(int foundPosition) {
+                foreach (var position in clientPositions.Values) {
+                    if (foundPosition == position) {
                         return true;
                     }
                 }
@@ -39,23 +38,21 @@ namespace KitchenChaos.Services {
         }
 
         [ClientRpc]
-        private void SetDataClientRpc(NetworkData[] data) {
+        private void SetPositionClientRpc(NetworkPosition[] data) {
             foreach (var player in FindObjectsByType<PlayerInit>(FindObjectsSortMode.None)) {
                 foreach (var networkData in data) {
-                    player.Init(networkData.client, colors[networkData.color], positions[networkData.position]);
+                    player.Init(networkData.client, positions[networkData.position]);
                 }
             }
         }
 
-        private struct NetworkData : INetworkSerializeByMemcpy {
+        private struct NetworkPosition : INetworkSerializeByMemcpy {
             public readonly ulong client;
-            public readonly int color;
             public readonly int position;
 
-            public NetworkData(ulong client, (int color, int position) data) {
+            public NetworkPosition(ulong client, int position) {
                 this.client = client;
-                color = data.color;
-                position = data.position;
+                this.position = position;
             }
         }
     }
