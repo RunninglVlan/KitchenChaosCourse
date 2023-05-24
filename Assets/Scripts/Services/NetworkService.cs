@@ -56,16 +56,16 @@ namespace KitchenChaos.Services {
                 response.Approved = true;
             }
 
-            void ProcessConnect(ulong clientId) {
+            void ProcessConnect(ulong client) {
                 playerData.Add(new PlayerData {
-                    clientId = clientId, colorIndex = FirstUnusedColor()
+                    clientId = client, colorIndex = FirstUnusedColor()
                 });
             }
         }
 
-        private void ProcessDisconnect(ulong clientId) {
+        private void ProcessDisconnect(ulong client) {
             for (var i = playerData.Count - 1; i >= 0; i--) {
-                if (playerData[i].clientId == clientId) {
+                if (playerData[i].clientId == client) {
                     playerData.RemoveAt(i);
                 }
             }
@@ -95,10 +95,10 @@ namespace KitchenChaos.Services {
             return default;
         }
 
-        private int PlayerDataIndex(ulong clientId) {
+        private int PlayerDataIndex(ulong client) {
             for (var index = 0; index < playerData.Count; index++) {
                 var data = playerData[index];
-                if (data.clientId != clientId) {
+                if (data.clientId != client) {
                     continue;
                 }
                 return index;
@@ -146,9 +146,9 @@ namespace KitchenChaos.Services {
             return -1;
         }
 
-        public void KickPlayer(ulong clientId) {
-            NetworkManager.Singleton.DisconnectClient(clientId);
-            ProcessDisconnect(clientId);
+        public void KickPlayer(ulong client) {
+            NetworkManager.Singleton.DisconnectClient(client);
+            ProcessDisconnect(client);
         }
     }
 }

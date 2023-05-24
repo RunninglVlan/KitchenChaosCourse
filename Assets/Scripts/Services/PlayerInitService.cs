@@ -14,13 +14,13 @@ namespace KitchenChaos.Services {
 
         [ServerRpc(RequireOwnership = false)]
         private void RequestPositionServerRpc(ServerRpcParams parameters = default) {
-            var clientId = parameters.Receive.SenderClientId;
-            if (!clientPositions.TryGetValue(clientId, out var randomPosition)) {
+            var client = parameters.Receive.SenderClientId;
+            if (!clientPositions.TryGetValue(client, out var randomPosition)) {
                 randomPosition = RandomPosition();
                 while (ClientPositionContains(randomPosition)) {
                     randomPosition = RandomPosition();
                 }
-                clientPositions[clientId] = randomPosition;
+                clientPositions[client] = randomPosition;
             }
             var networkData = clientPositions.Select(it => new NetworkPosition(it.Key, it.Value)).ToArray();
             SetPositionClientRpc(networkData);

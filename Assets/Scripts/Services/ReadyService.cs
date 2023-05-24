@@ -38,13 +38,13 @@ namespace KitchenChaos.Services {
         }
 
         [ClientRpc]
-        private void SetPlayerReadyClientRpc(ulong clientId) {
-            playerReadyStates.Add(clientId);
+        private void SetPlayerReadyClientRpc(ulong client) {
+            playerReadyStates.Add(client);
             PlayerBecameReadyOnClient();
         }
 
-        public bool IsPlayerReady(ulong clientId) {
-            return playerReadyStates.Contains(clientId);
+        public bool IsPlayerReady(ulong client) {
+            return playerReadyStates.Contains(client);
         }
     }
 }

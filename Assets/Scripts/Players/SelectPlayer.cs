@@ -38,7 +38,6 @@ namespace KitchenChaos.Players {
 
         void OnDestroy() {
             NetworkService.Instance.OnPlayerDataChanged -= UpdatePlayer;
-            ReadyService.Instance.PlayerBecameReadyOnClient -= UpdatePlayer;
         }
     }
 }
