@@ -21,7 +21,8 @@ namespace KitchenChaos.Players {
         void Start() {
             NetworkService.Instance.OnPlayerDataChanged += UpdatePlayer;
             ReadyService.Instance.PlayerBecameReadyOnClient += UpdatePlayer;
-            kick.gameObject.SetActive(NetworkManager.Singleton.IsServer);
+            var hostCharacter = NetworkService.Instance.IsPlayerConnected(index);
+            kick.gameObject.SetActive(NetworkManager.Singleton.IsServer && !hostCharacter);
             UpdatePlayer();
         }
 
