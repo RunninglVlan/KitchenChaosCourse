@@ -17,8 +17,8 @@ namespace KitchenChaos.Services {
 
         protected override void Awake() {
             if (Instance) {
-                Destroy(gameObject);
-                return;
+                Destroy(Instance.gameObject);
+                Instance = null!;
             }
             DontDestroyOnLoad(gameObject);
             base.Awake();
@@ -61,12 +61,12 @@ namespace KitchenChaos.Services {
                     clientId = clientId, colorIndex = FirstUnusedColor()
                 });
             }
+        }
 
-            void ProcessDisconnect(ulong clientId) {
-                for (var i = playerData.Count - 1; i >= 0; i--) {
-                    if (playerData[i].clientId == clientId) {
-                        playerData.RemoveAt(i);
-                    }
+        private void ProcessDisconnect(ulong clientId) {
+            for (var i = playerData.Count - 1; i >= 0; i--) {
+                if (playerData[i].clientId == clientId) {
+                    playerData.RemoveAt(i);
                 }
             }
         }
@@ -144,6 +144,11 @@ namespace KitchenChaos.Services {
                 }
             }
             return -1;
+        }
+
+        public void KickPlayer(ulong clientId) {
+            NetworkManager.Singleton.DisconnectClient(clientId);
+            ProcessDisconnect(clientId);
         }
     }
 }
