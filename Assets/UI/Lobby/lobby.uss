@@ -21,8 +21,17 @@
     flex-direction: row;
 }
 
+.main-buttons__side {
+    justify-content: center;
+}
+
 .main-buttons__separator {
     border-width: 2px;
     background-color: white;
     margin: 0 20px;
+}
+
+.input {
+    font-size: 60px;
+    margin-top: 30px;
 }

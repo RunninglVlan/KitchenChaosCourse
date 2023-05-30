@@ -1,8 +1,12 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
     <Style src="project://database/Assets/UI/generic.uss?fileID=7433441132597879392&amp;guid=922dfd8c0a454fd791ffc976da3269d8&amp;type=3#generic" />
     <Style src="project://database/Assets/UI/CharacterSelection/character-selection.uss?fileID=7433441132597879392&amp;guid=8d10a7a00b7e43e1a68c2e6757a7e451&amp;type=3#character-selection" />
-    <ui:VisualElement class="buttons">
+    <ui:VisualElement class="header">
         <ui:Button text="Main Menu" name="main-menu" class="button" />
+        <ui:VisualElement>
+            <ui:TextField name="lobby-name" label="Lobby Name" readonly="true" class="input" />
+            <ui:TextField name="lobby-code" label="Lobby Code" readonly="true" class="input" />
+        </ui:VisualElement>
         <ui:Button text="Ready" name="ready" class="button" />
     </ui:VisualElement>
     <ui:VisualElement class="colors">

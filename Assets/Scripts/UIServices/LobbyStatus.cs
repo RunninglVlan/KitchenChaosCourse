@@ -10,6 +10,7 @@ namespace KitchenChaos.UIServices {
             Hide();
             NetworkService.Instance.TryingToJoin += ShowConnecting;
             NetworkService.Instance.FailedToJoin += ShowDisconnected;
+            NetworkLobby.Instance.FailedToJoin += ShowLobbyJoinFailed;
             message = document.rootVisualElement.Q<Label>("message");
             document.rootVisualElement.Q<Button>("close").clicked += Hide;
         }
@@ -26,6 +27,12 @@ namespace KitchenChaos.UIServices {
             if (string.IsNullOrEmpty(message.text)) {
                 message.text = "Disconnected";
             }
+            message.EnableInClassList("cs-error", true);
+        }
+
+        private void ShowLobbyJoinFailed(string error) {
+            Show();
+            message.text = error;
             message.EnableInClassList("cs-error", true);
         }
 

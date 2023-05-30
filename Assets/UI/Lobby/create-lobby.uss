@@ -1,0 +1,27 @@
+.background {
+    background-color: rgba(0, 0, 0, 0.95);
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    font-size: 60px;
+    color: white;
+}
+
+.title {
+    -unity-font-style: bold;
+    font-size: 70px;
+}
+
+.input {
+    color: black;
+    margin: 10px;
+}
+
+.buttons {
+    flex-direction: row;
+}
+
+.button {
+    margin: 20px;
+    width: 250px;
+}

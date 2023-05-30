@@ -10,20 +10,17 @@ namespace KitchenChaos.UIServices {
             create.Focus();
             create.clicked += Create;
             root.Q<Button>("join").clicked += NetworkService.Instance.StartClient;
-            root.Q<Button>("create-lobby").clicked += CreateLobby;
-            root.Q<Button>("join-lobby").clicked += JoinLobby;
+            root.Q<Button>("create-lobby").clicked += CreateLobby.Instance.Show;
+            root.Q<Button>("join-lobby").clicked += NetworkLobby.Instance.QuickJoin;
+            root.Q<Button>("code-join").clicked += CodeJoin;
 
             void Create() {
                 NetworkService.Instance.StartHost();
                 SceneService.Instance.LoadCharacterSelection();
             }
 
-            void CreateLobby() {
-                NetworkLobby.Instance.Create("LobbyName", false);
-            }
-
-            void JoinLobby() {
-                NetworkLobby.Instance.QuickJoin();
+            void CodeJoin() {
+                NetworkLobby.Instance.CodeJoin(root.Q<TextField>("join-code").value);
             }
         }
     }

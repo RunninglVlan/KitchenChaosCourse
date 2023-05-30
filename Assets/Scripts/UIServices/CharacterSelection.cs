@@ -7,6 +7,9 @@ namespace KitchenChaos.UIServices {
         void Start() {
             var root = document.rootVisualElement;
             root.Q<Button>("main-menu").clicked += SceneService.Instance.LoadMainMenu;
+            var lobby = NetworkLobby.Instance.Joined;
+            root.Q<TextField>("lobby-name").value = lobby.Name;
+            root.Q<TextField>("lobby-code").value = lobby.LobbyCode;
             var ready = root.Q<Button>("ready");
             ready.Focus();
             ready.clicked += SetReady;

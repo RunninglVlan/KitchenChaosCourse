@@ -1,11 +1,13 @@
-.buttons {
+.header {
     flex-direction: row;
     justify-content: space-between;
     margin: 10px;
+    align-items: flex-start;
+    font-size: 30px;
 }
 
-.button {
-    font-size: 30px;
+.input .unity-text-field__label {
+    width: 180px;
 }
 
 .colors {

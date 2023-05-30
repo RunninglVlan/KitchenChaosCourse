@@ -7,7 +7,9 @@ using UnityEngine;
 
 namespace KitchenChaos.Services {
     public class NetworkLobby : MonoSingleton<NetworkLobby> {
-        private Lobby joined = null!;
+        public event Action<string> FailedToJoin = delegate { };
+
+        public Lobby Joined { get; private set; } = null!;
 
         protected override void Awake() {
             if (Instance) {
@@ -32,7 +34,7 @@ namespace KitchenChaos.Services {
         public async void Create(string lobbyName, bool isPrivate) {
             try {
                 var options = new CreateLobbyOptions { IsPrivate = isPrivate };
-                joined = await LobbyService.Instance.CreateLobbyAsync(lobbyName, NetworkService.MAX_PLAYERS, options);
+                Joined = await LobbyService.Instance.CreateLobbyAsync(lobbyName, NetworkService.MAX_PLAYERS, options);
                 NetworkService.Instance.StartHost();
                 SceneService.Instance.LoadCharacterSelection();
             } catch (LobbyServiceException e) {
@@ -42,10 +44,21 @@ namespace KitchenChaos.Services {
 
         public async void QuickJoin() {
             try {
-                joined = await LobbyService.Instance.QuickJoinLobbyAsync();
+                Joined = await LobbyService.Instance.QuickJoinLobbyAsync();
                 NetworkService.Instance.StartClient();
             } catch (LobbyServiceException e) {
                 Debug.Log(e);
+                FailedToJoin(e.Message.ToCamel());
+            }
+        }
+
+        public async void CodeJoin(string value) {
+            try {
+                Joined = await LobbyService.Instance.JoinLobbyByCodeAsync(value);
+                NetworkService.Instance.StartClient();
+            } catch (LobbyServiceException e) {
+                Debug.Log(e);
+                FailedToJoin(e.Message.ToCamel());
             }
         }
     }

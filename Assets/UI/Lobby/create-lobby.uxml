@@ -1,0 +1,15 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/UI/generic.uss?fileID=7433441132597879392&amp;guid=922dfd8c0a454fd791ffc976da3269d8&amp;type=3#generic" />
+    <Style src="project://database/Assets/UI/Lobby/create-lobby.uss?fileID=7433441132597879392&amp;guid=ad6df31b9b2e4b2da3db9b23207b8afe&amp;type=3#create-lobby" />
+    <ui:VisualElement class="background">
+        <ui:Label text="Create Lobby" class="title" />
+        <ui:VisualElement>
+            <ui:TextField name="lobby-name" value="Lobby Name" class="input" />
+            <ui:VisualElement class="buttons">
+                <ui:Button name="create-private" text="Private" class="button" />
+                <ui:Button name="create-public" text="Public" class="button" />
+            </ui:VisualElement>
+        </ui:VisualElement>
+        <ui:Button name="close" text="Close" class="button" />
+    </ui:VisualElement>
+</ui:UXML>

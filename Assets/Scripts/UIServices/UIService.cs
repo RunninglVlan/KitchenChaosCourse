@@ -9,7 +9,7 @@ namespace KitchenChaos.UIServices {
             document.gameObject.SetActive(true);
         }
 
-        protected void Show() => SetVisible(true);
+        public void Show() => SetVisible(true);
         protected void Hide() => SetVisible(false);
         protected void SetVisible(bool value) => document.rootVisualElement.SetActive(value);
     }
