@@ -2,8 +2,8 @@
     <Style src="project://database/Assets/UI/generic.uss?fileID=7433441132597879392&amp;guid=922dfd8c0a454fd791ffc976da3269d8&amp;type=3#generic" />
     <Style src="project://database/Assets/UI/CharacterSelection/character-selection.uss?fileID=7433441132597879392&amp;guid=8d10a7a00b7e43e1a68c2e6757a7e451&amp;type=3#character-selection" />
     <ui:VisualElement class="buttons">
-        <ui:Button text="Main Menu" name="main-menu" class="ready button" />
-        <ui:Button text="Ready" name="ready" class="ready button" />
+        <ui:Button text="Main Menu" name="main-menu" class="button" />
+        <ui:Button text="Ready" name="ready" class="button" />
     </ui:VisualElement>
     <ui:VisualElement class="colors">
         <ui:Button class="color" />
