@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace KitchenChaos.Services {
     public class NetworkService : NetworkSingleton<NetworkService> {
-        private const int MAX_PLAYERS = 4;
+        public const int MAX_PLAYERS = 4;
 
         [SerializeField] private PlayerColors playerColors = null!;
 

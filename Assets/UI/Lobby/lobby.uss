@@ -1,6 +1,28 @@
-.background {
+:root {
     background-color: rgba(0, 0, 0, 0.95);
+}
+
+.top-buttons {
+    flex-direction: row;
+    justify-content: space-between;
+    margin: 10px;
+    font-size: 30px;
+}
+
+.main-buttons {
+    position: absolute;
     align-items: center;
     justify-content: center;
+    width: 100%;
     height: 100%;
+}
+
+.main-buttons__container {
+    flex-direction: row;
+}
+
+.main-buttons__separator {
+    border-width: 2px;
+    background-color: white;
+    margin: 0 20px;
 }
