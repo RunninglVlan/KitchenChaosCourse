@@ -9,7 +9,7 @@ namespace KitchenChaos.Services {
     public class NetworkLobby : MonoSingleton<NetworkLobby> {
         public event Action<string> FailedToJoin = delegate { };
 
-        public Lobby Joined { get; private set; } = null!;
+        public Lobby? Joined { get; private set; }
 
         protected override void Awake() {
             if (Instance) {

@@ -7,15 +7,23 @@ namespace KitchenChaos.UIServices {
         void Start() {
             var root = document.rootVisualElement;
             root.Q<Button>("main-menu").clicked += SceneService.Instance.LoadMainMenu;
-            var lobby = NetworkLobby.Instance.Joined;
-            root.Q<TextField>("lobby-name").value = lobby.Name;
-            root.Q<TextField>("lobby-code").value = lobby.LobbyCode;
+            ShowLobby();
             var ready = root.Q<Button>("ready");
             ready.Focus();
             ready.clicked += SetReady;
             var colorButtons = root.Query<Button>(className: "color").ToList();
             for (var i = 0; i < colorButtons.Count; i++) {
                 ColorElement(colorButtons[i], i);
+            }
+
+            void ShowLobby() {
+                var lobby = NetworkLobby.Instance.Joined;
+                root.Q<VisualElement>("lobby").SetActive(lobby != null);
+                if (lobby == null) {
+                    return;
+                }
+                root.Q<TextField>("lobby-name").value = lobby.Name;
+                root.Q<TextField>("lobby-code").value = lobby.LobbyCode;
             }
 
             void SetReady() {

@@ -3,7 +3,7 @@
     <Style src="project://database/Assets/UI/CharacterSelection/character-selection.uss?fileID=7433441132597879392&amp;guid=8d10a7a00b7e43e1a68c2e6757a7e451&amp;type=3#character-selection" />
     <ui:VisualElement class="header">
         <ui:Button text="Main Menu" name="main-menu" class="button" />
-        <ui:VisualElement>
+        <ui:VisualElement name="lobby">
             <ui:TextField name="lobby-name" label="Lobby Name" readonly="true" class="input" />
             <ui:TextField name="lobby-code" label="Lobby Code" readonly="true" class="input" />
         </ui:VisualElement>
