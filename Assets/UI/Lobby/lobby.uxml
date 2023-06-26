@@ -13,7 +13,7 @@
             <ui:VisualElement class="main-buttons__separator" />
             <ui:VisualElement>
                 <ui:Button text="Create lobby" name="create-lobby" class="button button--big" />
-                <ui:Button text="Join lobby" name="join-lobby" class="button button--big" />
+                <ui:Button text="Quick join" name="quick-join" class="button button--big" />
                 <ui:TextField name="join-code" value="Code" class="input" />
                 <ui:Button text="Code join" name="code-join" class="button button--big" />
             </ui:VisualElement>

@@ -11,7 +11,7 @@ namespace KitchenChaos.UIServices {
             create.clicked += Create;
             root.Q<Button>("join").clicked += NetworkService.Instance.StartClient;
             root.Q<Button>("create-lobby").clicked += CreateLobby.Instance.Show;
-            root.Q<Button>("join-lobby").clicked += NetworkLobby.Instance.QuickJoin;
+            root.Q<Button>("quick-join").clicked += NetworkLobby.Instance.QuickJoin;
             root.Q<Button>("code-join").clicked += CodeJoin;
 
             void Create() {
