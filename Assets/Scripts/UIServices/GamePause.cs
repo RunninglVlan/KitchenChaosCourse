@@ -1,5 +1,6 @@
 ﻿using KitchenChaos.Services;
 using Unity.Netcode;
+using UnityEngine;
 using UnityEngine.UIElements;
 
 namespace KitchenChaos.UIServices {
@@ -27,6 +28,7 @@ namespace KitchenChaos.UIServices {
 
         private static void LoadMainMenu() {
             Resume();
+            Time.timeScale = 1;
             if (!NetworkManager.Singleton.IsServer) {
                 NetworkManager.Singleton.Shutdown();
             }
