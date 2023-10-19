@@ -4,7 +4,7 @@
     <ui:VisualElement class="background">
         <ui:Label text="Create Lobby" class="title" />
         <ui:VisualElement>
-            <ui:TextField name="lobby-name" value="Lobby Name" class="input" />
+            <ui:TextField name="lobby-name" value="My Lobby" class="input" />
             <ui:VisualElement class="buttons">
                 <ui:Button name="create-private" text="Private" class="button" />
                 <ui:Button name="create-public" text="Public" class="button" />
