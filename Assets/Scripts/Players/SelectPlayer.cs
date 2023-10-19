@@ -7,6 +7,7 @@ using UnityEngine.UI;
 namespace KitchenChaos.Players {
     public class SelectPlayer : MonoBehaviour {
         [SerializeField] private int index;
+        [SerializeField] private TextMeshPro playerName = null!;
         [SerializeField] private TextMeshPro ready = null!;
         [SerializeField] private PlayerVisual visual = null!;
         [SerializeField] private Button kick = null!;
@@ -33,6 +34,7 @@ namespace KitchenChaos.Players {
                 return;
             }
             var data = NetworkService.Instance.PlayerData(index);
+            playerName.text = data.name.ToString();
             ready.gameObject.SetActive(ReadyService.Instance.IsPlayerReady(data.clientId));
             visual.SetColor(NetworkService.Instance.PlayerColor(data.colorIndex));
         }

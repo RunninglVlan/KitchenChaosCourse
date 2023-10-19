@@ -9,6 +9,18 @@
     font-size: 30px;
 }
 
+.player-name-container {
+    position: absolute;
+    width: 100%;
+    margin: 10px;
+    font-size: 60px;
+    align-items: center;
+}
+
+.player-name {
+    min-width: 400px;
+}
+
 .main-buttons {
     position: absolute;
     align-items: center;

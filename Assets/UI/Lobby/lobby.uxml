@@ -4,6 +4,9 @@
     <ui:VisualElement class="top-buttons">
         <ui:Button text="Main Menu" name="main-menu" class="button" />
     </ui:VisualElement>
+    <ui:VisualElement picking-mode="Ignore" class="player-name-container">
+        <ui:TextField name="player-name" placeholder-text="Player Name" class="player-name" />
+    </ui:VisualElement>
     <ui:VisualElement picking-mode="Ignore" class="main-buttons">
         <ui:VisualElement class="main-buttons__container">
             <ui:VisualElement class="main-buttons__side">

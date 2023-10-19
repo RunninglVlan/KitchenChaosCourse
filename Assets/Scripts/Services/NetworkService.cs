@@ -1,5 +1,6 @@
 ﻿using System;
 using KitchenChaos.Players;
+using KitchenChaos.UIServices;
 using Unity.Netcode;
 using UnityEngine;
 
@@ -60,6 +61,10 @@ namespace KitchenChaos.Services {
                 playerData.Add(new PlayerData {
                     clientId = client, colorIndex = FirstUnusedColor()
                 });
+                if (client != NetworkManager.ServerClientId) {
+                    return;
+                }
+                SetPlayerNameServerRpc(Lobby.PlayerName);
             }
         }
 
@@ -73,8 +78,14 @@ namespace KitchenChaos.Services {
 
         public void StartClient() {
             TryingToJoin();
+            NetworkManager.Singleton.OnClientConnectedCallback += OnConnected;
             NetworkManager.Singleton.OnClientDisconnectCallback += OnDisconnected;
             NetworkManager.Singleton.StartClient();
+            return;
+
+            void OnConnected(ulong _) {
+                SetPlayerNameServerRpc(Lobby.PlayerName);
+            }
 
             void OnDisconnected(ulong _) {
                 FailedToJoin();
@@ -125,6 +136,14 @@ namespace KitchenChaos.Services {
             var playerIndex = PlayerDataIndex(serverRpcParams.Receive.SenderClientId);
             var data = playerData[playerIndex];
             data.colorIndex = index;
+            playerData[playerIndex] = data;
+        }
+
+        [ServerRpc(RequireOwnership = false)]
+        private void SetPlayerNameServerRpc(string playerName, ServerRpcParams serverRpcParams = default) {
+            var playerIndex = PlayerDataIndex(serverRpcParams.Receive.SenderClientId);
+            var data = playerData[playerIndex];
+            data.name = playerName;
             playerData[playerIndex] = data;
         }
 
