@@ -257,7 +257,7 @@ Transform:
   m_GameObject: {fileID: 171097728}
   serializedVersion: 2
   m_LocalRotation: {x: 0.01745245, y: 0, z: 0, w: 0.99984777}
-  m_LocalPosition: {x: 0, y: 1.2, z: -3.5}
+  m_LocalPosition: {x: 0, y: 1.5, z: -3.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -627,6 +627,10 @@ PrefabInstance:
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 6148359974937023516, guid: af7a516e189fb6d439f113019bbdbabd,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 0}
     - targetCorrespondingSourceObject: {fileID: 5539280192887125707, guid: af7a516e189fb6d439f113019bbdbabd,
         type: 3}
       insertIndex: -1
@@ -709,6 +713,10 @@ PrefabInstance:
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 6148359974937023516, guid: af7a516e189fb6d439f113019bbdbabd,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 0}
     - targetCorrespondingSourceObject: {fileID: 5539280192887125707, guid: af7a516e189fb6d439f113019bbdbabd,
         type: 3}
       insertIndex: -1
@@ -791,6 +799,10 @@ PrefabInstance:
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 6148359974937023516, guid: af7a516e189fb6d439f113019bbdbabd,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 0}
     - targetCorrespondingSourceObject: {fileID: 5539280192887125707, guid: af7a516e189fb6d439f113019bbdbabd,
         type: 3}
       insertIndex: -1
@@ -1302,7 +1314,7 @@ Transform:
   m_GameObject: {fileID: 1817665804}
   serializedVersion: 2
   m_LocalRotation: {x: 0.01745245, y: 0, z: 0, w: 0.99984777}
-  m_LocalPosition: {x: 0, y: 1.2, z: -3.5}
+  m_LocalPosition: {x: 0, y: 1.5, z: -3.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1434,6 +1446,10 @@ PrefabInstance:
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 6148359974937023516, guid: af7a516e189fb6d439f113019bbdbabd,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 0}
     - targetCorrespondingSourceObject: {fileID: 5539280192887125707, guid: af7a516e189fb6d439f113019bbdbabd,
         type: 3}
       insertIndex: -1
