@@ -39,6 +39,7 @@ namespace KitchenChaos.UIServices {
         void OnDestroy() {
             NetworkService.Instance.TryingToJoin -= ShowConnecting;
             NetworkService.Instance.FailedToJoin -= ShowDisconnected;
+            NetworkLobby.Instance.FailedToJoin -= ShowLobbyJoinFailed;
         }
     }
 }
