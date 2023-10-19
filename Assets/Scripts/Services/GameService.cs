@@ -60,7 +60,17 @@ namespace KitchenChaos.Services {
             }
         }
 
-        private void SpawnPlayers(string _, LoadSceneMode __, List<ulong> ___, List<ulong> ____) {
+        public override void OnDestroy() {
+            base.OnDestroy();
+            if (NetworkManager.Singleton && IsServer) {
+                NetworkManager.Singleton.SceneManager.OnLoadEventCompleted -= SpawnPlayers;
+            }
+        }
+
+        private void SpawnPlayers(string sceneName, LoadSceneMode _, List<ulong> __, List<ulong> ___) {
+            if (SceneService.Instance.IsLoading(sceneName)) {
+                return;
+            }
             foreach (var client in NetworkManager.Singleton.ConnectedClientsIds) {
                 var player = Instantiate(playerPrefab);
                 player.GetComponent<NetworkObject>().SpawnAsPlayerObject(client, true);

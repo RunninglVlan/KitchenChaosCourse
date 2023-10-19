@@ -13,6 +13,8 @@ namespace KitchenChaos.Services {
         [SerializeField, Scene] private string characterSelection = null!;
         [SerializeField, Scene] private string singlePlayer = null!;
 
+        public bool IsLoading(string sceneName) => sceneName == loading;
+
         public bool IsCharacterSelection => SceneManager.GetActiveScene().name == characterSelection;
 
         protected override void Awake() {
