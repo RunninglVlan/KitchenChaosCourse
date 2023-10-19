@@ -33,11 +33,10 @@ namespace KitchenChaos.Services {
                 heartbeatTimer = HEARTBEAT;
                 LobbyService.Instance.SendHeartbeatPingAsync(Joined!.Id);
             }
-            return;
+        }
 
-            bool IsHost() {
-                return Joined != null && Joined.HostId == AuthenticationService.Instance.PlayerId;
-            }
+        private bool IsHost() {
+            return Joined != null && Joined.HostId == AuthenticationService.Instance.PlayerId;
         }
 
         private async void InitUnityAuth() {
@@ -115,6 +114,13 @@ namespace KitchenChaos.Services {
             } catch (LobbyServiceException e) {
                 Debug.Log(e);
             }
+        }
+
+        void OnDestroy() {
+            if (!IsHost()) {
+                return;
+            }
+            Delete();
         }
     }
 }
