@@ -7,8 +7,11 @@ using UnityEngine;
 
 namespace KitchenChaos.Services {
     public class NetworkLobby : MonoSingleton<NetworkLobby> {
+        private const float HEARTBEAT = 15;
+
         public event Action<string> FailedToJoin = delegate { };
 
+        private float heartbeatTimer = HEARTBEAT;
         public Lobby? Joined { get; private set; }
 
         protected override void Awake() {
@@ -19,6 +22,22 @@ namespace KitchenChaos.Services {
             DontDestroyOnLoad(gameObject);
             base.Awake();
             InitUnityAuth();
+        }
+
+        void Update() {
+            if (!IsHost()) {
+                return;
+            }
+            heartbeatTimer -= Time.deltaTime;
+            if (heartbeatTimer < 0) {
+                heartbeatTimer = HEARTBEAT;
+                LobbyService.Instance.SendHeartbeatPingAsync(Joined!.Id);
+            }
+            return;
+
+            bool IsHost() {
+                return Joined != null && Joined.HostId == AuthenticationService.Instance.PlayerId;
+            }
         }
 
         private async void InitUnityAuth() {
