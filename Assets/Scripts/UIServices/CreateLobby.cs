@@ -3,11 +3,12 @@ using UnityEngine.UIElements;
 
 namespace KitchenChaos.UIServices {
     public partial class CreateLobby : UIService {
+        private TextField lobbyName = null!;
+
         void Start() {
             Hide();
             var root = document.rootVisualElement;
-            var lobbyName = root.Q<TextField>("lobby-name");
-            lobbyName.Focus();
+            lobbyName = root.Q<TextField>("lobby-name");
             root.Q<Button>("create-private").clicked += CreatePrivate;
             root.Q<Button>("create-public").clicked += CreatePublic;
             root.Q<Button>("close").clicked += Hide;
@@ -19,6 +20,11 @@ namespace KitchenChaos.UIServices {
             void CreatePublic() {
                 NetworkLobby.Instance.Create(lobbyName.value, false);
             }
+        }
+
+        public override void Show() {
+            base.Show();
+            lobbyName.Focus();
         }
     }
 }
