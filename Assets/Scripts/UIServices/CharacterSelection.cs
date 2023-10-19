@@ -6,7 +6,7 @@ namespace KitchenChaos.UIServices {
     public class CharacterSelection : UIService {
         void Start() {
             var root = document.rootVisualElement;
-            root.Q<Button>("main-menu").clicked += SceneService.Instance.LoadMainMenu;
+            root.Q<Button>("main-menu").clicked += GoToMainMenu;
             ShowLobby();
             var ready = root.Q<Button>("ready");
             ready.Focus();
@@ -14,6 +14,12 @@ namespace KitchenChaos.UIServices {
             var colorButtons = root.Query<Button>(className: "color").ToList();
             for (var i = 0; i < colorButtons.Count; i++) {
                 ColorElement(colorButtons[i], i);
+            }
+            return;
+
+            void GoToMainMenu() {
+                NetworkLobby.Instance.Leave();
+                SceneService.Instance.LoadMainMenu();
             }
 
             void ShowLobby() {

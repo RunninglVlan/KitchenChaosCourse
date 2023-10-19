@@ -15,6 +15,7 @@ namespace KitchenChaos.Players {
         void Awake() {
             kick.onClick.AddListener(() => {
                 var data = NetworkService.Instance.PlayerData(index);
+                NetworkLobby.Instance.KickPlayer(data.playerId.ToString());
                 NetworkService.Instance.KickPlayer(data.clientId);
             });
         }

@@ -24,7 +24,10 @@ namespace KitchenChaos.Services {
         public sealed override event Action PlayerBecameReadyOnServer = delegate { };
         public event Action PlayerBecameReadyOnClient = delegate { };
 
-        protected override Action ReadyAction => () => SceneService.Instance.LoadGame();
+        protected override Action ReadyAction => () => {
+            NetworkLobby.Instance.Delete();
+            SceneService.Instance.LoadGame();
+        };
 
         public void SetPlayerReady() {
             PlayerBecameReadyOnServer();

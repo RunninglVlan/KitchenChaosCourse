@@ -2,6 +2,7 @@
 using KitchenChaos.Players;
 using KitchenChaos.UIServices;
 using Unity.Netcode;
+using Unity.Services.Authentication;
 using UnityEngine;
 
 namespace KitchenChaos.Services {
@@ -85,6 +86,7 @@ namespace KitchenChaos.Services {
 
             void OnConnected(ulong _) {
                 SetPlayerNameServerRpc(Lobby.PlayerName);
+                SetPlayerIdServerRpc(AuthenticationService.Instance.PlayerId);
             }
 
             void OnDisconnected(ulong _) {
@@ -144,6 +146,14 @@ namespace KitchenChaos.Services {
             var playerIndex = PlayerDataIndex(serverRpcParams.Receive.SenderClientId);
             var data = playerData[playerIndex];
             data.name = playerName;
+            playerData[playerIndex] = data;
+        }
+
+        [ServerRpc(RequireOwnership = false)]
+        private void SetPlayerIdServerRpc(string playerId, ServerRpcParams serverRpcParams = default) {
+            var playerIndex = PlayerDataIndex(serverRpcParams.Receive.SenderClientId);
+            var data = playerData[playerIndex];
+            data.playerId = playerId;
             playerData[playerIndex] = data;
         }
 

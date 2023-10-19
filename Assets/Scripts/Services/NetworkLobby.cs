@@ -61,5 +61,41 @@ namespace KitchenChaos.Services {
                 FailedToJoin(e.Message.ToCamel());
             }
         }
+
+        public async void Delete() {
+            if (Joined == null) {
+                return;
+            }
+            try {
+                await LobbyService.Instance.DeleteLobbyAsync(Joined.Id);
+                Joined = null;
+            } catch (LobbyServiceException e) {
+                Debug.Log(e);
+            }
+        }
+
+        public async void Leave() {
+            if (Joined == null) {
+                return;
+            }
+            try {
+                await LobbyService.Instance.RemovePlayerAsync(Joined.Id, AuthenticationService.Instance.PlayerId);
+                Joined = null;
+            } catch (LobbyServiceException e) {
+                Debug.Log(e);
+            }
+        }
+
+        public async void KickPlayer(string playerId) {
+            if (Joined == null) {
+                return;
+            }
+            try {
+                await LobbyService.Instance.RemovePlayerAsync(Joined.Id, playerId);
+                Joined = null;
+            } catch (LobbyServiceException e) {
+                Debug.Log(e);
+            }
+        }
     }
 }
