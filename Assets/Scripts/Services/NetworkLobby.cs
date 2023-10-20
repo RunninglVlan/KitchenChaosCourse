@@ -72,6 +72,7 @@ namespace KitchenChaos.Services {
                 queryLobbiesTimer = QUERY_LOBBIES;
                 QueryLobbiesAsync();
             }
+            return;
 
             async void QueryLobbiesAsync() {
                 var availableLobbies = new QueryLobbiesOptions {

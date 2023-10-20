@@ -50,7 +50,7 @@ namespace KitchenChaos.Services {
                     response.Reason = "Game has already started";
                     return;
                 }
-                if (NetworkManager.Singleton.ConnectedClientsIds.Count >= MAX_PLAYERS) {
+                if (NetworkManager.ConnectedClientsIds.Count >= MAX_PLAYERS) {
                     response.Approved = false;
                     response.Reason = "Game is full";
                     return;
