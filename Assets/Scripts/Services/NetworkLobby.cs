@@ -41,8 +41,11 @@ namespace KitchenChaos.Services {
         }
 
         void Update() {
-            SendHeartbeat();
-            QueryLobbies();
+            if (Joined != null) {
+                SendHeartbeat();
+            } else {
+                QueryLobbies();
+            }
         }
 
         private void SendHeartbeat() {
@@ -61,7 +64,7 @@ namespace KitchenChaos.Services {
         }
 
         private void QueryLobbies() {
-            if (Joined != null || !AuthenticationService.Instance.IsSignedIn) {
+            if (!AuthenticationService.Instance.IsSignedIn) {
                 return;
             }
             queryLobbiesTimer -= Time.deltaTime;
@@ -165,10 +168,14 @@ namespace KitchenChaos.Services {
         }
 
         void OnDestroy() {
-            if (!IsHost()) {
+            if (Joined == null) {
                 return;
             }
-            Delete();
+            if (IsHost()) {
+                Delete();
+            } else {
+                Leave();
+            }
         }
     }
 }
