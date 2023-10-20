@@ -89,6 +89,10 @@ namespace KitchenChaos.Services {
             }
         }
 
+        private void AllocateRelay() {
+            // TODO
+        }
+
         public async void Create(string lobbyName, bool isPrivate) {
             try {
                 StartedCreating();
