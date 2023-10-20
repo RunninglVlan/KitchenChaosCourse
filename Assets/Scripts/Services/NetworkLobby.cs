@@ -161,7 +161,6 @@ namespace KitchenChaos.Services {
             }
             try {
                 await LobbyService.Instance.RemovePlayerAsync(Joined.Id, playerId);
-                Joined = null;
             } catch (LobbyServiceException e) {
                 Debug.Log(e);
             }
