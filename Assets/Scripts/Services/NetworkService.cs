@@ -38,10 +38,10 @@ namespace KitchenChaos.Services {
             NetworkManager.Singleton.OnClientDisconnectCallback += ProcessDisconnect;
             NetworkManager.Singleton.StartHost();
 
-            void ProcessConnectionApproval(NetworkManager.ConnectionApprovalRequest _,
+            void ProcessConnectionApproval(NetworkManager.ConnectionApprovalRequest request,
                 NetworkManager.ConnectionApprovalResponse response
             ) {
-                if (NetworkManager.Singleton.IsServer) {
+                if (request.ClientNetworkId == NetworkManager.LocalClientId) {
                     response.Approved = true;
                     return;
                 }
