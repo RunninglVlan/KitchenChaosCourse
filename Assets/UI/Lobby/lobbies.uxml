@@ -1,0 +1,9 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/UI/generic.uss?fileID=7433441132597879392&amp;guid=922dfd8c0a454fd791ffc976da3269d8&amp;type=3#generic" />
+    <Style src="project://database/Assets/UI/Lobby/lobbies.uss?fileID=7433441132597879392&amp;guid=317df9fb5a7843379fa3d775d93e9c2b&amp;type=3#lobbies" />
+    <ui:VisualElement class="background">
+        <ui:Label text="Available Lobbies" class="title" />
+        <ui:VisualElement name="lobbies" class="lobbies" />
+        <ui:Button name="close" text="Close" class="button" />
+    </ui:VisualElement>
+</ui:UXML>

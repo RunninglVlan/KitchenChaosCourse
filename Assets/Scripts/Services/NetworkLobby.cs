@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Unity.Services.Authentication;
 using Unity.Services.Core;
 using Unity.Services.Lobbies;
@@ -8,12 +9,15 @@ using UnityEngine;
 namespace KitchenChaos.Services {
     public class NetworkLobby : MonoSingleton<NetworkLobby> {
         private const float HEARTBEAT = 15;
+        private const float QUERY_LOBBIES = 3;
 
+        public event Action<List<Lobby>> LobbiesChanged = delegate { };
         public event Action StartedCreating = delegate { };
         public event Action<string> FailedCreating = delegate { };
         public event Action<string> FailedToJoin = delegate { };
 
         private float heartbeatTimer = HEARTBEAT;
+        private float queryLobbiesTimer = QUERY_LOBBIES;
         public Lobby? Joined { get; private set; }
 
         protected override void Awake() {
@@ -38,6 +42,7 @@ namespace KitchenChaos.Services {
 
         void Update() {
             SendHeartbeat();
+            QueryLobbies();
         }
 
         private void SendHeartbeat() {
@@ -53,6 +58,27 @@ namespace KitchenChaos.Services {
 
         private bool IsHost() {
             return Joined != null && Joined.HostId == AuthenticationService.Instance.PlayerId;
+        }
+
+        private void QueryLobbies() {
+            if (Joined != null || !AuthenticationService.Instance.IsSignedIn) {
+                return;
+            }
+            queryLobbiesTimer -= Time.deltaTime;
+            if (queryLobbiesTimer < 0) {
+                queryLobbiesTimer = QUERY_LOBBIES;
+                QueryLobbiesAsync();
+            }
+
+            async void QueryLobbiesAsync() {
+                var availableLobbies = new QueryLobbiesOptions {
+                    Filters = new List<QueryFilter> {
+                        new(QueryFilter.FieldOptions.AvailableSlots, "0", QueryFilter.OpOptions.GT)
+                    }
+                };
+                var response = await LobbyService.Instance.QueryLobbiesAsync(availableLobbies);
+                LobbiesChanged(response.Results);
+            }
         }
 
         public async void Create(string lobbyName, bool isPrivate) {
@@ -81,6 +107,16 @@ namespace KitchenChaos.Services {
         public async void CodeJoin(string value) {
             try {
                 Joined = await LobbyService.Instance.JoinLobbyByCodeAsync(value);
+                NetworkService.Instance.StartClient();
+            } catch (LobbyServiceException e) {
+                Debug.Log(e);
+                FailedToJoin(e.Message.ToCamel());
+            }
+        }
+
+        public async void IdJoin(string value) {
+            try {
+                Joined = await LobbyService.Instance.JoinLobbyByIdAsync(value);
                 NetworkService.Instance.StartClient();
             } catch (LobbyServiceException e) {
                 Debug.Log(e);
