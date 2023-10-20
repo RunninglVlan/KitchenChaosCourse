@@ -15,25 +15,22 @@ namespace KitchenChaos.UIServices {
             document.rootVisualElement.Q<Button>("close").clicked += Hide;
         }
 
-        private void ShowConnecting() {
-            Show();
-            message.text = "Connecting...";
-            message.EnableInClassList("cs-error", false);
-        }
+        private void ShowConnecting() => ShowMessage("Connecting...", false);
 
         private void ShowDisconnected() {
-            Show();
-            message.text = NetworkManager.Singleton.DisconnectReason;
-            if (string.IsNullOrEmpty(message.text)) {
-                message.text = "Disconnected";
+            var text = NetworkManager.Singleton.DisconnectReason;
+            if (string.IsNullOrEmpty(text)) {
+                text = "Disconnected";
             }
-            message.EnableInClassList("cs-error", true);
+            ShowMessage(text, true);
         }
 
-        private void ShowLobbyJoinFailed(string error) {
+        private void ShowLobbyJoinFailed(string error) => ShowMessage(error, true);
+
+        private void ShowMessage(string text, bool error) {
             Show();
-            message.text = error;
-            message.EnableInClassList("cs-error", true);
+            message.text = text;
+            message.EnableInClassList("cs-error", error);
         }
 
         void OnDestroy() {
