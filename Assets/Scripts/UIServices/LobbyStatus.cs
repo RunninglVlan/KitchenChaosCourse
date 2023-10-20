@@ -10,7 +10,9 @@ namespace KitchenChaos.UIServices {
             Hide();
             NetworkService.Instance.TryingToJoin += ShowConnecting;
             NetworkService.Instance.FailedToJoin += ShowDisconnected;
-            NetworkLobby.Instance.FailedToJoin += ShowLobbyJoinFailed;
+            NetworkLobby.Instance.StartedCreating += ShowLobbyCreating;
+            NetworkLobby.Instance.FailedCreating += ShowLobbyError;
+            NetworkLobby.Instance.FailedToJoin += ShowLobbyError;
             message = document.rootVisualElement.Q<Label>("message");
             document.rootVisualElement.Q<Button>("close").clicked += Hide;
         }
@@ -25,7 +27,9 @@ namespace KitchenChaos.UIServices {
             ShowMessage(text, true);
         }
 
-        private void ShowLobbyJoinFailed(string error) => ShowMessage(error, true);
+        private void ShowLobbyCreating() => ShowMessage("Creating Lobby...", false);
+
+        private void ShowLobbyError(string error) => ShowMessage(error, true);
 
         private void ShowMessage(string text, bool error) {
             Show();
@@ -36,7 +40,9 @@ namespace KitchenChaos.UIServices {
         void OnDestroy() {
             NetworkService.Instance.TryingToJoin -= ShowConnecting;
             NetworkService.Instance.FailedToJoin -= ShowDisconnected;
-            NetworkLobby.Instance.FailedToJoin -= ShowLobbyJoinFailed;
+            NetworkLobby.Instance.StartedCreating -= ShowLobbyCreating;
+            NetworkLobby.Instance.FailedCreating -= ShowLobbyError;
+            NetworkLobby.Instance.FailedToJoin -= ShowLobbyError;
         }
     }
 }

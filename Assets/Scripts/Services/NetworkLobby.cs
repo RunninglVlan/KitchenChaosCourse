@@ -9,6 +9,8 @@ namespace KitchenChaos.Services {
     public class NetworkLobby : MonoSingleton<NetworkLobby> {
         private const float HEARTBEAT = 15;
 
+        public event Action StartedCreating = delegate { };
+        public event Action<string> FailedCreating = delegate { };
         public event Action<string> FailedToJoin = delegate { };
 
         private float heartbeatTimer = HEARTBEAT;
@@ -51,11 +53,13 @@ namespace KitchenChaos.Services {
 
         public async void Create(string lobbyName, bool isPrivate) {
             try {
+                StartedCreating();
                 var options = new CreateLobbyOptions { IsPrivate = isPrivate };
                 Joined = await LobbyService.Instance.CreateLobbyAsync(lobbyName, NetworkService.MAX_PLAYERS, options);
                 NetworkService.Instance.StartHost();
                 SceneService.Instance.LoadCharacterSelection();
             } catch (LobbyServiceException e) {
+                FailedCreating(e.Message.ToCamel());
                 Debug.Log(e);
             }
         }
