@@ -18,7 +18,7 @@ namespace KitchenChaos.UIServices {
             return;
 
             void GoToMainMenu() {
-                NetworkLobby.Instance.Leave();
+                NetworkLobby.Instance.LeaveLobby();
                 SceneService.Instance.LoadMainMenu();
             }
 

@@ -143,7 +143,7 @@ namespace KitchenChaos.Services {
             }
         }
 
-        public async void Leave() {
+        private async void Leave() {
             if (Joined == null) {
                 return;
             }
@@ -167,10 +167,9 @@ namespace KitchenChaos.Services {
             }
         }
 
-        void OnDestroy() {
-            if (Joined == null) {
-                return;
-            }
+        void OnDestroy() => LeaveLobby();
+
+        public void LeaveLobby() {
             if (IsHost()) {
                 Delete();
             } else {
