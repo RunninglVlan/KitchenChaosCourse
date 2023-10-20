@@ -76,8 +76,12 @@ namespace KitchenChaos.Services {
                         new(QueryFilter.FieldOptions.AvailableSlots, "0", QueryFilter.OpOptions.GT)
                     }
                 };
-                var response = await LobbyService.Instance.QueryLobbiesAsync(availableLobbies);
-                LobbiesChanged(response.Results);
+                try {
+                    var response = await LobbyService.Instance.QueryLobbiesAsync(availableLobbies);
+                    LobbiesChanged(response.Results);
+                } catch (LobbyServiceException e) {
+                    Debug.Log(e);
+                }
             }
         }
 
