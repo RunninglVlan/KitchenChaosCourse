@@ -65,7 +65,7 @@ namespace KitchenChaos.Services {
                 if (client != NetworkManager.ServerClientId) {
                     return;
                 }
-                SetPlayerNameServerRpc(Lobby.PlayerName);
+                SetPlayerNameServerRpc(LobbyUI.PlayerName);
             }
         }
 
@@ -85,7 +85,7 @@ namespace KitchenChaos.Services {
             return;
 
             void OnConnected(ulong _) {
-                SetPlayerNameServerRpc(Lobby.PlayerName);
+                SetPlayerNameServerRpc(LobbyUI.PlayerName);
                 SetPlayerIdServerRpc(AuthenticationService.Instance.PlayerId);
             }
 

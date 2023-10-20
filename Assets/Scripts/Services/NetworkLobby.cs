@@ -26,7 +26,21 @@ namespace KitchenChaos.Services {
             InitUnityAuth();
         }
 
+        private async void InitUnityAuth() {
+            if (UnityServices.State == ServicesInitializationState.Initialized) {
+                return;
+            }
+            var options = new InitializationOptions();
+            options.SetProfile(Guid.NewGuid().ToString()[..30]);
+            await UnityServices.InitializeAsync(options);
+            await AuthenticationService.Instance.SignInAnonymouslyAsync();
+        }
+
         void Update() {
+            SendHeartbeat();
+        }
+
+        private void SendHeartbeat() {
             if (!IsHost()) {
                 return;
             }
@@ -39,16 +53,6 @@ namespace KitchenChaos.Services {
 
         private bool IsHost() {
             return Joined != null && Joined.HostId == AuthenticationService.Instance.PlayerId;
-        }
-
-        private async void InitUnityAuth() {
-            if (UnityServices.State == ServicesInitializationState.Initialized) {
-                return;
-            }
-            var options = new InitializationOptions();
-            options.SetProfile(Guid.NewGuid().ToString()[..30]);
-            await UnityServices.InitializeAsync(options);
-            await AuthenticationService.Instance.SignInAnonymouslyAsync();
         }
 
         public async void Create(string lobbyName, bool isPrivate) {

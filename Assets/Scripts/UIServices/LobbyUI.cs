@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UIElements;
 
 namespace KitchenChaos.UIServices {
-    public class Lobby : UIService {
+    public class LobbyUI : UIService {
         public static string PlayerName {
             get => PlayerPrefs.GetString("PlayerName");
             private set => PlayerPrefs.SetString("PlayerName", value);
