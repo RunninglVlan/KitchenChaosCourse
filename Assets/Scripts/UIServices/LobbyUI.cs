@@ -39,7 +39,7 @@ namespace KitchenChaos.UIServices {
             }
 
             void CodeJoin() {
-                NetworkLobby.Instance.CodeJoin(root.Q<TextField>("join-code").value);
+                NetworkLobby.Instance.CodeJoin(root.Q<TextField>("join-lobby-code").value);
             }
         }
 

@@ -10,16 +10,16 @@
     <ui:VisualElement picking-mode="Ignore" class="main-buttons">
         <ui:VisualElement class="main-buttons__container">
             <ui:VisualElement class="main-buttons__side">
-                <ui:Button text="Create game" name="create" class="button button--big" />
+                <ui:Button text="Create game" name="create" class="button button--big button--create" />
                 <ui:Button text="Join game" name="join" class="button button--big" />
             </ui:VisualElement>
             <ui:VisualElement class="main-buttons__separator" />
             <ui:VisualElement>
-                <ui:Button text="Create lobby" name="create-lobby" class="button button--big" />
+                <ui:Button text="Create lobby" name="create-lobby" class="button button--big button--create" />
                 <ui:Button text="List lobbies" name="lobbies" class="button button--big" />
                 <ui:Button text="Quick join" name="quick-join" class="button button--big" />
-                <ui:TextField name="join-code" value="Code" class="input" />
-                <ui:Button text="Code join" name="code-join" class="button button--big" />
+                <ui:TextField name="join-lobby-code" placeholder-text="CODE" class="input" />
+                <ui:Button text="CODE join" name="code-join" class="button button--big" />
             </ui:VisualElement>
         </ui:VisualElement>
     </ui:VisualElement>
