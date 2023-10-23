@@ -83,6 +83,9 @@ namespace KitchenChaos.Services {
         }
 
         private void ProcessDisconnect(ulong client) {
+            if (!NetworkManager.Singleton.isActiveAndEnabled) {
+                return;
+            }
             for (var i = playerData.Count - 1; i >= 0; i--) {
                 if (playerData[i].clientId == client) {
                     playerData.RemoveAt(i);
@@ -127,15 +130,17 @@ namespace KitchenChaos.Services {
             return default;
         }
 
-        private int PlayerDataIndex(ulong client) {
+        private bool TryGetPlayerDataIndex(ulong client, out int value) {
+            value = -1;
             for (var index = 0; index < playerData.Count; index++) {
                 var data = playerData[index];
                 if (data.clientId != client) {
                     continue;
                 }
-                return index;
+                value = index;
+                return true;
             }
-            return -1;
+            return false;
         }
 
         public PlayerData PlayerData() {
@@ -154,7 +159,9 @@ namespace KitchenChaos.Services {
             if (!IsColorAvailable(index)) {
                 return;
             }
-            var playerIndex = PlayerDataIndex(serverRpcParams.Receive.SenderClientId);
+            if (!TryGetPlayerDataIndex(serverRpcParams.Receive.SenderClientId, out var playerIndex)) {
+                return;
+            }
             var data = playerData[playerIndex];
             data.colorIndex = index;
             playerData[playerIndex] = data;
@@ -162,15 +169,34 @@ namespace KitchenChaos.Services {
 
         [ServerRpc(RequireOwnership = false)]
         private void SetPlayerNameServerRpc(string playerName, ServerRpcParams serverRpcParams = default) {
-            var playerIndex = PlayerDataIndex(serverRpcParams.Receive.SenderClientId);
+            if (!TryGetPlayerDataIndex(serverRpcParams.Receive.SenderClientId, out var playerIndex)) {
+                return;
+            }
             var data = playerData[playerIndex];
+            if (!Validate()) {
+                const string reason = "Player Name already exists";
+                NetworkManager.Singleton.DisconnectClient(serverRpcParams.Receive.SenderClientId, reason);
+                return;
+            }
             data.name = playerName;
             playerData[playerIndex] = data;
+            return;
+
+            bool Validate() {
+                foreach (var item in playerData) {
+                    if (item.name == playerName) {
+                        return false;
+                    }
+                }
+                return true;
+            }
         }
 
         [ServerRpc(RequireOwnership = false)]
         private void SetPlayerIdServerRpc(string playerId, ServerRpcParams serverRpcParams = default) {
-            var playerIndex = PlayerDataIndex(serverRpcParams.Receive.SenderClientId);
+            if (!TryGetPlayerDataIndex(serverRpcParams.Receive.SenderClientId, out var playerIndex)) {
+                return;
+            }
             var data = playerData[playerIndex];
             data.playerId = playerId;
             playerData[playerIndex] = data;

@@ -16,6 +16,10 @@
     font-size: 60px;
 }
 
+.subtitle--reason {
+    color: red;
+}
+
 .order-count {
     font-size: 80px;
     -unity-font-style: bold;
