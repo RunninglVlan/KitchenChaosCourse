@@ -26,21 +26,6 @@ namespace KitchenChaos.UIServices {
             MultiplayerButton("quick-join").clicked += NetworkLobby.Instance.QuickJoin;
             MultiplayerButton("code-join").clicked += CodeJoin;
             SetMultiplayerButtonsEnabled(playerName.value = PlayerName);
-            return;
-
-            void Create() {
-                NetworkService.Instance.StartHost();
-                SceneService.Instance.LoadCharacterSelection();
-            }
-
-            void OnNameChanged(ChangeEvent<string> evt) {
-                SetMultiplayerButtonsEnabled(evt.newValue);
-                PlayerName = evt.newValue;
-            }
-
-            void CodeJoin() {
-                NetworkLobby.Instance.CodeJoin(root.Q<TextField>("join-lobby-code").value);
-            }
         }
 
         private Button MultiplayerButton(string id) {
@@ -54,6 +39,21 @@ namespace KitchenChaos.UIServices {
             foreach (var button in multiplayerButtons) {
                 button.SetEnabled(!empty);
             }
+        }
+
+        private void OnNameChanged(ChangeEvent<string> evt) {
+            SetMultiplayerButtonsEnabled(evt.newValue);
+            PlayerName = evt.newValue;
+        }
+
+        private static void Create() {
+            NetworkService.Instance.StartHost();
+            SceneService.Instance.LoadCharacterSelection();
+        }
+
+        private void CodeJoin() {
+            var code = document.rootVisualElement.Q<TextField>("join-lobby-code");
+            NetworkLobby.Instance.CodeJoin(code.value);
         }
     }
 }

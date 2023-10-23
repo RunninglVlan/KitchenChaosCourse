@@ -12,6 +12,7 @@ namespace KitchenChaos.UIServices {
             root.Q<Button>("create-private").clicked += CreatePrivate;
             root.Q<Button>("create-public").clicked += CreatePublic;
             root.Q<Button>("close").clicked += Hide;
+            return;
 
             void CreatePrivate() {
                 NetworkLobby.Instance.Create(lobbyName.value, true);
