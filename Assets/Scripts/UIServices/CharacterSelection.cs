@@ -22,20 +22,21 @@ namespace KitchenChaos.UIServices {
                 SceneService.Instance.LoadMainMenu();
             }
 
-            void ShowLobby() {
-                var lobby = NetworkLobby.Instance.Joined;
-                root.Q<VisualElement>("lobby").SetActive(lobby != null);
-                if (lobby == null) {
-                    return;
-                }
-                root.Q<TextField>("lobby-name").value = lobby.Name;
-                root.Q<TextField>("lobby-code").value = lobby.LobbyCode;
-            }
-
             void SetReady() {
                 Hide();
                 ReadyService.Instance.SetPlayerReady();
             }
+        }
+
+        private void ShowLobby() {
+            var root = document.rootVisualElement;
+            var lobby = NetworkLobby.Instance.Joined;
+            root.Q<VisualElement>("lobby").SetActive(lobby != null);
+            if (lobby == null) {
+                return;
+            }
+            root.Q<TextField>("lobby-name").value = lobby.Name;
+            root.Q<TextField>("lobby-code").value = lobby.LobbyCode;
         }
 
         private static void ColorElement(Button button, int index) {

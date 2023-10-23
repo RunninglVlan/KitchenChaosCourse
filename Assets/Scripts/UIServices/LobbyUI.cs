@@ -39,6 +39,11 @@ namespace KitchenChaos.UIServices {
             SetMultiplayerButtonsEnabled(playerName.value = PlayerName);
         }
 
+        private static void Create() {
+            NetworkService.Instance.StartHost(UseRelay);
+            SceneService.Instance.LoadCharacterSelection();
+        }
+
         private void Join() {
             NetworkService.Instance.StartClient(UseRelay, joinCode.value);
         }
@@ -64,11 +69,6 @@ namespace KitchenChaos.UIServices {
         private void OnNameChanged(ChangeEvent<string> evt) {
             SetMultiplayerButtonsEnabled(evt.newValue);
             PlayerName = evt.newValue;
-        }
-
-        private static void Create() {
-            NetworkService.Instance.StartHost(UseRelay);
-            SceneService.Instance.LoadCharacterSelection();
         }
 
         private void CodeJoin() {
