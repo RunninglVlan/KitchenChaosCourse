@@ -10,7 +10,7 @@ namespace KitchenChaos.UIServices {
             private set => PlayerPrefs.SetString("PlayerName", value);
         }
 
-        private readonly List<Button> lobbyButtons = new();
+        private readonly List<Button> multiplayerButtons = new();
 
         void Start() {
             var root = document.rootVisualElement;
@@ -21,11 +21,11 @@ namespace KitchenChaos.UIServices {
             create.Focus();
             create.clicked += Create;
             root.Q<Button>("join").clicked += NetworkService.Instance.StartClient;
-            LobbyButton("create-lobby").clicked += CreateLobby.Instance.Show;
-            LobbyButton("lobbies").clicked += Lobbies.Instance.Show;
-            LobbyButton("quick-join").clicked += NetworkLobby.Instance.QuickJoin;
-            LobbyButton("code-join").clicked += CodeJoin;
-            SetLobbyButtonsEnabled(playerName.value = PlayerName);
+            MultiplayerButton("create-lobby").clicked += CreateLobby.Instance.Show;
+            MultiplayerButton("lobbies").clicked += Lobbies.Instance.Show;
+            MultiplayerButton("quick-join").clicked += NetworkLobby.Instance.QuickJoin;
+            MultiplayerButton("code-join").clicked += CodeJoin;
+            SetMultiplayerButtonsEnabled(playerName.value = PlayerName);
             return;
 
             void Create() {
@@ -34,7 +34,7 @@ namespace KitchenChaos.UIServices {
             }
 
             void OnNameChanged(ChangeEvent<string> evt) {
-                SetLobbyButtonsEnabled(evt.newValue);
+                SetMultiplayerButtonsEnabled(evt.newValue);
                 PlayerName = evt.newValue;
             }
 
@@ -43,15 +43,15 @@ namespace KitchenChaos.UIServices {
             }
         }
 
-        private Button LobbyButton(string id) {
+        private Button MultiplayerButton(string id) {
             var button = document.rootVisualElement.Q<Button>(id);
-            lobbyButtons.Add(button);
+            multiplayerButtons.Add(button);
             return button;
         }
 
-        private void SetLobbyButtonsEnabled(string playerName) {
+        private void SetMultiplayerButtonsEnabled(string playerName) {
             var empty = string.IsNullOrEmpty(playerName);
-            foreach (var button in lobbyButtons) {
+            foreach (var button in multiplayerButtons) {
                 button.SetEnabled(!empty);
             }
         }
