@@ -6,6 +6,10 @@
     font-size: 30px;
 }
 
+.unity-text-field__label {
+    min-width: initial;
+}
+
 .input .unity-text-field__label {
     width: 180px;
 }

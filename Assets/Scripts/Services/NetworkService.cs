@@ -3,7 +3,9 @@ using KitchenChaos.Players;
 using KitchenChaos.UIServices;
 using Unity.Netcode;
 using Unity.Netcode.Transports.UTP;
+using Unity.Networking.Transport.Relay;
 using Unity.Services.Authentication;
+using Unity.Services.Relay.Models;
 using UnityEngine;
 
 namespace KitchenChaos.Services {
@@ -11,6 +13,7 @@ namespace KitchenChaos.Services {
         public const int MAX_PLAYERS = 4;
         private const ushort PORT = 7777;
         private const string ALLOW_REMOTE_CONNECTIONS = "0.0.0.0";
+        private const string RELAY_CONNECTION_TYPE = "dtls";
 
         [SerializeField] private PlayerColors playerColors = null!;
 
@@ -35,14 +38,16 @@ namespace KitchenChaos.Services {
             }
         }
 
-        public void StartHost(bool useRelay, bool local = false) {
+        public void StartHost(Allocation? relayAllocation, bool local = false) {
             NetworkManager.Singleton.ConnectionApprovalCallback += ProcessConnectionApproval;
             NetworkManager.Singleton.OnClientConnectedCallback += ProcessConnect;
             NetworkManager.Singleton.OnClientDisconnectCallback += ProcessDisconnect;
             var unityTransport = NetworkManager.Singleton.GetComponent<UnityTransport>();
-            if (!useRelay) {
+            if (relayAllocation == null) {
                 var ip = local ? IPAddress.Local() : IPAddress.Public();
                 unityTransport.SetConnectionData(ip, PORT, ALLOW_REMOTE_CONNECTIONS);
+            } else {
+                unityTransport.SetRelayServerData(new RelayServerData(relayAllocation, RELAY_CONNECTION_TYPE));
             }
             NetworkManager.Singleton.StartHost();
 
@@ -85,12 +90,14 @@ namespace KitchenChaos.Services {
             }
         }
 
-        public void StartClient(bool useRelay, string code) {
+        public void StartClient(JoinAllocation? relayAllocation, string code) {
             TryingToJoin();
             NetworkManager.Singleton.OnClientConnectedCallback += OnConnected;
             NetworkManager.Singleton.OnClientDisconnectCallback += OnDisconnected;
             var unityTransport = NetworkManager.Singleton.GetComponent<UnityTransport>();
-            if (!useRelay && IPAddress.TryGetValidAddressAndPort(code, out var data)) {
+            if (relayAllocation != null) {
+                unityTransport.SetRelayServerData(new RelayServerData(relayAllocation, RELAY_CONNECTION_TYPE));
+            } else if (IPAddress.TryGetValidAddressAndPort(code, out var data)) {
                 unityTransport.SetConnectionData(data.address, ushort.Parse(data.port));
             }
             NetworkManager.Singleton.StartClient();

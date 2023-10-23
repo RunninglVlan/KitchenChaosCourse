@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using KitchenChaos.UIServices;
 using Unity.Netcode;
 using Unity.Netcode.Transports.UTP;
@@ -7,6 +8,7 @@ using Unity.Services.Authentication;
 using Unity.Services.Core;
 using Unity.Services.Lobbies;
 using Unity.Services.Lobbies.Models;
+using Unity.Services.Relay.Models;
 using UnityEngine;
 using static Unity.Services.Lobbies.Models.DataObject;
 
@@ -94,19 +96,20 @@ namespace KitchenChaos.Services {
             }
         }
 
-        private void AllocateRelay() {
-            // TODO
-        }
-
         public async void Create(string lobbyName, bool isPrivate, bool local) {
             try {
                 StartedCreating();
                 var options = new CreateLobbyOptions { IsPrivate = isPrivate };
                 Joined = await LobbyService.Instance.CreateLobbyAsync(lobbyName, NetworkService.MAX_PLAYERS, options);
-                NetworkService.Instance.StartHost(LobbyUI.UseRelay, local);
+                Allocation? relayAllocation = null;
+                if (LobbyUI.UseRelay) {
+                    relayAllocation = await Relay.Allocate();
+                }
+                NetworkService.Instance.StartHost(relayAllocation, local);
+                var joinCode = await JoinCode(relayAllocation);
                 await LobbyService.Instance.UpdateLobbyAsync(Joined.Id, new UpdateLobbyOptions {
                     Data = new Dictionary<string, DataObject> {
-                        { KEY_CODE, new DataObject(VisibilityOptions.Member, JoinCode()) }
+                        { KEY_CODE, new DataObject(VisibilityOptions.Member, joinCode) }
                     }
                 });
                 SceneService.Instance.LoadCharacterSelection();
@@ -116,19 +119,21 @@ namespace KitchenChaos.Services {
             }
             return;
 
-            string JoinCode() {
-                if (!LobbyUI.UseRelay) {
+            async Task<string> JoinCode(Allocation? relayAllocation) {
+                if (relayAllocation == null) {
                     var connectionData = NetworkManager.Singleton.GetComponent<UnityTransport>().ConnectionData;
                     return $"{connectionData.Address}:{connectionData.Port}";
                 }
-                throw new NotImplementedException();
+                var code = await Relay.JoinCode(relayAllocation);
+                LobbyUI.RelayCode = code;
+                return code;
             }
         }
 
         public async void QuickJoin() {
             try {
                 Joined = await LobbyService.Instance.QuickJoinLobbyAsync();
-                StartClient(Joined);
+                await StartClient(Joined);
             } catch (LobbyServiceException e) {
                 Debug.Log(e);
                 FailedToJoin(e.Message.ToCamel());
@@ -138,7 +143,7 @@ namespace KitchenChaos.Services {
         public async void CodeJoin(string value) {
             try {
                 Joined = await LobbyService.Instance.JoinLobbyByCodeAsync(value);
-                StartClient(Joined);
+                await StartClient(Joined);
             } catch (LobbyServiceException e) {
                 Debug.Log(e);
                 FailedToJoin(e.Message.ToCamel());
@@ -148,15 +153,21 @@ namespace KitchenChaos.Services {
         public async void IdJoin(string value) {
             try {
                 Joined = await LobbyService.Instance.JoinLobbyByIdAsync(value);
-                StartClient(Joined);
+                await StartClient(Joined);
             } catch (LobbyServiceException e) {
                 Debug.Log(e);
                 FailedToJoin(e.Message.ToCamel());
             }
         }
 
-        private static void StartClient(Lobby lobby) {
-            NetworkService.Instance.StartClient(LobbyUI.UseRelay, lobby.Data[KEY_CODE].Value);
+        private static async Task StartClient(Lobby lobby) {
+            JoinAllocation? relayAllocation = null;
+            var code = lobby.Data[KEY_CODE].Value;
+            if (LobbyUI.UseRelay) {
+                relayAllocation = await Relay.Join(code);
+                LobbyUI.RelayCode = code;
+            }
+            NetworkService.Instance.StartClient(relayAllocation, code);
         }
 
         public async void Delete() {

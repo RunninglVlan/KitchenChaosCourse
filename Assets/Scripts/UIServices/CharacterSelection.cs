@@ -8,6 +8,7 @@ namespace KitchenChaos.UIServices {
             var root = document.rootVisualElement;
             root.Q<Button>("main-menu").clicked += GoToMainMenu;
             ShowLobby();
+            ShowRelayCode();
             var ready = root.Q<Button>("ready");
             ready.Focus();
             ready.clicked += SetReady;
@@ -37,6 +38,17 @@ namespace KitchenChaos.UIServices {
             }
             root.Q<TextField>("lobby-name").value = lobby.Name;
             root.Q<TextField>("lobby-code").value = lobby.LobbyCode;
+        }
+
+        private void ShowRelayCode() {
+            var root = document.rootVisualElement;
+            var relay = root.Q<VisualElement>("relay");
+            var show = NetworkLobby.Instance.Joined == null && LobbyUI.RelayCode != null;
+            relay.SetActive(show);
+            if (!show) {
+                return;
+            }
+            root.Q<TextField>("relay-code").value = LobbyUI.RelayCode;
         }
 
         private static void ColorElement(Button button, int index) {

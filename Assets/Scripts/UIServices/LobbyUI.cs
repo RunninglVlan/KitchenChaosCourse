@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using KitchenChaos.Services;
+using Unity.Services.Relay.Models;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -14,6 +15,7 @@ namespace KitchenChaos.UIServices {
         }
 
         public static bool UseRelay { get; private set; }
+        public static string? RelayCode { get; set; }
 
         private readonly List<Button> multiplayerButtons = new();
         private TextField joinCode = null!;
@@ -25,6 +27,7 @@ namespace KitchenChaos.UIServices {
             playerName.RegisterValueChangedCallback(OnNameChanged);
             var useRelay = root.Q<Toggle>("use-relay");
             UseRelay = useRelay.value;
+            RelayCode = null;
             useRelay.RegisterValueChangedCallback(OnUseRelayChanged);
             var create = MultiplayerButton("create");
             create.Focus();
@@ -39,13 +42,24 @@ namespace KitchenChaos.UIServices {
             SetMultiplayerButtonsEnabled(playerName.value = PlayerName);
         }
 
-        private static void Create() {
-            NetworkService.Instance.StartHost(UseRelay);
+        private static async void Create() {
+            Allocation? relayAllocation = null;
+            if (UseRelay) {
+                relayAllocation = await Relay.Allocate();
+                var joinCode = await Relay.JoinCode(relayAllocation);
+                RelayCode = joinCode;
+            }
+            NetworkService.Instance.StartHost(relayAllocation);
             SceneService.Instance.LoadCharacterSelection();
         }
 
-        private void Join() {
-            NetworkService.Instance.StartClient(UseRelay, joinCode.value);
+        private async void Join() {
+            JoinAllocation? relayAllocation = null;
+            if (UseRelay) {
+                relayAllocation = await Relay.Join(joinCode.value);
+                RelayCode = joinCode.value;
+            }
+            NetworkService.Instance.StartClient(relayAllocation, joinCode.value);
         }
 
         private Button MultiplayerButton(string id) {
