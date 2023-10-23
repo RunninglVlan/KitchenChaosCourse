@@ -5,6 +5,7 @@
         <ui:Label text="Create Lobby" class="title" />
         <ui:VisualElement>
             <ui:TextField name="lobby-name" value="My Lobby" class="input" />
+            <ui:Toggle name="local" text="Local" class="local" />
             <ui:VisualElement class="buttons">
                 <ui:Button name="create-private" text="Private" class="button" />
                 <ui:Button name="create-public" text="Public" class="button" />

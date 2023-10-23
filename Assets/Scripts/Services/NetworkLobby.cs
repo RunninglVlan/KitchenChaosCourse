@@ -1,15 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
+using KitchenChaos.UIServices;
+using Unity.Netcode;
+using Unity.Netcode.Transports.UTP;
 using Unity.Services.Authentication;
 using Unity.Services.Core;
 using Unity.Services.Lobbies;
 using Unity.Services.Lobbies.Models;
 using UnityEngine;
+using static Unity.Services.Lobbies.Models.DataObject;
 
 namespace KitchenChaos.Services {
     public class NetworkLobby : MonoSingleton<NetworkLobby> {
         private const float HEARTBEAT = 15;
         private const float QUERY_LOBBIES = 3;
+        private const string KEY_CODE = "JOIN_CODE";
 
         public event Action<List<Lobby>> LobbiesChanged = delegate { };
         public event Action StartedCreating = delegate { };
@@ -93,23 +98,37 @@ namespace KitchenChaos.Services {
             // TODO
         }
 
-        public async void Create(string lobbyName, bool isPrivate) {
+        public async void Create(string lobbyName, bool isPrivate, bool local) {
             try {
                 StartedCreating();
                 var options = new CreateLobbyOptions { IsPrivate = isPrivate };
                 Joined = await LobbyService.Instance.CreateLobbyAsync(lobbyName, NetworkService.MAX_PLAYERS, options);
-                NetworkService.Instance.StartHost();
+                NetworkService.Instance.StartHost(LobbyUI.UseRelay, local);
+                await LobbyService.Instance.UpdateLobbyAsync(Joined.Id, new UpdateLobbyOptions {
+                    Data = new Dictionary<string, DataObject> {
+                        { KEY_CODE, new DataObject(VisibilityOptions.Member, JoinCode()) }
+                    }
+                });
                 SceneService.Instance.LoadCharacterSelection();
             } catch (LobbyServiceException e) {
                 FailedCreating(e.Message.ToCamel());
                 Debug.Log(e);
+            }
+            return;
+
+            string JoinCode() {
+                if (!LobbyUI.UseRelay) {
+                    var connectionData = NetworkManager.Singleton.GetComponent<UnityTransport>().ConnectionData;
+                    return $"{connectionData.Address}:{connectionData.Port}";
+                }
+                throw new NotImplementedException();
             }
         }
 
         public async void QuickJoin() {
             try {
                 Joined = await LobbyService.Instance.QuickJoinLobbyAsync();
-                NetworkService.Instance.StartClient();
+                StartClient(Joined);
             } catch (LobbyServiceException e) {
                 Debug.Log(e);
                 FailedToJoin(e.Message.ToCamel());
@@ -119,7 +138,7 @@ namespace KitchenChaos.Services {
         public async void CodeJoin(string value) {
             try {
                 Joined = await LobbyService.Instance.JoinLobbyByCodeAsync(value);
-                NetworkService.Instance.StartClient();
+                StartClient(Joined);
             } catch (LobbyServiceException e) {
                 Debug.Log(e);
                 FailedToJoin(e.Message.ToCamel());
@@ -129,11 +148,15 @@ namespace KitchenChaos.Services {
         public async void IdJoin(string value) {
             try {
                 Joined = await LobbyService.Instance.JoinLobbyByIdAsync(value);
-                NetworkService.Instance.StartClient();
+                StartClient(Joined);
             } catch (LobbyServiceException e) {
                 Debug.Log(e);
                 FailedToJoin(e.Message.ToCamel());
             }
+        }
+
+        private static void StartClient(Lobby lobby) {
+            NetworkService.Instance.StartClient(LobbyUI.UseRelay, lobby.Data[KEY_CODE].Value);
         }
 
         public async void Delete() {

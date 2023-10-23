@@ -3,6 +3,10 @@
     --color-yellow: rgb(255, 208, 0);
 }
 
+.unity-text-field__input {
+    margin-left: 0;
+}
+
 .button {
     -unity-font-style: bold;
     color: white;

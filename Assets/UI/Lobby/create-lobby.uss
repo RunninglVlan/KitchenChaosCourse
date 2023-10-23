@@ -17,6 +17,10 @@
     margin: 10px;
 }
 
+.local {
+    margin-left: 10px;
+}
+
 .buttons {
     flex-direction: row;
 }

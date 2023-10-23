@@ -2,12 +2,15 @@
 using KitchenChaos.Players;
 using KitchenChaos.UIServices;
 using Unity.Netcode;
+using Unity.Netcode.Transports.UTP;
 using Unity.Services.Authentication;
 using UnityEngine;
 
 namespace KitchenChaos.Services {
     public class NetworkService : NetworkSingleton<NetworkService> {
         public const int MAX_PLAYERS = 4;
+        private const ushort PORT = 7777;
+        private const string ALLOW_REMOTE_CONNECTIONS = "0.0.0.0";
 
         [SerializeField] private PlayerColors playerColors = null!;
 
@@ -32,10 +35,15 @@ namespace KitchenChaos.Services {
             }
         }
 
-        public void StartHost() {
+        public void StartHost(bool useRelay, bool local = false) {
             NetworkManager.Singleton.ConnectionApprovalCallback += ProcessConnectionApproval;
             NetworkManager.Singleton.OnClientConnectedCallback += ProcessConnect;
             NetworkManager.Singleton.OnClientDisconnectCallback += ProcessDisconnect;
+            var unityTransport = NetworkManager.Singleton.GetComponent<UnityTransport>();
+            if (!useRelay) {
+                var ip = local ? IPAddress.Local() : IPAddress.Public();
+                unityTransport.SetConnectionData(ip, PORT, ALLOW_REMOTE_CONNECTIONS);
+            }
             NetworkManager.Singleton.StartHost();
 
             void ProcessConnectionApproval(NetworkManager.ConnectionApprovalRequest request,
@@ -77,10 +85,14 @@ namespace KitchenChaos.Services {
             }
         }
 
-        public void StartClient() {
+        public void StartClient(bool useRelay, string code) {
             TryingToJoin();
             NetworkManager.Singleton.OnClientConnectedCallback += OnConnected;
             NetworkManager.Singleton.OnClientDisconnectCallback += OnDisconnected;
+            var unityTransport = NetworkManager.Singleton.GetComponent<UnityTransport>();
+            if (!useRelay && IPAddress.TryGetValidAddressAndPort(code, out var data)) {
+                unityTransport.SetConnectionData(data.address, ushort.Parse(data.port));
+            }
             NetworkManager.Singleton.StartClient();
             return;
 
