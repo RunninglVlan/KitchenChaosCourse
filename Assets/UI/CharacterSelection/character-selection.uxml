@@ -4,11 +4,11 @@
     <ui:VisualElement class="header">
         <ui:Button text="Main Menu" name="main-menu" class="button" />
         <ui:VisualElement name="lobby">
-            <ui:TextField name="lobby-name" label="Lobby Name" readonly="true" class="input" />
-            <ui:TextField name="lobby-code" label="Lobby CODE" readonly="true" class="input" />
+            <ui:TextField name="lobby-name" label="Lobby Name" readonly="true" class="input input__lobby" />
+            <ui:TextField name="lobby-code" label="Lobby CODE" readonly="true" class="input input__lobby" />
         </ui:VisualElement>
         <ui:VisualElement name="relay">
-            <ui:TextField name="relay-code" label="CODE" readonly="true" />
+            <ui:TextField name="relay-code" label="CODE" readonly="true" class="input" />
         </ui:VisualElement>
         <ui:Button text="Ready" name="ready" class="button" />
     </ui:VisualElement>

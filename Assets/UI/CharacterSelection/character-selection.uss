@@ -10,7 +10,11 @@
     min-width: initial;
 }
 
-.input .unity-text-field__label {
+.input {
+    -unity-text-align: middle-left;
+}
+
+.input__lobby .unity-text-field__label {
     width: 180px;
 }
 
