@@ -17,10 +17,10 @@ namespace KitchenChaos.UIServices {
             root.Q<Button>("main-menu").clicked += SceneService.Instance.LoadMainMenu;
             var playerName = root.Q<TextField>("player-name");
             playerName.RegisterValueChangedCallback(OnNameChanged);
-            var create = root.Q<Button>("create");
+            var create = MultiplayerButton("create");
             create.Focus();
             create.clicked += Create;
-            root.Q<Button>("join").clicked += NetworkService.Instance.StartClient;
+            MultiplayerButton("join").clicked += NetworkService.Instance.StartClient;
             MultiplayerButton("create-lobby").clicked += CreateLobby.Instance.Show;
             MultiplayerButton("lobbies").clicked += Lobbies.Instance.Show;
             MultiplayerButton("quick-join").clicked += NetworkLobby.Instance.QuickJoin;
